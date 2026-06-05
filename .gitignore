@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3-journal
+
+# SQLite — ignore all EXCEPT demo database
+*.sqlite3
+!backend/db.sqlite3
+*.db
+!backend/db.sqlite3
+venv/
+env/
+.venv/
+
+# Node
+node_modules/
+# frontend/dist/ is COMMITTED so professor can run with just Python
+# (Docker build rebuilds it anyway)
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.docker/
+
+# Claude
+.claude/
+
+# Env
+.env
+.env.local

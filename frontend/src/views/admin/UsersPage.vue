@@ -1,0 +1,167 @@
+<template>
+  <div class="users-page">
+    <el-card>
+      <template #header>
+        <div class="card-header">
+          <h3>User Management</h3>
+          <div class="header-actions">
+            <el-input
+              v-model="search"
+              placeholder="Search by username or email..."
+              clearable
+              style="width: 280px"
+              @keyup.enter="fetchUsers"
+              @clear="fetchUsers"
+            >
+              <template #prefix>
+                <el-icon><Search /></el-icon>
+              </template>
+            </el-input>
+          </div>
+        </div>
+      </template>
+      <el-table :data="users" stripe v-loading="loading" style="width: 100%" :default-sort="{ prop: 'date_joined', order: 'descending' }">
+        <el-table-column prop="id" label="ID" width="60" />
+        <el-table-column prop="username" label="Username" min-width="130" show-overflow-tooltip />
+        <el-table-column prop="email" label="Email" min-width="200" show-overflow-tooltip />
+        <el-table-column prop="role" label="Role" width="90" align="center">
+          <template #default="{ row }">
+            <el-tag :type="row.role === 'admin' ? 'danger' : 'info'" size="small">{{ row.role }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="is_active" label="Active" width="80" align="center">
+          <template #default="{ row }">
+            <el-switch
+              :model-value="row.is_active"
+              @change="toggleActive(row)"
+              :disabled="row.role === 'admin'"
+              size="small"
+            />
+          </template>
+        </el-table-column>
+        <el-table-column prop="date_joined" label="Joined" min-width="130" sortable>
+          <template #default="{ row }">
+            {{ new Date(row.date_joined).toLocaleDateString() }}
+          </template>
+        </el-table-column>
+        <el-table-column label="Actions" width="140" fixed="right">
+          <template #default="{ row }">
+            <div class="action-btns">
+              <el-button size="small" type="primary" plain @click="editUser(row)">Edit</el-button>
+              <el-popconfirm
+                title="Delete this user? This will deactivate the account."
+                confirm-button-text="Delete"
+                @confirm="deleteUser(row)"
+              >
+                <template #reference>
+                  <el-button size="small" type="danger" plain :disabled="row.role === 'admin'">Delete</el-button>
+                </template>
+              </el-popconfirm>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div v-if="users.length === 0 && !loading" class="empty-state">
+        <el-empty description="No users found" />
+      </div>
+    </el-card>
+
+    <!-- Edit dialog -->
+    <el-dialog v-model="dialogVisible" title="Edit User" width="480px" destroy-on-close>
+      <el-form :model="editForm" label-position="top">
+        <el-form-item label="Email">
+          <el-input v-model="editForm.email" placeholder="user@example.com" />
+        </el-form-item>
+        <el-form-item label="Role">
+          <el-select v-model="editForm.role" style="width: 100%">
+            <el-option value="user" label="User" />
+            <el-option value="admin" label="Admin" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="dialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveUser">Save Changes</el-button>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Search } from '@element-plus/icons-vue'
+import { adminGetUsers, adminUpdateUser, adminToggleUserActive, adminDeleteUser } from '../../api/endpoints'
+
+const users = ref([])
+const loading = ref(false)
+const search = ref('')
+const dialogVisible = ref(false)
+const editForm = ref({})
+const editingId = ref(null)
+
+async function fetchUsers() {
+  loading.value = true
+  try {
+    const res = await adminGetUsers({ search: search.value })
+    users.value = res.data.results || res.data
+  } catch (e) { users.value = [] }
+  loading.value = false
+}
+
+function editUser(row) {
+  editingId.value = row.id
+  editForm.value = { email: row.email, role: row.role }
+  dialogVisible.value = true
+}
+
+async function saveUser() {
+  try {
+    await adminUpdateUser(editingId.value, editForm.value)
+    ElMessage.success('User updated successfully')
+    dialogVisible.value = false
+    fetchUsers()
+  } catch (e) {
+    ElMessage.error(e.response?.data?.detail || 'Failed to update user')
+  }
+}
+
+async function toggleActive(row) {
+  try {
+    await adminToggleUserActive(row.id)
+    ElMessage.success(`User ${row.is_active ? 'deactivated' : 'activated'}`)
+    fetchUsers()
+  } catch (e) { ElMessage.error('Failed to toggle user status') }
+}
+
+async function deleteUser(row) {
+  try {
+    await adminDeleteUser(row.id)
+    ElMessage.success('User disabled')
+    fetchUsers()
+  } catch (e) { ElMessage.error('Failed to delete user') }
+}
+
+onMounted(fetchUsers)
+</script>
+
+<style scoped>
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+h3 { margin: 0; }
+.header-actions { display: flex; gap: 12px; align-items: center; }
+
+.action-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.empty-state {
+  padding: 40px 0;
+}
+</style>

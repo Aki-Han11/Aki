@@ -1,0 +1,8 @@
+Django==6.0.6
+djangorestframework==3.17.1
+django-cors-headers==4.9.0
+djangorestframework-simplejwt==5.5.1
+PyJWT==2.13.0
+pandas==3.0.3
+numpy==2.4.6
+scikit-surprise==1.1.5
