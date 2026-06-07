@@ -85,17 +85,17 @@
       </div>
     </section>
 
-    <!-- Section 5: New Arrivals -->
-    <section class="section" v-if="newBooks.length">
+    <!-- Section 5: Recommended For You -->
+    <section class="section section-alt" v-if="recBooks.length">
       <div class="section-head">
         <div>
-          <h2>New Arrivals</h2>
-          <p class="section-subtitle">Latest additions to our catalog</p>
+          <h2>Recommended For You</h2>
+          <p class="section-subtitle">Personalized picks powered by collaborative filtering</p>
         </div>
-        <el-button text @click="$router.push('/new')">View All <el-icon><ArrowRight /></el-icon></el-button>
+        <el-button text @click="$router.push('/recommended')">View All <el-icon><ArrowRight /></el-icon></el-button>
       </div>
       <div class="book-grid">
-        <div v-for="book in newBooks" :key="book.id" class="book-card" @click="$router.push(`/books/${book.id}`)">
+        <div v-for="book in recBooks" :key="book.id" class="book-card" @click="$router.push(`/books/${book.id}`)">
           <img :src="book.cover_url" :alt="book.title" @error="e=>e.target.src='https://picsum.photos/200/300'" />
           <div class="book-card-info">
             <h4>{{ book.title }}</h4>
@@ -117,8 +117,8 @@
           <div class="footer-col">
             <h4>Explore</h4>
             <router-link to="/books">Browse All</router-link>
-            <router-link to="/new">New Arrivals</router-link>
             <router-link to="/hot">Popular</router-link>
+            <router-link to="/recommended">Recommended</router-link>
           </div>
           <div class="footer-col">
             <h4>Account</h4>
@@ -138,13 +138,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { getHotBooks, getNewBooks, getCategories, getBooks } from '../api/endpoints'
+import { getHotBooks, getRecommendBooks, getCategories, getBooks } from '../api/endpoints'
 import LandingNav from '../components/LandingNav.vue'
 
 const router = useRouter()
 
 const hotBooks = ref([])
-const newBooks = ref([])
+const recBooks = ref([])
 const categories = ref([])
 const bookCount = ref(0)
 const catCount = ref(0)
@@ -165,14 +165,14 @@ function scrollToPopular() {
 
 onMounted(async () => {
   try {
-    const [hot, nw, cat, books] = await Promise.all([
+    const [hot, rec, cat, books] = await Promise.all([
       getHotBooks('all'),
-      getNewBooks(),
+      getRecommendBooks(),
       getCategories(),
       getBooks({ page: 1 }),
     ])
     hotBooks.value = (hot.data || []).slice(0, 8)
-    newBooks.value = (nw.data || []).slice(0, 8)
+    recBooks.value = (rec.data || []).slice(0, 8)
     categories.value = cat.data || []
     catCount.value = categories.value.length
     bookCount.value = books.data.count || 1000

@@ -5,15 +5,6 @@
       <p>{{ subtitle }}</p>
     </div>
 
-    <!-- Period filter for Popular Books -->
-    <div v-if="type === 'hot'" class="period-filter">
-      <el-radio-group v-model="period" size="default" @change="fetchBooks">
-        <el-radio-button value="day">Today</el-radio-button>
-        <el-radio-button value="week">This Week</el-radio-button>
-        <el-radio-button value="all">All Time</el-radio-button>
-      </el-radio-group>
-    </div>
-
     <div v-loading="loading" class="book-list">
       <div v-if="books.length === 0 && !loading" class="empty-state">
         <el-empty :description="emptyDesc" />
@@ -62,14 +53,13 @@ const props = defineProps({ type: { type: String, required: true } })
 
 const books = ref([])
 const loading = ref(false)
-const period = ref('all')
 const page = ref(1)
 const total = ref(0)
 const pageSize = 12
 
 const config = computed(() => ({
   new: { title: 'New Arrivals', subtitle: 'The latest books added to our collection', empty: 'No new books available', api: getNewBooks, params: () => ({}) },
-  hot: { title: 'Popular Books', subtitle: 'Most purchased and favorited by our readers', empty: 'No popular books right now', api: getHotBooks, params: () => ({ period: period.value }) },
+  hot: { title: 'Popular Books', subtitle: 'Most purchased and favorited by our readers', empty: 'No popular books right now', api: getHotBooks, params: () => ({ period: 'all' }) },
   recommended: { title: 'Recommended For You', subtitle: 'Personalized picks based on your reading history', empty: 'Login and rate books to get recommendations', api: getRecommendBooks, params: () => ({}) },
 }))
 
@@ -109,40 +99,39 @@ onMounted(fetchBooks)
 <style scoped>
 .featured-page { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 .page-header { text-align: center; margin-bottom: 36px; }
-.page-header h1 { font-size: 34px; font-weight: 800; color: #303133; margin-bottom: 8px; }
-.page-header p { color: #909399; font-size: 16px; }
-
-.period-filter { display: flex; justify-content: center; margin-bottom: 28px; }
+.page-header h1 { font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
+.page-header p { color: #94a3b8; font-size: 16px; }
 
 .book-list { display: flex; flex-direction: column; gap: 16px; }
 .book-row {
-  display: flex; align-items: flex-start; gap: 28px;
-  background: #fff; border-radius: 14px; padding: 28px;
-  cursor: pointer; transition: all 0.3s;
-  border: 1px solid #ebeef5;
+  display: flex; align-items: flex-start; gap: 24px;
+  background: #fff; border-radius: 16px; padding: 24px;
+  cursor: pointer; transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
 }
 .book-row:hover {
-  border-color: #c6e2ff; box-shadow: 0 6px 24px rgba(64,158,255,0.12);
-  transform: translateX(6px);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.10), 0 4px 10px rgba(0,0,0,0.06);
 }
 .book-cover-wrap { flex-shrink: 0; }
 .book-cover-wrap img {
-  width: 120px; height: 175px; object-fit: cover; border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  width: 110px; height: 160px; object-fit: cover; border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-.book-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
-.book-title { font-size: 20px; font-weight: 700; color: #303133; margin: 0; line-height: 1.3; }
-.book-author { font-size: 15px; color: #909399; margin: 0; }
+.book-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.book-title { font-size: 18px; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3; }
+.book-author { font-size: 14px; color: #94a3b8; margin: 0; }
 .book-cat { width: fit-content; }
 .book-desc {
-  font-size: 15px; color: #606266; line-height: 1.7; margin: 4px 0;
+  font-size: 14px; color: #64748b; line-height: 1.7; margin: 2px 0;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.book-meta { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
-.book-price { font-size: 24px; font-weight: 700; color: #f56c6c; }
+.book-meta { display: flex; align-items: center; gap: 14px; margin-top: 2px; }
+.book-price { font-size: 20px; font-weight: 700; color: #1e293b; }
 .book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.book-arrow { color: #c0c4cc; flex-shrink: 0; align-self: center; transition: all 0.2s; }
+.book-arrow { color: #c0c4cc; flex-shrink: 0; align-self: center; transition: all 0.3s; }
 .book-row:hover .book-arrow { color: #409eff; transform: translateX(3px); }
 
 .empty-state { padding: 80px 0; }
