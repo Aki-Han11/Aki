@@ -1,111 +1,185 @@
 # EBook Store
 
-A full-stack e-book store web application with user management, book browsing, shopping cart, orders, favorites, ratings, and an admin panel with recommendation engine.
+A full-stack e-book online shopping platform built with AI-assisted development. Features user authentication, book browsing/search, shopping cart, order processing, favorites, ratings, KNN-based recommendation engine, and an admin dashboard.
 
-**Tech Stack**: Vue 3 (Vite) + Django REST Framework + SQLite + JWT Authentication
+**🔗 Live Demo:** [https://aki-production-1fb1.up.railway.app](https://aki-production-1fb1.up.railway.app)
 
 ---
 
-## Quick Start (Choose One)
+## Tech Stack
 
-### Option A: Docker — Zero Environment Setup 🐳
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Vue 3 (Composition API) + Vite + Element Plus + Pinia + Vue Router |
+| **Backend** | Django 6.0 + Django REST Framework |
+| **Auth** | JWT (SimpleJWT) — 24h Access Token + 7d Refresh Token |
+| **Database (Dev)** | SQLite |
+| **Database (Production)** | PostgreSQL (Railway managed) |
+| **WSGI Server** | Gunicorn 23.0 (3 workers) |
+| **Static Files** | WhiteNoise (compressed, cached) |
+| **ML Engine** | scikit-surprise (KNNBaseline collaborative filtering) |
+| **Containerization** | Docker (multi-stage build) |
+| **Cloud Platform** | Railway |
 
-*Requires only Docker Desktop installed*
+---
+
+## Architecture
+
+```
+Browser ──▶ https://aki-production-1fb1.up.railway.app
+                    │
+            ┌───────▼────────┐
+            │  Railway Cloud  │
+            │  ┌───────────┐  │
+            │  │ Docker     │  │
+            │  │ ┌───────┐ │  │
+            │  │ │Gunicorn│ │  │
+            │  │ │3 Worker│ │  │
+            │  │ └───┬───┘ │  │
+            │  │ ┌───▼───┐ │  │
+            │  │ │Django │  │  │
+            │  │ │+WhiteNoise│  │
+            │  │ └───┬───┘ │  │
+            │  └─────┼─────┘  │
+            │  ┌─────▼─────┐  │
+            │  │PostgreSQL │  │
+            │  └───────────┘  │
+            └─────────────────┘
+```
+
+---
+
+## Quick Start
+
+### Option A: Docker (Recommended)
+
+Requires only Docker Desktop installed.
 
 ```bash
 docker compose up
 ```
 
-Then open **http://localhost:8080** in your browser.
+Open **http://localhost:8080**.
 
-> This single command builds the frontend, installs Python dependencies, runs migrations, and starts the server — all automatically.
+> This single command builds the frontend, installs Python dependencies, runs migrations, seeds demo data, and starts the server — all automatically.
 
-### Option B: Python Only — One Command 🐍
+### Option B: Python Only (No Node.js)
 
-*Requires Python 3.10+ installed*
+Requires Python 3.10+.
 
 ```bash
-# Terminal 1 — Backend (serves both API and frontend)
 cd backend
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py seed_data
 python manage.py runserver 8080
 ```
 
-Then open **http://localhost:8080** in your browser.
+Open **http://localhost:8080**.
 
-> The frontend is already built in `frontend/dist/`. Django serves it as static files — no Node.js needed!
+> The frontend is pre-built in `frontend/dist/`. Django serves it as static files via WhiteNoise.
 
-### Option C: Development Mode (Full Dev Setup)
+### Option C: Full Dev Setup (Hot Reload)
 
-*Requires Python 3.10+ and Node.js 18+*
+Requires Python 3.10+ and Node.js 18+.
 
 ```bash
 # Terminal 1 — Backend
 cd backend
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py seed_data
 python manage.py runserver 8080
 
-# Terminal 2 — Frontend (with hot-reload)
+# Terminal 2 — Frontend (hot reload on :5173)
 cd frontend
 npm install
 npm run dev
 ```
 
-Then open **http://localhost:5173** (Vite dev server proxies API calls).
+Open **http://localhost:5173** (Vite dev server proxies API to :8080).
 
 ---
 
 ## Demo Accounts
 
-| Role  | Username | Password  |
-|-------|----------|-----------|
-| Admin | `admin`  | `admin123` |
-| User  | `demo`   | `demo123`  |
+| Role | Username | Password |
+|------|----------|----------|
+| Admin | `admin` | `admin123` |
+| User | `demo` | `demo123` |
 
 ---
 
 ## Features
 
 ### User Side
-- 📚 Browse, search, and filter e-books by category
+
+- 📚 Browse, search (title/author/tags), and filter e-books by category
+- 🔥 Hot rankings (all-time / this week / today)
+- 🆕 New arrivals
+- 🤖 Personalized recommendations (KNN collaborative filtering)
 - ❤️ Add/remove favorites
-- 🛒 Shopping cart with order placement
-- ⭐ Rate and review purchased books
+- 🛒 Shopping cart with quantity management
+- 📦 Order placement and status tracking (pending → paid → completed)
+- ⭐ Rate and review purchased books (1-5 stars)
 - 📥 Download purchased e-books
 - 👤 User profile management
-- 🔐 JWT-based authentication
+- 🔐 JWT-based authentication with auto-refresh
 
-### Admin Panel (`/admin` route after login as admin)
-- 📊 Dashboard with sales statistics
-- 📖 Manage books and categories
-- 👥 User management
-- 🤖 Recommendation engine (KNN-based collaborative filtering)
+### Admin Panel (`/admin` route after admin login)
+
+- 📊 Dashboard with sales statistics and top-selling books
+- 📖 Manage books and categories (CRUD)
+- 👥 User management (search, disable, role control)
+- 🤖 Train recommendation model with one click
 
 ---
 
 ## API Endpoints
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `POST /api/register/` | POST | User registration |
-| `POST /api/login/` | POST | User login (returns JWT) |
-| `GET /api/me/` | GET | Current user profile |
-| `GET /api/books/` | GET | List books (paginated) |
-| `GET /api/books/{id}/` | GET | Book details |
-| `GET /api/books/?search=keyword` | GET | Search books |
-| `GET /api/categories/` | GET | List categories |
-| `POST /api/favorites/` | POST | Add favorite |
-| `GET /api/favorites/` | GET | List favorites |
-| `GET /api/cart/` | GET | View cart |
-| `POST /api/orders/` | POST | Place order |
-| `GET /api/orders/` | GET | Order history |
-| `POST /api/ratings/` | POST | Rate a book |
-| `GET /api/downloads/` | GET | Download history |
-| `GET /api/admin/dashboard/` | GET | Admin dashboard |
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| `POST` | `/api/register/` | — | User registration |
+| `POST` | `/api/login/` | — | Login (returns JWT access + refresh) |
+| `GET` | `/api/me/` | JWT | Current user profile |
+| `GET` | `/api/books/` | — | List books (paginated, ?category=&search=) |
+| `GET` | `/api/books/{id}/` | — | Book details |
+| `GET` | `/api/books/hot/?period=all\|week\|day` | — | Hot ranked books |
+| `GET` | `/api/books/new/` | — | Newest arrivals |
+| `GET` | `/api/books/recommend/` | — | Personalized recommendations |
+| `GET` | `/api/books/{id}/download/` | JWT | Download purchased book |
+| `GET` | `/api/categories/` | — | List categories |
+| `GET` | `/api/cart/` | JWT | View cart |
+| `POST` | `/api/cart/` | JWT | Add item to cart |
+| `GET` | `/api/favorites/` | JWT | List favorites |
+| `POST` | `/api/favorites/` | JWT | Add favorite |
+| `GET` | `/api/orders/` | JWT | Order history |
+| `POST` | `/api/orders/` | JWT | Place order |
+| `PUT` | `/api/orders/{id}/pay/` | JWT | Simulate payment |
+| `POST` | `/api/ratings/` | JWT | Rate a book |
+| `GET` | `/api/downloads/` | JWT | Download history |
+| `GET` | `/api/admin/stats/` | Admin | Dashboard statistics |
+| `POST` | `/api/admin/train/` | Admin | Train recommendation model |
 
 All protected endpoints require: `Authorization: Bearer <token>`
+
+---
+
+## Recommendation Engine
+
+The platform uses **User-Based Collaborative Filtering** with the **KNNBaseline** algorithm (scikit-surprise):
+
+- **Similarity metric:** Pearson Baseline (accounts for user/item rating biases)
+- **Neighborhood:** k = 40 nearest users
+- **Training:** Admin triggers training via the admin panel; model serialized to `model.pkl`
+- **Prediction:** For each user, predicts ratings for unrated books and returns Top-12
+- **Cold start:** Unauthenticated users receive random recommendations; model requires ≥5 ratings
+
+**Hot Score formula:**
+
+```
+Hot Score = view_count × 1 + favorite_count × 3 + purchase_count × 5 + download_count × 2
+```
 
 ---
 
@@ -113,48 +187,50 @@ All protected endpoints require: `Authorization: Bearer <token>`
 
 ```
 ebook-platform/
-├── backend/
-│   ├── config/          # Django settings & root URL conf
-│   ├── users/           # Custom user model & auth
-│   ├── books/           # Book & category management
-│   ├── cart/            # Shopping cart
-│   ├── orders/          # Order processing
-│   ├── favorites/       # User favorites
-│   ├── ratings/         # Book ratings & reviews
-│   ├── downloads/       # Purchase download tracking
-│   ├── recommendations/ # ML-based book recommendations
-│   ├── admin_panel/     # Admin dashboard APIs
-│   ├── manage.py        # Django management script
-│   └── requirements.txt # Python dependencies
-├── frontend/
+├── frontend/                  # Vue 3 + Vite SPA
 │   ├── src/
-│   │   ├── api/         # Axios config & API endpoints
-│   │   ├── components/  # Reusable Vue components
-│   │   ├── layouts/     # Page layouts
-│   │   ├── router/      # Vue Router config
-│   │   ├── store/       # Pinia state management
-│   │   └── views/       # Page components
-│   ├── dist/            # Built frontend (served by Django)
-│   └── package.json     # Node dependencies
-├── Dockerfile           # Multi-stage Docker build
+│   │   ├── api/               # Axios config & API endpoints
+│   │   ├── components/        # Reusable Vue components (BookGrid, etc.)
+│   │   ├── layouts/           # MainLayout, AdminLayout
+│   │   ├── router/            # Vue Router with auth guards
+│   │   ├── store/             # Pinia stores (auth, cart)
+│   │   └── views/             # Page components (Home, Login, Cart, etc.)
+│   ├── dist/                  # Built frontend (served by Django in production)
+│   └── vite.config.js         # Vite configuration
+├── backend/
+│   ├── config/                # Django settings & root URL configuration
+│   ├── users/                 # Custom User model (AbstractUser), JWT auth
+│   ├── books/                 # Book & Category models, search, hot/new lists
+│   ├── cart/                  # Shopping cart (unique per user+book)
+│   ├── orders/                # Order processing (4-state workflow)
+│   ├── favorites/             # User favorites (unique per user+book)
+│   ├── ratings/               # 1-5 star ratings (feeds recommendation engine)
+│   ├── downloads/             # Download history tracking
+│   ├── recommendations/       # KNNBaseline training & prediction
+│   ├── admin_panel/           # Admin dashboard APIs & permission checks
+│   ├── manage.py              # Django management script
+│   └── requirements.txt       # Python dependencies
+├── Dockerfile                 # Multi-stage build (Node.js → Python)
+├── docker-compose.yml         # Single-command local deployment
 └── README.md
 ```
 
 ---
 
-## Notes for the Professor
+## Deployment
 
-1. **Database**: Uses SQLite (`backend/db.sqlite3`) — no database server setup required. The demo database comes pre-loaded with sample books, users, and data.
+This project is deployed on [Railway](https://railway.app) with automatic GitHub integration:
 
-2. **How the frontend is served**: In production mode, Django's `TemplateView` serves the Vue SPA's `index.html` for all non-API routes. Static assets (JS/CSS) are served via Django's static file system from `frontend/dist/assets/`.
+1. Push to `main` branch → Railway auto-detects Dockerfile → builds and deploys
+2. PostgreSQL database service attached → `DATABASE_URL` auto-injected
+3. Environment variables configured: `DEBUG=False`, `ALLOWED_HOSTS=.up.railway.app`
+4. On startup: runs `migrate` → runs `seed_data` → starts `gunicorn` (production) or `runserver` (dev)
 
-3. **Recommendation engine**: Uses `scikit-surprise` with KNNBaseline algorithm. Train it via the admin panel after enough ratings are accumulated.
-
-4. **Authentication**: JWT tokens (24h access + 7d refresh). Tokens are stored in `localStorage` and automatically attached to API requests.
+**Production vs Dev auto-detection:** The Dockerfile entrypoint checks for `DATABASE_URL` — if present, starts gunicorn in production mode; otherwise starts Django runserver for local development.
 
 ---
 
-## Build Frontend (If You Modify It)
+## Rebuild Frontend (After Modifications)
 
 ```bash
 cd frontend
@@ -162,4 +238,10 @@ npm install
 npm run build
 ```
 
-The built files go to `frontend/dist/` and Django picks them up automatically on next restart.
+Built files output to `frontend/dist/` — Django picks them up automatically on next restart.
+
+---
+
+**Author:** HAN QI  
+**Course:** AI Full-Stack Development  
+**Date:** June 2026
