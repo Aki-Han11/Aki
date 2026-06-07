@@ -5,7 +5,7 @@
       <p>{{ subtitle }}</p>
     </div>
 
-    <!-- Period filter for Hot Books -->
+    <!-- Period filter for Popular Books -->
     <div v-if="type === 'hot'" class="period-filter">
       <el-radio-group v-model="period" size="default" @change="fetchBooks">
         <el-radio-button value="day">Today</el-radio-button>
@@ -69,7 +69,7 @@ const pageSize = 12
 
 const config = computed(() => ({
   new: { title: 'New Arrivals', subtitle: 'The latest books added to our collection', empty: 'No new books available', api: getNewBooks, params: () => ({}) },
-  hot: { title: 'Hot Books', subtitle: 'Trending books ranked by popularity', empty: 'No hot books right now', api: getHotBooks, params: () => ({ period: period.value }) },
+  hot: { title: 'Popular Books', subtitle: 'Most purchased and favorited by our readers', empty: 'No popular books right now', api: getHotBooks, params: () => ({ period: period.value }) },
   recommended: { title: 'Recommended For You', subtitle: 'Personalized picks based on your reading history', empty: 'Login and rate books to get recommendations', api: getRecommendBooks, params: () => ({}) },
 }))
 
