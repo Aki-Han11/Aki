@@ -54,7 +54,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
   border-bottom: 1px solid #f2ede7;
   transition: background 0.2s ease;
 }
-.order-item:hover { background: #fdfaf6; }
+.order-item:hover { background: #fefcf8; }
 .order-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
 .order-info p { color: #a0988c; font-size: 13px; margin-top: 2px; }
 .order-meta { display: flex; align-items: center; gap: 16px; }

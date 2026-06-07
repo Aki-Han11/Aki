@@ -124,7 +124,7 @@ function handleLogout() {
    Clean, modern, pixel-perfect with custom SVG icons
    ══════════════════════════════════════════════════════════════ */
 
-.main-layout { min-height: 100vh; background: #fdfaf6; }
+.main-layout { min-height: 100vh; background: #fefcf8; }
 
 .header {
   background: #fff;
@@ -215,7 +215,7 @@ function handleLogout() {
 .nav-user-btn {
   font-size: 14px !important; font-weight: 500 !important;
   color: #1a1815 !important;
-  background: #fdfaf6 !important;
+  background: #fefcf8 !important;
   border: 1px solid #eae3d8 !important;
   border-radius: 10px !important;
   padding: 8px 16px !important;

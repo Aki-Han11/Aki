@@ -256,7 +256,7 @@ onMounted(async () => {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column;
   overflow-x: hidden;
-  background: #fefdfc;
+  background: #fefcf8;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -272,7 +272,7 @@ onMounted(async () => {
     radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,248,240,0.6) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 85% 15%, rgba(254,243,226,0.5) 0%, transparent 55%),
     radial-gradient(ellipse 50% 40% at 15% 80%, rgba(238,242,255,0.4) 0%, transparent 55%),
-    linear-gradient(175deg, #fefdfb 0%, #fdfaf6 25%, #faf8f4 50%, #f7f6f9 100%);
+    linear-gradient(175deg, #fefdfb 0%, #fefcf8 25%, #faf8f4 50%, #f7f6f9 100%);
   position: relative; overflow: hidden;
   flex-shrink: 0;
 }
@@ -532,7 +532,7 @@ onMounted(async () => {
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
-  background: #fdfaf6;
+  background: #fefcf8;
 }
 .book-card-info { padding: 18px 16px; }
 .book-card-info h4 {

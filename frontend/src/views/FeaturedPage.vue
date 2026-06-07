@@ -108,7 +108,7 @@ onMounted(fetchBooks)
   border-bottom: 1px solid #f2ede7;
 }
 .book-row:last-child { border-bottom: none; }
-.book-row:hover { background: #fdfaf6; margin: 0 -12px; padding-left: 12px; padding-right: 12px; border-radius: 6px; }
+.book-row:hover { background: #fefcf8; margin: 0 -12px; padding-left: 12px; padding-right: 12px; border-radius: 6px; }
 .book-cover {
   width: 90px; height: 128px; object-fit: cover; border-radius: 8px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.08); flex-shrink: 0;
