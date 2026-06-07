@@ -3,14 +3,6 @@
     <div class="nav-inner">
       <router-link to="/" class="nav-brand">EBookStore</router-link>
 
-      <!-- Main nav links -->
-      <div class="nav-links">
-        <router-link to="/" class="nav-item" exact-active-class="nav-item--active">Home</router-link>
-        <router-link to="/books" class="nav-item" active-class="nav-item--active">Browse</router-link>
-        <router-link to="/recommended" class="nav-item" active-class="nav-item--active">Recommend</router-link>
-        <router-link to="/hot" class="nav-item" active-class="nav-item--active">Popular</router-link>
-      </div>
-
       <div class="nav-spacer"></div>
       <template v-if="auth.isLoggedIn">
         <!-- Favorites icon — modern minimalist heart SVG -->
@@ -90,28 +82,16 @@ function handleLogout() {
   max-width: 1320px; margin: 0 auto; gap: 20px;
 }
 
-/* ── Brand — unified size with nav items ── */
+/* ── Brand — elevated, artistic serif ── */
 .nav-brand {
-  font-size: 15px; font-weight: 600; color: #fff;
-  letter-spacing: 0.3px;
+  font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+  font-size: 24px; font-weight: 700; color: #fff;
+  letter-spacing: 0.5px;
   flex-shrink: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.25s;
+  font-style: italic;
 }
-.nav-brand:hover { opacity: 0.85; }
-
-/* ── Nav Links — unified typography ── */
-.nav-links {
-  display: flex; align-items: center; gap: 4px;
-  margin-left: 32px;
-}
-.nav-item {
-  font-size: 15px; font-weight: 500; color: rgba(255,255,255,0.72);
-  padding: 8px 16px; border-radius: 10px;
-  letter-spacing: 0.2px;
-  transition: all 0.25s ease;
-}
-.nav-item:hover { color: #fff; background: rgba(255,255,255,0.08); }
-.nav-item--active { color: #fff; background: rgba(255,255,255,0.12); font-weight: 600; }
+.nav-brand:hover { opacity: 0.8; }
 
 .nav-spacer { flex: 1; }
 
@@ -192,7 +172,7 @@ function handleLogout() {
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .landing-nav { padding: 0 16px; }
-  .nav-links { display: none; }
   .nav-inner { gap: 12px; }
+  .nav-brand { font-size: 20px; }
 }
 </style>

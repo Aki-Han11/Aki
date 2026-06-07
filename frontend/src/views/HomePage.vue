@@ -251,9 +251,6 @@ onMounted(async () => {
 :deep(.nav-link:hover)   { color: #2563eb !important; }
 :deep(.nav-icon-btn)     { color: #475569 !important; background: transparent !important; }
 :deep(.nav-icon-btn:hover) { color: #2563eb !important; background: rgba(37,99,235,0.06) !important; }
-:deep(.nav-item)         { color: #475569 !important; }
-:deep(.nav-item:hover)   { color: #2563eb !important; background: rgba(37,99,235,0.05) !important; }
-:deep(.nav-item--active) { color: #2563eb !important; background: rgba(37,99,235,0.08) !important; }
 :deep(.nav-user-btn) {
   color: #0f172a !important;
   background: rgba(37,99,235,0.04) !important;

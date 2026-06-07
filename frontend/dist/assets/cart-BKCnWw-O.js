@@ -1,1 +1,0 @@
-import{pt as e}from"./router-D7TiMbQb.js";import{t}from"./index-DoNrO2P2.js";import{O as n}from"./endpoints-CwWX_w-o.js";var r=t(`cart`,()=>{let t=e([]),r=e(0);async function i(){try{let e=await n();t.value=e.data,r.value=e.data.length}catch{t.value=[],r.value=0}}return{items:t,count:r,fetch:i}});export{r as t};
