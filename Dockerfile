@@ -25,6 +25,7 @@ EXPOSE 8080
 
 CMD ["sh", "-c", "\
   python manage.py migrate && \
+  python manage.py setup_accounts && \
   if [ -n \"$DATABASE_URL\" ]; then \
     echo 'Production mode: gunicorn' && \
     gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8080} --workers 3 --access-logfile -; \
