@@ -1,7 +1,13 @@
 <template>
   <nav class="landing-nav">
     <div class="nav-inner">
-      <router-link to="/" class="nav-brand">EBookStore</router-link>
+      <router-link to="/" class="nav-brand">
+        <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span class="logo-text">EBook Store</span>
+      </router-link>
 
       <div class="nav-spacer"></div>
       <template v-if="auth.isLoggedIn">
@@ -82,15 +88,10 @@ function handleLogout() {
   max-width: 1320px; margin: 0 auto; gap: 20px;
 }
 
-/* ── Brand — elevated, artistic serif ── */
-.nav-brand {
-  font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
-  font-size: 24px; font-weight: 700; color: #fff;
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
-  transition: opacity 0.25s;
-  font-style: italic;
-}
+/* ── Brand — unified with MainLayout ── */
+.nav-brand { display: flex; align-items: center; gap: 10px; color: #fff; flex-shrink: 0; }
+.logo-icon { width: 26px; height: 26px; }
+.logo-text { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: #fff; }
 .nav-brand:hover { opacity: 0.8; }
 
 .nav-spacer { flex: 1; }
@@ -173,6 +174,6 @@ function handleLogout() {
 @media (max-width: 768px) {
   .landing-nav { padding: 0 16px; }
   .nav-inner { gap: 12px; }
-  .nav-brand { font-size: 20px; }
+  .logo-text { font-size: 16px; }
 }
 </style>

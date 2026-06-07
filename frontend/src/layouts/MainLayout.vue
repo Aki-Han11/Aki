@@ -124,7 +124,8 @@ function handleLogout() {
    Clean, modern, pixel-perfect with custom SVG icons
    ══════════════════════════════════════════════════════════════ */
 
-.main-layout { min-height: 100vh; background: #fefcf8; }
+.main-layout { min-height: 100vh; background: #fefcf8; display: flex; flex-direction: column; }
+.main-layout :deep(.el-container) { flex: 1; display: flex; flex-direction: column; }
 
 .header {
   background: #fff;
@@ -230,8 +231,8 @@ function handleLogout() {
 
 /* ── Main Content ── */
 .main-content {
-  max-width: 1400px; margin: 0 auto; padding: 24px;
-  min-height: calc(100vh - 124px);
+  max-width: 1400px; margin: 0 auto; padding: 24px; width: 100%;
+  flex: 1;
 }
 
 /* ── Footer ── */

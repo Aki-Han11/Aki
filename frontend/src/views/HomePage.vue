@@ -227,6 +227,7 @@ onMounted(async () => {
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 :deep(.nav-brand)        { color: #0f172a !important; }
+:deep(.logo-text)        { color: #0f172a !important; }
 :deep(.nav-link)         { color: #475569 !important; }
 :deep(.nav-link:hover)   { color: #2563eb !important; }
 :deep(.nav-icon-btn)     { color: #475569 !important; background: transparent !important; }
@@ -308,6 +309,15 @@ onMounted(async () => {
     transparent 68%);
 }
 
+/* ── Bottom Fade: smooth transition to sections ── */
+.hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, #fefcf8);
+  z-index: 0; pointer-events: none;
+}
+
 /* ── Accent Line: single elegant golden arc, barely visible ── */
 .hero-accent {
   position: absolute;
@@ -379,7 +389,7 @@ onMounted(async () => {
 .hero-search-input :deep(.el-input__wrapper) {
   background: #fefdfc;
   border: 1px solid #eae3d8;
-  border-radius: 40px; padding: 6px 24px;
+  border-radius: 10px; padding: 6px 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.022), 0 1px 2px rgba(0,0,0,0.018);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -403,7 +413,7 @@ onMounted(async () => {
 }
 .btn-primary-hero {
   font-weight: 600 !important; font-size: 16px !important;
-  border-radius: 40px !important;
+  border-radius: 10px !important;
   padding: 14px 32px !important; height: auto !important;
   background: #2563eb !important; border: none !important;
   box-shadow: 0 4px 14px rgba(37,99,235,0.28) !important;
@@ -417,7 +427,7 @@ onMounted(async () => {
 }
 .btn-outline-hero {
   font-weight: 600 !important; font-size: 16px !important;
-  border-radius: 40px !important;
+  border-radius: 10px !important;
   padding: 14px 32px !important; height: auto !important;
   background: transparent !important;
   border: 1.5px solid #cbd5e1 !important;
@@ -519,16 +529,15 @@ onMounted(async () => {
   gap: 24px;
 }
 .book-card {
-  cursor: pointer; border-radius: 18px;
-  background: #fefdfc; border: 1px solid #f1ede7;
+  cursor: pointer; border-radius: 10px;
+  background: #fefdfc; border: none;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .book-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.06), 0 5px 14px rgba(0,0,0,0.03);
-  border-color: #e3dbd1;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;

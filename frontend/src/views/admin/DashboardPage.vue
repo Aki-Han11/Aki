@@ -96,7 +96,7 @@ onMounted(async () => {
 .dashboard { max-width: 1400px; }
 .stat-cards { margin-bottom: 0; }
 .stat-col { margin-bottom: 20px; }
-.stat-card { border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); height: 100%; }
+.stat-card { border-radius: 12px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); height: 100%; }
 .stat-card :deep(.el-card__body) { padding: 24px 20px; }
 .stat-inner { display: flex; align-items: center; gap: 18px; }
 .stat-icon {
@@ -111,7 +111,7 @@ onMounted(async () => {
 .stat-value { font-size: 26px; font-weight: 700; color: #1a1815; line-height: 1.2; }
 .stat-label { font-size: 13px; color: #a0988c; margin-top: 2px; }
 
-.top-books { margin-top: 4px; border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.top-books { margin-top: 4px; border-radius: 12px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
 .top-books-header { display: flex; align-items: center; justify-content: space-between; }
 .top-books-header h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1a1815; }
 .top-books-count { font-size: 13px; color: #a0988c; background: #f3efe8; padding: 2px 10px; border-radius: 12px; }

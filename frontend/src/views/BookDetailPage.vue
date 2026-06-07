@@ -319,9 +319,9 @@ onMounted(() => {
 .loading-box { padding: 40px; }
 .book-info { display: flex; gap: 36px; margin-bottom: 44px; }
 .cover-section { flex-shrink: 0; }
-.book-cover { width: 260px; height: 370px; object-fit: cover; border-radius: 14px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
+.book-cover { width: 260px; height: 370px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); }
 .info-section { flex: 1; }
-.info-section h1 { font-size: 30px; font-weight: 700; color: #1a1815; margin-bottom: 8px; letter-spacing: -0.4px; }
+.info-section h1 { font-size: 28px; font-weight: 700; color: #1a1815; margin-bottom: 36px; letter-spacing: -0.5px; }
 .author { color: #8b7e74; font-size: 16px; margin-bottom: 16px; }
 .tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
 .price-box { margin: 24px 0; }
@@ -333,7 +333,7 @@ onMounted(() => {
 .description-section { margin-bottom: 44px; }
 .description-section { margin-bottom: 44px; }
 .description-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f2ede7; }
-.description-section p { line-height: 1.8; color: #4a4038; }
+.description-section p { line-height: 1.8; color: #4a4038; max-width: 680px; }
 
 .review-section { margin-bottom: 36px; }
 .review-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; }

@@ -14,7 +14,9 @@
         </div>
       </div>
     </template>
-    <el-empty v-else description="No downloads yet" />
+    <el-empty v-else description="No downloads yet">
+      <el-button type="primary" @click="$router.push('/books')">Browse Books</el-button>
+    </el-empty>
   </div>
 </template>
 

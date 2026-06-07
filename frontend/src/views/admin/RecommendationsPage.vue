@@ -121,5 +121,5 @@ h3 { margin: 0; font-weight: 600; color: #1e293b; font-size: 17px; }
 .detail-value { display: block; font-size: 28px; font-weight: 700; color: #409eff; }
 .detail-label { display: block; font-size: 13px; color: #94a3b8; margin-top: 4px; }
 
-.recs-page :deep(.el-card) { border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.recs-page :deep(.el-card) { border-radius: 12px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 </style>

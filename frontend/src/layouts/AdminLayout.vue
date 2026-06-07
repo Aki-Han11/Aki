@@ -162,6 +162,6 @@ function handleLogout() {
 }
 
 .admin-main {
-  background: #fefcf8; flex: 1; overflow-y: auto; padding: 24px 28px;
+  background: #fefcf8; flex: 1; overflow-y: auto; padding: 24px 28px 48px;
 }
 </style>
