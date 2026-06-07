@@ -1,5 +1,13 @@
 node_modules/
-backend/__pycache__/
-backend/**/__pycache__/
 .git/
 *.md
+**/__pycache__/
+**/*.pyc
+**/.venv/
+**/venv/
+**/.env
+**/.DS_Store
+frontend/dist/
+.gitignore
+README.md
+~$*

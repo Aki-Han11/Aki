@@ -10,11 +10,10 @@ RUN npm run build
 FROM python:3.12-slim
 WORKDIR /app/backend
 
-# Install system dependencies (if needed for scikit-surprise)
-RUN pip install --no-cache-dir --upgrade pip
-
+# Install Python deps — pip upgrade + requirements in one cached layer
 COPY backend/requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ ./
 RUN mkdir -p /app/frontend
