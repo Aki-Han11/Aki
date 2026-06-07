@@ -102,6 +102,13 @@ class AdminReviewViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdmin]
     queryset = Rating.objects.select_related('user', 'book').all().order_by('-created_at')
 
+    def get_queryset(self):
+        qs = Rating.objects.select_related('user', 'book').all()
+        book_id = self.request.query_params.get('book_id')
+        if book_id:
+            qs = qs.filter(book_id=book_id)
+        return qs.order_by('-created_at')
+
     def list(self, request, *args, **kwargs):
         qs = self.get_queryset()
         data = [{
