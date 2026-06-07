@@ -54,17 +54,33 @@
 
       <!-- Rating & Review (purchased users only) -->
       <div class="review-section" v-if="purchased">
-        <h2>Your Review</h2>
+        <h2>{{ hasSubmitted ? 'Your Review' : 'Write a Review' }}</h2>
         <div class="rating-input">
-          <el-rate v-model="userRating" @change="handleRate" :texts="['Poor', 'Fair', 'Good', 'Great', 'Excellent']" show-text />
+          <el-rate
+            v-model="userRating"
+            :texts="['Poor', 'Fair', 'Good', 'Great', 'Excellent']"
+            show-text
+          />
         </div>
         <el-input
           v-model="userReview"
           type="textarea"
           :rows="3"
-          placeholder="Write your review..."
-          @blur="handleReviewSubmit"
+          placeholder="Share your thoughts about this book..."
         />
+        <div class="review-submit-bar">
+          <span class="review-hint" v-if="!hasSubmitted && userRating === 0">Select a star rating to begin</span>
+          <span class="review-hint" v-else-if="!hasSubmitted">{{ submitHint }}</span>
+          <span class="review-hint submitted" v-else>✓ Review submitted</span>
+          <el-button
+            type="primary"
+            :disabled="userRating === 0"
+            :loading="submitting"
+            @click="handleSubmitReview"
+          >
+            {{ hasSubmitted ? 'Update' : 'Submit Review' }}
+          </el-button>
+        </div>
       </div>
 
       <!-- All Reviews -->
@@ -91,7 +107,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getBookDetail, addFavorite, removeFavorite, addToCart, createOrder, getBookDownload, getFavorites, rateBook, getBookReviews } from '../api/endpoints'
@@ -111,6 +127,14 @@ const downloading = ref(false)
 const userRating = ref(0)
 const userReview = ref('')
 const reviews = ref([])
+const hasSubmitted = ref(false)
+const submitting = ref(false)
+
+const submitHint = computed(() => {
+  if (userRating.value === 0) return 'Select a star rating to begin'
+  const texts = ['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent']
+  return `Ready to submit: "${texts[userRating.value]}" — click the button`
+})
 
 function onImgError(e) {
   e.target.src = 'https://picsum.photos/seed/default/200/300'
@@ -137,6 +161,7 @@ async function fetchReviews() {
       if (myReview) {
         userRating.value = myReview.rating
         userReview.value = myReview.review || ''
+        hasSubmitted.value = true
       }
     }
   } catch (e) {}
@@ -238,25 +263,19 @@ async function handleDownload() {
   downloading.value = false
 }
 
-async function handleRate(val) {
+async function handleSubmitReview() {
+  if (userRating.value === 0) return
+  submitting.value = true
+  const isUpdate = hasSubmitted.value
   try {
-    await rateBook(book.value.id, val, userReview.value)
-    ElMessage.success('Rating submitted!')
-    fetchReviews()
-  } catch (e) {
-    ElMessage.error(e.response?.data?.error || 'Failed to submit rating')
-  }
-}
-
-async function handleReviewSubmit() {
-  if (!userReview.value.trim()) return
-  try {
-    await rateBook(book.value.id, userRating.value || 5, userReview.value)
-    ElMessage.success('Review submitted!')
+    await rateBook(book.value.id, userRating.value, userReview.value)
+    hasSubmitted.value = true
+    ElMessage.success(isUpdate ? 'Review updated!' : 'Review submitted!')
     fetchReviews()
   } catch (e) {
     ElMessage.error(e.response?.data?.error || 'Failed to submit review')
   }
+  submitting.value = false
 }
 
 onMounted(() => {
@@ -293,6 +312,16 @@ onMounted(() => {
 .review-section { margin-bottom: 30px; }
 .review-section h2 { font-size: 20px; margin-bottom: 12px; }
 .rating-input { margin-bottom: 12px; }
+
+.review-submit-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 12px; gap: 16px;
+}
+.review-hint {
+  font-size: 13px; color: #94a3b8;
+  transition: color 0.3s;
+}
+.review-hint.submitted { color: #67c23a; font-weight: 500; }
 
 .reviews-list h2 { font-size: 20px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #ebeef5; }
 .no-reviews { padding: 20px 0; }
