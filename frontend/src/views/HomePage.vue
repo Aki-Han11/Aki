@@ -1,72 +1,84 @@
 <template>
   <div class="home-page">
-    <!-- Hero Banner -->
-    <section class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <h1 class="hero-title">EBookStore</h1>
-        <p class="hero-subtitle">Discover thousands of books. Read anywhere, anytime.</p>
-        <div class="hero-stats">
-          <div class="stat-item"><span class="stat-num">{{ bookCount }}+</span><span class="stat-label">Books</span></div>
-          <div class="stat-item"><span class="stat-num">{{ catCount }}+</span><span class="stat-label">Categories</span></div>
-          <div class="stat-item"><span class="stat-num">{{ userCount }}+</span><span class="stat-label">Readers</span></div>
+    <!-- Full-screen Hero -->
+    <section class="hero-fullscreen">
+      <!-- Top bar: login/register (hidden when logged in) -->
+      <div class="hero-topbar" :class="{ hidden: auth.isLoggedIn }">
+        <div class="topbar-left">
+          <span class="topbar-brand">EBookStore</span>
         </div>
+        <div class="topbar-right" v-if="!auth.isLoggedIn">
+          <el-button text class="topbar-btn" @click="$router.push('/login')">Sign In</el-button>
+          <el-button class="topbar-btn-register" type="primary" size="small" round @click="$router.push('/register')">Get Started</el-button>
+        </div>
+        <div class="topbar-right" v-else>
+          <span class="topbar-user">{{ auth.user?.username }}</span>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <h1 class="hero-logo">EBookStore</h1>
+        <p class="hero-tagline">Your Infinite Library, One Click Away</p>
+        <p class="hero-desc">Thousands of titles across every genre. Read, discover, and collect the books you love.</p>
+        <div class="hero-cta" v-if="!auth.isLoggedIn">
+          <el-button type="primary" size="large" round @click="$router.push('/register')">Start Reading Free</el-button>
+          <el-button size="large" round class="hero-btn-outline" @click="$router.push('/books')">Browse Collection</el-button>
+        </div>
+        <div class="hero-cta" v-else>
+          <el-button type="primary" size="large" round @click="$router.push('/books')">Browse Collection</el-button>
+        </div>
+        <div class="scroll-hint" @click="scrollDown">
+          <span>Explore</span>
+          <el-icon :size="20"><ArrowDown /></el-icon>
+        </div>
+      </div>
+      <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
       </div>
     </section>
 
-    <!-- Login / Register prompt (not logged in) -->
-    <section v-if="!auth.isLoggedIn" class="auth-callout">
-      <div class="auth-card">
-        <h2>Start Your Reading Journey</h2>
-        <p>Sign in to browse personalized recommendations, save favorites, and purchase books.</p>
-        <div class="auth-buttons">
-          <el-button type="primary" size="large" round @click="$router.push('/login')">Sign In</el-button>
-          <el-button size="large" round @click="$router.push('/register')">Create Account</el-button>
+    <!-- 4 Vertical Feature Panels -->
+    <section class="panels-section">
+      <div class="panel panel-browse" @click="$router.push('/books')">
+        <div class="panel-inner">
+          <div class="panel-icon-wrap"><el-icon :size="40"><Collection /></el-icon></div>
+          <div class="panel-text">
+            <h2>Browse All Books</h2>
+            <p>Explore our complete library of {{ bookCount }}+ titles across {{ catCount }} categories — from computer science to classic literature.</p>
+            <span class="panel-cta">View Full Library <el-icon><ArrowRight /></el-icon></span>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- 4 Feature Panels (logged in) -->
-    <section v-else class="feature-panels">
-      <div class="panel-grid">
-        <div class="panel panel-browse" @click="$router.push('/books')">
-          <div class="panel-icon"><el-icon :size="48"><Collection /></el-icon></div>
-          <h3>Browse All</h3>
-          <p>Explore our complete collection of {{ bookCount }}+ ebooks across {{ catCount }} categories</p>
-          <span class="panel-link">View Library <el-icon><ArrowRight /></el-icon></span>
-        </div>
-        <div class="panel panel-new" @click="$router.push('/new')">
-          <div class="panel-icon"><el-icon :size="48"><Star /></el-icon></div>
-          <h3>New Arrivals</h3>
-          <p>Be the first to discover newly added books fresh off the press</p>
-          <span class="panel-link">See What's New <el-icon><ArrowRight /></el-icon></span>
-        </div>
-        <div class="panel panel-hot" @click="$router.push('/hot')">
-          <div class="panel-icon"><el-icon :size="48"><TrendCharts /></el-icon></div>
-          <h3>Hot Books</h3>
-          <p>What everyone is reading — trending books ranked by popularity</p>
-          <span class="panel-link">View Trending <el-icon><ArrowRight /></el-icon></span>
-        </div>
-        <div class="panel panel-recommend" @click="$router.push('/recommended')">
-          <div class="panel-icon"><el-icon :size="48"><MagicStick /></el-icon></div>
-          <h3>Recommended For You</h3>
-          <p>Personalized picks based on your reading history and ratings</p>
-          <span class="panel-link">Get Recommendations <el-icon><ArrowRight /></el-icon></span>
+      <div class="panel panel-new" @click="$router.push('/new')">
+        <div class="panel-inner">
+          <div class="panel-icon-wrap"><el-icon :size="40"><Star /></el-icon></div>
+          <div class="panel-text">
+            <h2>New Arrivals</h2>
+            <p>Fresh off the shelf — be the first to discover newly added books and emerging authors.</p>
+            <span class="panel-cta">See What's New <el-icon><ArrowRight /></el-icon></span>
+          </div>
         </div>
       </div>
-    </section>
-
-    <!-- Browse by Category -->
-    <section class="section" v-if="categories.length">
-      <div class="section-header">
-        <h2>Browse by Category</h2>
-        <el-button text @click="$router.push('/books')">All Categories <el-icon><ArrowRight /></el-icon></el-button>
+      <div class="panel panel-hot" @click="$router.push('/hot')">
+        <div class="panel-inner">
+          <div class="panel-icon-wrap"><el-icon :size="40"><TrendCharts /></el-icon></div>
+          <div class="panel-text">
+            <h2>Hot & Trending</h2>
+            <p>What the community is reading right now — ranked by real-time popularity and engagement.</p>
+            <span class="panel-cta">View Trending <el-icon><ArrowRight /></el-icon></span>
+          </div>
+        </div>
       </div>
-      <div class="category-grid">
-        <div v-for="cat in categories" :key="cat.id" class="category-card"
-             @click="$router.push({path:'/books',query:{category:cat.id}})">
-          <span class="cat-name">{{ cat.name }}</span>
-          <span class="cat-count">{{ cat.book_count }} books</span>
+      <div class="panel panel-recommend" @click="$router.push('/recommended')">
+        <div class="panel-inner">
+          <div class="panel-icon-wrap"><el-icon :size="40"><MagicStick /></el-icon></div>
+          <div class="panel-text">
+            <h2>Recommended For You</h2>
+            <p>AI-powered personalized recommendations based on your taste, ratings, and reading history.</p>
+            <span class="panel-cta">Get Recommendations <el-icon><ArrowRight /></el-icon></span>
+          </div>
         </div>
       </div>
     </section>
@@ -74,148 +86,153 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getCategories, getBooks } from '../api/endpoints'
 import { useAuthStore } from '../store/auth'
 
 const auth = useAuthStore()
-const categories = ref([])
 const bookCount = ref(0)
 const catCount = ref(0)
-const userCount = ref(50)
 
-async function fetchData() {
-  try {
-    const [catRes, bookRes] = await Promise.all([
-      getCategories(),
-      getBooks({ page: 1 }),
-    ])
-    categories.value = catRes.data || []
-    catCount.value = categories.value.length
-    bookCount.value = bookRes.data.count || 1000
-  } catch (e) {}
+function scrollDown() {
+  document.querySelector('.panels-section')?.scrollIntoView({ behavior: 'smooth' })
 }
 
-onMounted(fetchData)
+onMounted(async () => {
+  try {
+    const [catRes, bookRes] = await Promise.all([getCategories(), getBooks({ page: 1 })])
+    catCount.value = (catRes.data || []).length
+    bookCount.value = bookRes.data.count || 1000
+  } catch (e) {}
+})
 </script>
 
 <style scoped>
-/* Hero */
-.hero {
+/* ── Full-screen Hero ── */
+.hero-fullscreen {
   position: relative;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%);
-  padding: 100px 40px 80px;
-  text-align: center;
-  border-radius: 16px;
-  margin-bottom: 40px;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, #0a0a1a 0%, #111d3a 30%, #0d1b33 60%, #0a1020 100%);
   overflow: hidden;
+  margin: -20px -20px 0;
+  padding: 0 20px;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: radial-gradient(circle at 30% 40%, rgba(64,158,255,0.08) 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, rgba(245,108,108,0.06) 0%, transparent 50%);
-  animation: heroPulse 8s ease-in-out infinite;
+.hero-bg-shapes {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
 }
-@keyframes heroPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
+.shape {
+  position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
 }
-.hero-content { position: relative; z-index: 1; }
-.hero-title {
-  font-size: 64px; font-weight: 800; color: #fff; margin: 0 0 16px;
-  letter-spacing: -1px; background: linear-gradient(135deg, #409eff, #67c23a);
+.shape-1 { width: 500px; height: 500px; background: #409eff; top: -150px; right: -100px; }
+.shape-2 { width: 350px; height: 350px; background: #67c23a; bottom: -100px; left: -80px; }
+.shape-3 { width: 250px; height: 250px; background: #f56c6c; top: 40%; left: 50%; }
+
+/* Top bar */
+.hero-topbar {
+  position: relative; z-index: 2;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 0;
+  transition: all 0.4s;
+}
+.hero-topbar.hidden {
+  opacity: 0; pointer-events: none; height: 0; padding: 0; overflow: hidden;
+}
+.topbar-brand { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
+.topbar-btn { color: rgba(255,255,255,0.8) !important; }
+.topbar-btn:hover { color: #fff !important; }
+.topbar-btn-register { font-weight: 600; }
+.topbar-user { color: rgba(255,255,255,0.7); font-size: 14px; }
+
+/* Hero body */
+.hero-body {
+  position: relative; z-index: 1;
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding-bottom: 80px;
+}
+.hero-logo {
+  font-size: clamp(48px, 8vw, 88px);
+  font-weight: 900; color: #fff; margin: 0 0 16px;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #409eff 0%, #67c23a 50%, #f56c6c 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-subtitle { font-size: 20px; color: rgba(255,255,255,0.7); margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
-.hero-stats { display: flex; justify-content: center; gap: 48px; }
-.stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.stat-num { font-size: 32px; font-weight: 700; color: #409eff; }
-.stat-label { font-size: 14px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
-
-/* Auth CTA */
-.auth-callout { margin-bottom: 40px; }
-.auth-card {
-  background: linear-gradient(135deg, #f0f5ff, #e6f7ff);
-  border-radius: 16px; padding: 48px 40px; text-align: center;
-  border: 1px solid #d6e4ff;
+.hero-tagline {
+  font-size: clamp(18px, 3vw, 28px);
+  color: rgba(255,255,255,0.85); margin: 0 0 12px;
+  font-weight: 300; max-width: 600px;
 }
-.auth-card h2 { font-size: 28px; color: #303133; margin-bottom: 12px; }
-.auth-card p { color: #666; font-size: 16px; margin-bottom: 28px; max-width: 450px; margin-left: auto; margin-right: auto; }
-.auth-buttons { display: flex; gap: 16px; justify-content: center; }
+.hero-desc {
+  font-size: 16px; color: rgba(255,255,255,0.5);
+  margin: 0 0 40px; max-width: 480px;
+}
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.hero-btn-outline {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+}
+.hero-btn-outline:hover { border-color: rgba(255,255,255,0.6) !important; }
 
-/* 4 Feature Panels */
-.feature-panels { margin-bottom: 40px; }
-.panel-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+/* Scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.3s;
+  z-index: 1;
+}
+.scroll-hint:hover { color: rgba(255,255,255,0.7); }
+.scroll-hint span { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
+.scroll-hint .el-icon { animation: bounce 2s infinite; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ── 4 Vertical Panels ── */
+.panels-section {
+  max-width: 960px; margin: 0 auto; padding: 60px 0 40px;
+  display: flex; flex-direction: column; gap: 0;
 }
 .panel {
-  background: #fff;
-  border-radius: 14px;
-  padding: 36px 28px 28px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid #ebeef5;
+  cursor: pointer; transition: all 0.35s;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
 }
-.panel::after {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 4px;
-  transition: all 0.3s;
+.panel:first-child { border-radius: 16px 16px 0 0; }
+.panel:last-child { border-radius: 0 0 16px 16px; }
+.panel:not(:last-child) { border-bottom: 1px solid #ebeef5; }
+.panel:hover { background: #fafbfc; padding-left: 8px; }
+.panel-inner {
+  display: flex; align-items: center; gap: 28px;
+  padding: 32px 36px;
 }
-.panel-browse::after { background: #409eff; }
-.panel-new::after { background: #67c23a; }
-.panel-hot::after { background: #e6a23c; }
-.panel-recommend::after { background: #f56c6c; }
-.panel:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+.panel-icon-wrap {
+  width: 72px; height: 72px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
-.panel-icon { margin-bottom: 16px; }
-.panel-browse .panel-icon { color: #409eff; }
-.panel-new .panel-icon { color: #67c23a; }
-.panel-hot .panel-icon { color: #e6a23c; }
-.panel-recommend .panel-icon { color: #f56c6c; }
-.panel h3 { font-size: 20px; font-weight: 700; color: #303133; margin-bottom: 8px; }
-.panel p { color: #909399; font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
-.panel-link {
+.panel-browse .panel-icon-wrap { background: #ecf5ff; color: #409eff; }
+.panel-new .panel-icon-wrap { background: #f0f9eb; color: #67c23a; }
+.panel-hot .panel-icon-wrap { background: #fdf6ec; color: #e6a23c; }
+.panel-recommend .panel-icon-wrap { background: #fef0f0; color: #f56c6c; }
+.panel-text { flex: 1; }
+.panel-text h2 { font-size: 22px; font-weight: 700; color: #303133; margin: 0 0 6px; }
+.panel-text p { color: #909399; font-size: 15px; line-height: 1.6; margin: 0 0 10px; }
+.panel-cta {
   color: #409eff; font-weight: 600; font-size: 14px;
   display: inline-flex; align-items: center; gap: 4px;
 }
+.panel:hover .panel-cta { gap: 8px; transition: gap 0.3s; }
 
-/* Categories */
-.section { margin-bottom: 40px; }
-.section-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 20px;
-}
-.section-header h2 { font-size: 24px; color: #303133; }
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 12px;
-}
-.category-card {
-  background: #fff; border: 1px solid #ebeef5; border-radius: 8px;
-  padding: 16px; cursor: pointer; transition: all 0.2s;
-  text-align: center; display: flex; flex-direction: column; gap: 4px;
-}
-.category-card:hover { border-color: #409eff; box-shadow: 0 2px 8px rgba(64,158,255,0.15); transform: translateY(-2px); }
-.cat-name { font-weight: 600; font-size: 14px; color: #303133; }
-.cat-count { font-size: 12px; color: #999; }
-
-@media (max-width: 900px) {
-  .panel-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .panel-grid { grid-template-columns: 1fr; }
-  .hero-title { font-size: 40px; }
+@media (max-width: 640px) {
+  .panel-inner { flex-direction: column; text-align: center; padding: 24px 20px; }
+  .panel-icon-wrap { width: 56px; height: 56px; }
 }
 </style>

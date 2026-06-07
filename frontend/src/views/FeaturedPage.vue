@@ -107,40 +107,44 @@ onMounted(fetchBooks)
 </script>
 
 <style scoped>
-.featured-page { max-width: 900px; margin: 0 auto; }
-.page-header { text-align: center; margin-bottom: 32px; }
-.page-header h1 { font-size: 32px; font-weight: 700; color: #303133; margin-bottom: 8px; }
+.featured-page { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.page-header { text-align: center; margin-bottom: 36px; }
+.page-header h1 { font-size: 34px; font-weight: 800; color: #303133; margin-bottom: 8px; }
 .page-header p { color: #909399; font-size: 16px; }
 
 .period-filter { display: flex; justify-content: center; margin-bottom: 28px; }
 
-.book-list { display: flex; flex-direction: column; gap: 12px; }
+.book-list { display: flex; flex-direction: column; gap: 16px; }
 .book-row {
-  display: flex; align-items: center; gap: 20px;
-  background: #fff; border-radius: 12px; padding: 20px;
-  cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: flex-start; gap: 28px;
+  background: #fff; border-radius: 14px; padding: 28px;
+  cursor: pointer; transition: all 0.3s;
   border: 1px solid #ebeef5;
 }
 .book-row:hover {
-  border-color: #c6e2ff; box-shadow: 0 4px 16px rgba(64,158,255,0.10);
-  transform: translateX(4px);
+  border-color: #c6e2ff; box-shadow: 0 6px 24px rgba(64,158,255,0.12);
+  transform: translateX(6px);
 }
 .book-cover-wrap { flex-shrink: 0; }
 .book-cover-wrap img {
-  width: 90px; height: 130px; object-fit: cover; border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  width: 120px; height: 175px; object-fit: cover; border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
-.book-info { flex: 1; min-width: 0; }
-.book-title { font-size: 18px; font-weight: 700; color: #303133; margin: 0 0 4px; }
-.book-author { font-size: 14px; color: #909399; margin: 0 0 8px; }
-.book-cat { margin-bottom: 8px; }
-.book-desc { font-size: 14px; color: #606266; line-height: 1.6; margin: 0 0 12px; }
-.book-meta { display: flex; align-items: center; gap: 12px; }
-.book-price { font-size: 20px; font-weight: 700; color: #f56c6c; }
+.book-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.book-title { font-size: 20px; font-weight: 700; color: #303133; margin: 0; line-height: 1.3; }
+.book-author { font-size: 15px; color: #909399; margin: 0; }
+.book-cat { width: fit-content; }
+.book-desc {
+  font-size: 15px; color: #606266; line-height: 1.7; margin: 4px 0;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.book-meta { display: flex; align-items: center; gap: 14px; margin-top: 4px; }
+.book-price { font-size: 24px; font-weight: 700; color: #f56c6c; }
 .book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.book-arrow { color: #c0c4cc; flex-shrink: 0; transition: color 0.2s; }
-.book-row:hover .book-arrow { color: #409eff; }
+.book-arrow { color: #c0c4cc; flex-shrink: 0; align-self: center; transition: all 0.2s; }
+.book-row:hover .book-arrow { color: #409eff; transform: translateX(3px); }
 
-.empty-state { padding: 60px 0; }
-.pagination-bar { display: flex; justify-content: center; margin-top: 32px; }
+.empty-state { padding: 80px 0; }
+.pagination-bar { display: flex; justify-content: center; margin-top: 40px; }
 </style>
