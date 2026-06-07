@@ -1,21 +1,7 @@
 <template>
   <div class="home-page">
-    <!-- Full-screen Hero -->
+    <!-- Full-screen Hero (80vh) -->
     <section class="hero-fullscreen">
-      <!-- Top bar: login/register (hidden when logged in) -->
-      <div class="hero-topbar" :class="{ hidden: auth.isLoggedIn }">
-        <div class="topbar-left">
-          <span class="topbar-brand">EBookStore</span>
-        </div>
-        <div class="topbar-right" v-if="!auth.isLoggedIn">
-          <el-button text class="topbar-btn" @click="$router.push('/login')">Sign In</el-button>
-          <el-button class="topbar-btn-register" type="primary" size="small" round @click="$router.push('/register')">Get Started</el-button>
-        </div>
-        <div class="topbar-right" v-else>
-          <span class="topbar-user">{{ auth.user?.username }}</span>
-        </div>
-      </div>
-
       <div class="hero-body">
         <h1 class="hero-logo">EBookStore</h1>
         <p class="hero-tagline">Your Infinite Library, One Click Away</p>
@@ -35,7 +21,6 @@
       <div class="hero-bg-shapes">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
       </div>
     </section>
 
@@ -108,87 +93,71 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* ── Full-screen Hero ── */
+/* ── Full-bleed Hero (80vh) ── */
 .hero-fullscreen {
-  position: relative;
   width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(160deg, #0a0a1a 0%, #111d3a 30%, #0d1b33 60%, #0a1020 100%);
+  min-height: 80vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+  background: linear-gradient(160deg, #080d1f 0%, #0f1d3a 40%, #0d1830 70%, #080d1f 100%);
   overflow: hidden;
-  margin: -20px -20px 0;
-  padding: 0 20px;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: -64px;  /* overlap under transparent header */
+  padding-top: 64px;  /* compensate for overlap */
 }
 .hero-bg-shapes {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
 }
 .shape {
-  position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+  position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.12;
 }
-.shape-1 { width: 500px; height: 500px; background: #409eff; top: -150px; right: -100px; }
-.shape-2 { width: 350px; height: 350px; background: #67c23a; bottom: -100px; left: -80px; }
-.shape-3 { width: 250px; height: 250px; background: #f56c6c; top: 40%; left: 50%; }
-
-/* Top bar */
-.hero-topbar {
-  position: relative; z-index: 2;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 0;
-  transition: all 0.4s;
-}
-.hero-topbar.hidden {
-  opacity: 0; pointer-events: none; height: 0; padding: 0; overflow: hidden;
-}
-.topbar-brand { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
-.topbar-right { display: flex; align-items: center; gap: 12px; }
-.topbar-btn { color: rgba(255,255,255,0.8) !important; }
-.topbar-btn:hover { color: #fff !important; }
-.topbar-btn-register { font-weight: 600; }
-.topbar-user { color: rgba(255,255,255,0.7); font-size: 14px; }
+.shape-1 { width: 600px; height: 600px; background: #409eff; top: -200px; right: -150px; }
+.shape-2 { width: 400px; height: 400px; background: #2563eb; bottom: -120px; left: -100px; }
 
 /* Hero body */
 .hero-body {
   position: relative; z-index: 1;
-  flex: 1; display: flex; flex-direction: column;
+  display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  padding-bottom: 80px;
+  padding: 0 20px 60px;
 }
 .hero-logo {
   font-size: clamp(48px, 8vw, 88px);
   font-weight: 900; color: #fff; margin: 0 0 16px;
   letter-spacing: -2px;
-  background: linear-gradient(135deg, #409eff 0%, #67c23a 50%, #f56c6c 100%);
+  background: linear-gradient(135deg, #409eff 0%, #a5d8ff 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .hero-tagline {
   font-size: clamp(18px, 3vw, 28px);
   color: rgba(255,255,255,0.85); margin: 0 0 12px;
-  font-weight: 300; max-width: 600px;
+  font-weight: 400; max-width: 600px;
 }
 .hero-desc {
-  font-size: 16px; color: rgba(255,255,255,0.5);
+  font-size: 16px; color: rgba(255,255,255,0.55);
   margin: 0 0 40px; max-width: 480px;
 }
 .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 .hero-btn-outline {
   background: transparent !important;
-  border: 1px solid rgba(255,255,255,0.3) !important;
+  border: 1px solid rgba(255,255,255,0.25) !important;
   color: #fff !important;
 }
-.hero-btn-outline:hover { border-color: rgba(255,255,255,0.6) !important; }
+.hero-btn-outline:hover { border-color: rgba(255,255,255,0.5) !important; }
 
 /* Scroll hint */
 .scroll-hint {
-  position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: 6px;
-  color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.3s;
-  z-index: 1;
+  color: rgba(255,255,255,0.35); cursor: pointer; transition: color 0.3s;
+  z-index: 2;
 }
-.scroll-hint:hover { color: rgba(255,255,255,0.7); }
-.scroll-hint span { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
+.scroll-hint:hover { color: rgba(255,255,255,0.65); }
+.scroll-hint span { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; }
 .scroll-hint .el-icon { animation: bounce 2s infinite; }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
@@ -197,18 +166,17 @@ onMounted(async () => {
 
 /* ── 4 Vertical Panels ── */
 .panels-section {
-  max-width: 960px; margin: 0 auto; padding: 60px 0 40px;
-  display: flex; flex-direction: column; gap: 0;
+  max-width: 960px; margin: 0 auto; padding: 60px 20px 40px;
+  display: flex; flex-direction: column;
 }
 .panel {
   cursor: pointer; transition: all 0.35s;
-  border-radius: 0;
-  position: relative;
+  border-radius: 0; position: relative;
 }
 .panel:first-child { border-radius: 16px 16px 0 0; }
 .panel:last-child { border-radius: 0 0 16px 16px; }
 .panel:not(:last-child) { border-bottom: 1px solid #ebeef5; }
-.panel:hover { background: #fafbfc; padding-left: 8px; }
+.panel:hover { background: #f8fafc; padding-left: 12px; }
 .panel-inner {
   display: flex; align-items: center; gap: 28px;
   padding: 32px 36px;
@@ -223,8 +191,8 @@ onMounted(async () => {
 .panel-hot .panel-icon-wrap { background: #fdf6ec; color: #e6a23c; }
 .panel-recommend .panel-icon-wrap { background: #fef0f0; color: #f56c6c; }
 .panel-text { flex: 1; }
-.panel-text h2 { font-size: 22px; font-weight: 700; color: #303133; margin: 0 0 6px; }
-.panel-text p { color: #909399; font-size: 15px; line-height: 1.6; margin: 0 0 10px; }
+.panel-text h2 { font-size: 22px; font-weight: 700; color: #1e293b; margin: 0 0 6px; }
+.panel-text p { color: #64748b; font-size: 15px; line-height: 1.6; margin: 0 0 10px; }
 .panel-cta {
   color: #409eff; font-weight: 600; font-size: 14px;
   display: inline-flex; align-items: center; gap: 4px;
