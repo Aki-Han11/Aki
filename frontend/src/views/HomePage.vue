@@ -5,6 +5,16 @@
 
     <!-- Section 2: Hero -->
     <section class="hero">
+      <!-- Decorative: architectural blue ring arc -->
+      <div class="hero-ring"></div>
+      <!-- Decorative: soft blue accent orbs -->
+      <div class="hero-orb hero-orb--1"></div>
+      <div class="hero-orb hero-orb--2"></div>
+      <!-- Decorative: scattered micro-dots for texture -->
+      <div class="hero-dots">
+        <span v-for="i in 12" :key="i" class="hero-dot" :style="{ left: dotPositions[i-1]?.x, top: dotPositions[i-1]?.y, width: dotPositions[i-1]?.s, height: dotPositions[i-1]?.s, opacity: dotPositions[i-1]?.o, animationDelay: (i * 0.3) + 's' }"></span>
+      </div>
+
       <div class="hero-content">
         <h1>
           <span class="hero-line-1">Discover Books</span>
@@ -35,8 +45,6 @@
           <el-button size="large" class="btn-outline-hero" @click="scrollToPopular">Popular Books</el-button>
         </div>
       </div>
-      <!-- Subtle ambient glow — single refined orb -->
-      <div class="hero-glow"></div>
       <div class="hero-scroll-hint" @click="scrollToDiscovery">
         <span>Explore the Store</span>
         <svg class="scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -178,6 +186,22 @@ const bookCount = ref(0)
 const catCount = ref(0)
 const heroQuery = ref('')
 
+// Decorative micro-dot positions — organic scatter
+const dotPositions = [
+  { x: '8%', y: '14%', s: '3px', o: 0.25 },
+  { x: '18%', y: '22%', s: '2px', o: 0.18 },
+  { x: '72%', y: '10%', s: '4px', o: 0.30 },
+  { x: '88%', y: '28%', s: '2px', o: 0.20 },
+  { x: '94%', y: '52%', s: '3px', o: 0.15 },
+  { x: '5%', y: '62%', s: '2px', o: 0.22 },
+  { x: '78%', y: '72%', s: '3px', o: 0.18 },
+  { x: '12%', y: '82%', s: '4px', o: 0.25 },
+  { x: '82%', y: '88%', s: '2px', o: 0.20 },
+  { x: '45%', y: '6%', s: '2px', o: 0.15 },
+  { x: '55%', y: '92%', s: '3px', o: 0.22 },
+  { x: '68%', y: '42%', s: '2px', o: 0.16 },
+]
+
 function doHeroSearch() {
   const q = heroQuery.value.trim()
   if (q) router.push({ name: 'Search', query: { q } })
@@ -259,22 +283,65 @@ onMounted(async () => {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Hero — Light Gradient · Artistic Typography · Refined Spacing
+   Hero — White Canvas + Sculptural Blue Accents
+   Apple-grade minimalism: pure white, deliberate blue ornament
    ══════════════════════════════════════════════════════════════ */
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(172deg, #f8fafc 0%, #fafbfd 22%, #eff6ff 58%, #f4f7fb 100%);
+  background: #ffffff;
   position: relative; overflow: hidden;
   flex-shrink: 0;
 }
 
-/* Single refined ambient glow — minimal, elegant */
-.hero-glow {
-  position: absolute; top: -180px; right: -100px;
-  width: 580px; height: 580px;
-  background: radial-gradient(circle, rgba(37,99,235,0.045) 0%, rgba(59,130,246,0.018) 48%, transparent 74%);
+/* ── Architectural Ring: ultra-thin blue circle, only arc visible ── */
+.hero-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 820px; height: 820px;
+  border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.10);
   pointer-events: none;
+}
+/* Second ring — larger, fainter */
+.hero-ring::after {
+  content: '';
+  position: absolute;
+  top: -80px; left: -80px;
+  width: calc(100% + 160px); height: calc(100% + 160px);
+  border-radius: 50%;
+  border: 1px solid rgba(37,99,235,0.05);
+}
+
+/* ── Glow Orbs: two soft, large, diffused blue halos ── */
+.hero-orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+.hero-orb--1 {
+  top: -120px; right: -60px;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(37,99,235,0.04) 0%, rgba(59,130,246,0.015) 40%, transparent 70%);
+}
+.hero-orb--2 {
+  bottom: -80px; left: -40px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(79,70,229,0.035) 0%, rgba(99,102,241,0.012) 38%, transparent 68%);
+}
+
+/* ── Micro Dots: scattered blue sparkles for texture ── */
+.hero-dots {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.hero-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #2563eb;
+  animation: dotPulse 4s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(2.2); }
 }
 
 /* ── Content wrapper — generous vertical rhythm ── */
