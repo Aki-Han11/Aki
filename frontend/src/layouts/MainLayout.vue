@@ -270,6 +270,9 @@ function handleLogout() {
   border-top: 1px solid #f0f0f0;
 }
 
+/* ── Hamburger — hidden on desktop ── */
+.hamburger-btn { display: none; }
+
 /* ═══════════════════════════════════════════════════════
    Mobile — below 768px
    ═══════════════════════════════════════════════════════ */

@@ -194,6 +194,9 @@ function handleLogout() {
   background: #ffffff; flex: 1; overflow-y: auto; padding: 24px 28px 48px;
 }
 
+/* ── Menu toggle — hidden on desktop ── */
+.admin-menu-toggle { display: none; }
+
 /* ═══════════════════════════════════════════════════════
    Mobile — below 768px
    ═══════════════════════════════════════════════════════ */
