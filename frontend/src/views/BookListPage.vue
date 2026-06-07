@@ -24,21 +24,6 @@
       </el-select>
     </div>
 
-    <!-- Category Tags -->
-    <div class="category-tags" v-if="categories.length">
-      <el-tag
-        v-for="cat in categories.slice(0, 24)"
-        :key="cat.id"
-        :type="selectedCategory == cat.id ? 'primary' : 'info'"
-        :effect="selectedCategory == cat.id ? 'dark' : 'plain'"
-        size="large"
-        class="cat-tag"
-        @click="toggleCategory(cat.id)"
-      >
-        {{ cat.name }}
-      </el-tag>
-    </div>
-
     <BookGrid :books="books" :loading="loading" />
 
     <div class="pagination" v-if="total > 0">
@@ -103,12 +88,6 @@ function onCategoryChange() {
   fetchBooks()
 }
 
-function toggleCategory(catId) {
-  selectedCategory.value = selectedCategory.value == catId ? '' : catId
-  page.value = 1
-  fetchBooks()
-}
-
 onMounted(() => {
   fetchCategories()
   fetchBooks()
@@ -133,24 +112,8 @@ onMounted(() => {
 .filters {
   display: flex;
   gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.category-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   margin-bottom: 24px;
-}
-
-.cat-tag {
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.cat-tag:hover {
-  transform: translateY(-1px);
+  flex-wrap: wrap;
 }
 
 .pagination {

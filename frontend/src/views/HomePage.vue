@@ -30,13 +30,12 @@
           <el-button type="primary" size="large" round @click="$router.push('/books')">Browse Books</el-button>
           <el-button size="large" round class="btn-outline" @click="scrollToPopular">Popular Books</el-button>
         </div>
-
-        <div class="hero-scroll-hint" @click="scrollToDiscovery">
-          <span>Explore the Store</span>
-          <el-icon :size="18"><ArrowDown /></el-icon>
-        </div>
       </div>
       <div class="hero-glow"></div>
+      <div class="hero-scroll-hint" @click="scrollToDiscovery">
+        <span>Explore the Store</span>
+        <el-icon :size="18"><ArrowDown /></el-icon>
+      </div>
     </section>
 
     <!-- Section 3: Smart Discovery -->
@@ -301,7 +300,7 @@ onMounted(async () => {
 
 .hero-actions {
   display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 44px;
+  margin-bottom: 0;
 }
 .btn-outline {
   background: transparent !important;
@@ -315,10 +314,12 @@ onMounted(async () => {
   background: rgba(37,99,235,0.04) !important;
 }
 
-/* ── Scroll Hint — distant whisper ── */
+/* ── Scroll Hint — absolute bottom, always visible ── */
 .hero-scroll-hint {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  margin: 0; cursor: pointer; color: #94a3b8;
+  position: absolute; bottom: 32px; left: 0; right: 0;
+  margin: 0 auto; width: fit-content;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  cursor: pointer; color: #94a3b8; z-index: 2;
   transition: color 0.3s; user-select: none;
 }
 .hero-scroll-hint:hover { color: #2563eb; }
@@ -432,7 +433,7 @@ onMounted(async () => {
   .hero-content { padding: 100px 24px 64px; }
   .hero-content > p { margin-bottom: 34px; }
   .hero-stats { margin-bottom: 36px; gap: 36px; padding: 14px 32px; }
-  .hero-actions { margin-bottom: 34px; }
+  .hero-scroll-hint { bottom: 26px; }
 }
 @media (max-width: 640px) {
   .hero-content { padding: 88px 20px 56px; }
@@ -441,7 +442,7 @@ onMounted(async () => {
   .hero-stats { gap: 28px; margin-bottom: 30px; padding: 12px 24px; }
   .stat strong { font-size: 26px; }
   .hero-search { width: 100%; margin-bottom: 14px; }
-  .hero-actions { margin-bottom: 28px; }
+  .hero-scroll-hint { bottom: 20px; }
   .hero-scroll-hint span { font-size: 10px; }
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-links { gap: 32px; }
