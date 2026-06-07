@@ -32,14 +32,16 @@
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="Actions" min-width="180" fixed="right">
+        <el-table-column label="Actions" width="170">
           <template #default="{ row }">
-            <el-button size="small" @click="openEdit(row)">Edit</el-button>
-            <el-popconfirm title="Delete this book?" @confirm="deleteBook(row)">
-              <template #reference>
-                <el-button size="small" type="danger">Delete</el-button>
-              </template>
-            </el-popconfirm>
+            <div class="action-btns">
+              <el-button size="small" @click="openEdit(row)">Edit</el-button>
+              <el-popconfirm title="Delete this book?" @confirm="deleteBook(row)">
+                <template #reference>
+                  <el-button size="small" type="danger">Delete</el-button>
+                </template>
+              </el-popconfirm>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -93,21 +95,21 @@
     <!-- Reviews dialog -->
     <el-dialog v-model="reviewsVisible" :title="`Reviews — ${reviewBook?.title}`" width="750px" destroy-on-close>
       <div v-loading="reviewsLoading">
-        <el-table v-if="reviews.length" :data="reviews" stripe max-height="500">
-          <el-table-column prop="user" label="User" width="140" />
-          <el-table-column label="Rating" width="160">
-            <template #default="{ row }"><el-rate :model-value="row.rating" disabled show-score /></template>
+        <el-table v-if="reviews.length" :data="reviews" stripe max-height="460" size="small">
+          <el-table-column prop="user" label="User" width="120" />
+          <el-table-column label="Rating" width="150">
+            <template #default="{ row }"><el-rate :model-value="row.rating" disabled show-score text-color="#409eff" /></template>
           </el-table-column>
-          <el-table-column prop="review" label="Review" min-width="280">
-            <template #default="{ row }"><span v-if="row.review">{{ row.review }}</span><span v-else class="no-review">—</span></template>
+          <el-table-column label="Review" min-width="200">
+            <template #default="{ row }"><span v-if="row.review" class="review-cell">{{ row.review }}</span><span v-else class="no-review">—</span></template>
           </el-table-column>
-          <el-table-column label="Date" width="110">
+          <el-table-column label="Date" width="100">
             <template #default="{ row }">{{ new Date(row.created_at).toLocaleDateString() }}</template>
           </el-table-column>
-          <el-table-column label="" width="80" align="center">
+          <el-table-column width="70" align="center">
             <template #default="{ row }">
               <el-popconfirm title="Delete?" @confirm="deleteReview(row.id)">
-                <template #reference><el-button size="small" type="danger" plain>Delete</el-button></template>
+                <template #reference><el-button size="small" type="danger" plain>Del</el-button></template>
               </el-popconfirm>
             </template>
           </el-table-column>
@@ -201,6 +203,8 @@ onMounted(() => { fetchBooks(); fetchCategories() })
 h3 { margin:0; font-weight:600; color:#1e293b; font-size:17px; }
 .price-cell { font-weight:600; color:#1e293b; }
 .no-review { color:#c0c4cc; }
+.action-btns { display:flex; gap:6px; flex-wrap:nowrap; }
+.review-cell { white-space:normal; line-height:1.5; display:block; }
 .pagination-bar { display:flex; justify-content:center; margin-top:20px; }
 .book-form { max-height:60vh; overflow-y:auto; padding-right:4px; }
 
