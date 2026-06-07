@@ -1,16 +1,16 @@
 <template>
   <div class="main-layout">
     <el-container>
-      <el-header class="header" :class="{ 'header-transparent': isHome }">
+      <el-header class="header">
         <div class="header-inner">
           <div class="logo">
             <router-link to="/">
               <el-icon :size="28"><Reading /></el-icon>
-              <span class="logo-text" :class="{ 'logo-text-light': isHome }">EBook Store</span>
+              <span class="logo-text">EBook Store</span>
             </router-link>
           </div>
 
-          <div class="header-search" v-show="!isHome">
+          <div class="header-search">
             <el-input
               v-model="searchQuery"
               placeholder="Search books by title, author or tags..."
@@ -22,7 +22,7 @@
           </div>
 
           <div class="header-nav">
-            <el-menu v-show="!isHome" mode="horizontal" :router="true" :default-active="activeMenu" class="nav-menu">
+            <el-menu mode="horizontal" :router="true" :default-active="activeMenu" class="nav-menu">
               <el-menu-item index="/">Home</el-menu-item>
               <el-menu-item index="/books">Browse</el-menu-item>
             </el-menu>
@@ -50,7 +50,7 @@
                 </el-dropdown>
               </template>
               <template v-else>
-                <el-button class="header-login-btn" :class="{ 'btn-light': isHome }" @click="$router.push('/login')">Sign In</el-button>
+                <el-button @click="$router.push('/login')">Sign In</el-button>
                 <el-button type="primary" @click="$router.push('/register')">Get Started</el-button>
               </template>
             </div>
@@ -58,7 +58,7 @@
         </div>
       </el-header>
 
-      <el-main class="main-content" :class="{ 'no-padding': isHome }">
+      <el-main class="main-content">
         <router-view />
       </el-main>
 
@@ -81,22 +81,16 @@ const auth = useAuthStore()
 const cart = useCartStore()
 
 const searchQuery = ref('')
-const isHome = computed(() => route.path === '/')
 
 const activeMenu = computed(() => {
-  if (route.path === '/' || route.path.startsWith('/books')) return route.path
+  if (route.path.startsWith('/books')) return '/books'
   return '/'
 })
 
-if (auth.isLoggedIn) {
-  cart.fetch()
-}
+if (auth.isLoggedIn) cart.fetch()
 
-// Refresh cart count on every navigation
 watch(() => route.path, () => {
-  if (auth.isLoggedIn) {
-    cart.fetch()
-  }
+  if (auth.isLoggedIn) cart.fetch()
 })
 
 function doSearch() {
@@ -116,21 +110,9 @@ function handleLogout() {
 
 .header {
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   padding: 0 20px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: background 0.3s, box-shadow 0.3s;
-}
-
-/* Transparent mode on homepage */
-.header-transparent {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  background: transparent;
-  box-shadow: none;
-  z-index: 10;
+  position: sticky; top: 0; z-index: 100;
 }
 
 .header-inner {
@@ -140,7 +122,6 @@ function handleLogout() {
 
 .logo a { display: flex; align-items: center; gap: 8px; color: #409eff; }
 .logo-text { font-size: 22px; font-weight: 700; letter-spacing: -1px; }
-.logo-text-light { color: #fff; }
 
 .header-search { flex: 1; max-width: 500px; }
 
@@ -149,18 +130,9 @@ function handleLogout() {
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .cart-badge { margin-right: 4px; }
 
-.btn-light {
-  color: rgba(255,255,255,0.85) !important;
-  border-color: rgba(255,255,255,0.3) !important;
-}
-.btn-light:hover { color: #fff !important; border-color: rgba(255,255,255,0.6) !important; }
-
 .main-content {
   max-width: 1400px; margin: 0 auto; padding: 20px;
   min-height: calc(100vh - 124px);
-}
-.main-content.no-padding {
-  padding: 0; max-width: none; overflow-x: hidden;
 }
 
 .footer {

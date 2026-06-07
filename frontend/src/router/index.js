@@ -1,11 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+const MainLayout = () => import('../layouts/MainLayout.vue')
+
 const routes = [
+  // ── Homepage: standalone, no MainLayout wrapper ──
+  { path: '/', name: 'Home', component: () => import('../views/HomePage.vue') },
+
+  // ── All other pages: wrapped in MainLayout ──
   {
     path: '/',
-    component: () => import('../layouts/MainLayout.vue'),
+    component: MainLayout,
     children: [
-      { path: '', name: 'Home', component: () => import('../views/HomePage.vue') },
       { path: 'books', name: 'BookList', component: () => import('../views/BookListPage.vue') },
       { path: 'books/:id', name: 'BookDetail', component: () => import('../views/BookDetailPage.vue') },
       { path: 'new', name: 'NewBooks', component: () => import('../views/FeaturedPage.vue'), props: { type: 'new' } },
@@ -22,6 +27,8 @@ const routes = [
       { path: 'downloads', name: 'Downloads', component: () => import('../views/DownloadsPage.vue'), meta: { auth: true } },
     ],
   },
+
+  // ── Admin ──
   {
     path: '/admin',
     component: () => import('../layouts/AdminLayout.vue'),
