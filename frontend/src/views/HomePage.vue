@@ -93,19 +93,17 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* ── Full-bleed Hero (80vh) ── */
+/* ── Full-width Hero (80vh) ── */
 .hero-fullscreen {
-  width: 100vw;
+  width: 100%;
   min-height: 80vh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   position: relative;
   background: linear-gradient(160deg, #080d1f 0%, #0f1d3a 40%, #0d1830 70%, #080d1f 100%);
   overflow: hidden;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
   margin-top: -64px;  /* overlap under transparent header */
-  padding-top: 64px;  /* compensate for overlap */
+  padding-top: 64px;
 }
 .hero-bg-shapes {
   position: absolute; inset: 0; pointer-events: none; z-index: 0;
@@ -122,7 +120,9 @@ onMounted(async () => {
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
-  padding: 0 20px 60px;
+  padding: 0 24px 60px;
+  max-width: 900px;
+  width: 100%;
 }
 .hero-logo {
   font-size: clamp(48px, 8vw, 88px);
@@ -166,8 +166,14 @@ onMounted(async () => {
 
 /* ── 4 Vertical Panels ── */
 .panels-section {
-  max-width: 960px; margin: 0 auto; padding: 60px 20px 40px;
+  padding: 60px 0 40px;
   display: flex; flex-direction: column;
+  align-items: center;
+  background: #fff;
+  position: relative; z-index: 1;
+}
+.panels-section .panel {
+  max-width: 960px; width: 100%;
 }
 .panel {
   cursor: pointer; transition: all 0.35s;

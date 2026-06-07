@@ -160,7 +160,7 @@ function handleLogout() {
   min-height: calc(100vh - 124px);
 }
 .main-content.no-padding {
-  padding: 0; max-width: none;
+  padding: 0; max-width: none; overflow-x: hidden;
 }
 
 .footer {
