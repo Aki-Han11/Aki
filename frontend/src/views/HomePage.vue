@@ -43,8 +43,8 @@
         </div>
 
         <div class="hero-actions">
-          <el-button type="primary" size="large" class="btn-primary-hero" @click="$router.push('/books')">Browse Books</el-button>
-          <el-button size="large" class="btn-outline-hero" @click="scrollToPopular">Popular Books</el-button>
+          <el-button size="large" class="btn-glass-hero btn-glass-primary" @click="$router.push('/books')">Browse Books</el-button>
+          <el-button size="large" class="btn-glass-hero" @click="scrollToPopular">Popular Books</el-button>
         </div>
       </div>
 
@@ -461,40 +461,44 @@ onMounted(async () => {
 .hero-search-input :deep(.el-input__prefix) { color: #94a3b8; }
 .hero-search-input :deep(.el-input__clear) { color: #94a3b8; }
 
-/* ═══ Zone 5 · CTAs ═══ */
+/* ═══ Zone 5 · CTAs — iOS Liquid Glass ═══ */
 .hero-actions {
   display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
 }
-.btn-primary-hero {
-  font-weight: 600 !important; font-size: 16px !important;
-  border-radius: 10px !important;
-  padding: 14px 32px !important; height: auto !important;
-  background: #2563eb !important; border: none !important;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.28) !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-  letter-spacing: 0.2px !important;
-}
-.btn-primary-hero:hover {
-  background: #1d4ed8 !important;
-  box-shadow: 0 6px 20px rgba(37,99,235,0.36) !important;
-  transform: translateY(-1px);
-}
-.btn-outline-hero {
-  font-weight: 600 !important; font-size: 16px !important;
-  border-radius: 10px !important;
-  padding: 14px 32px !important; height: auto !important;
-  background: transparent !important;
-  border: 1.5px solid #cbd5e1 !important;
+.btn-glass-hero {
+  font-weight: 600 !important; font-size: 15px !important;
+  border-radius: 14px !important;
+  padding: 14px 36px !important; height: auto !important; min-width: 200px !important;
   color: #334155 !important;
   letter-spacing: 0.2px !important;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  background: rgba(255,255,255,0.50) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04) !important;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
-.btn-outline-hero:hover {
-  border-color: #2563eb !important;
-  color: #2563eb !important;
-  background: rgba(37,99,235,0.03) !important;
-  box-shadow: 0 4px 14px rgba(37,99,235,0.08) !important;
+.btn-glass-hero:hover {
+  background: rgba(255,255,255,0.72) !important;
+  border-color: rgba(0,0,0,0.12) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06) !important;
   transform: translateY(-1px);
+}
+.btn-glass-primary {
+  color: #2563eb !important;
+  background: rgba(37,99,235,0.06) !important;
+  border-color: rgba(37,99,235,0.15) !important;
+}
+.btn-glass-primary:hover {
+  color: #1d4ed8 !important;
+  background: rgba(37,99,235,0.10) !important;
+  border-color: rgba(37,99,235,0.25) !important;
+}
+
+/* Mobile: full-width buttons */
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; align-items: stretch; width: 100%; }
+  .btn-glass-hero { min-width: 0 !important; padding: 14px 24px !important; font-size: 14px !important; }
 }
 
 /* ══════════════════════════════════════════════════════════════
