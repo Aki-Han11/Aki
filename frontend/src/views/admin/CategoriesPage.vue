@@ -117,14 +117,8 @@ onMounted(fetchCats)
 
 <style scoped>
 .card-header { display: flex; justify-content: space-between; align-items: center; }
-h3 { margin: 0; }
-
-.action-btns {
-  display: flex;
-  gap: 6px;
-}
-
-.empty-state {
-  padding: 40px 0;
-}
+h3 { margin: 0; font-weight: 600; color: #1e293b; font-size: 17px; }
+.action-btns { display: flex; gap: 6px; }
+.empty-state { padding: 40px 0; }
+.cats-page :deep(.el-card) { border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 </style>

@@ -12,14 +12,11 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
-    items_count = serializers.SerializerMethodField()
+    items_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Order
         fields = ('id', 'total_price', 'status', 'items_count', 'created_at')
-
-    def get_items_count(self, obj):
-        return obj.items.count()
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):

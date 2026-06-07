@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.db.models import Count
 
 from .models import Order, OrderItem
 from .serializers import OrderListSerializer, OrderDetailSerializer, OrderCreateSerializer
@@ -18,7 +19,9 @@ class OrderViewSet(viewsets.ModelViewSet):
         return OrderDetailSerializer
 
     def get_queryset(self):
-        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+        return Order.objects.filter(user=self.request.user)\
+            .annotate(items_count=Count('items'))\
+            .order_by('-created_at')
 
     def create(self, request, *args, **kwargs):
         """Create order for a single book (direct purchase)."""
@@ -42,8 +45,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({'error': 'Order is not in pending status'}, status=status.HTTP_400_BAD_REQUEST)
         order.status = 'paid'
         order.save()
-        # Update purchase stats
-        for item in order.items.all():
+        # Update purchase stats (prefetch items with book to avoid N+1)
+        for item in order.items.select_related('book').all():
             if item.book:
                 stats, _ = BookStats.objects.get_or_create(book=item.book)
                 stats.purchase_count += 1

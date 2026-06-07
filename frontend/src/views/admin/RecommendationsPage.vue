@@ -101,72 +101,25 @@ async function trainModel() {
 
 <style scoped>
 .card-header { display: flex; justify-content: space-between; align-items: center; }
-h3 { margin: 0; }
+h3 { margin: 0; font-weight: 600; color: #1e293b; font-size: 17px; }
 
-.recs-content {
-  max-width: 800px;
-}
+.recs-content { max-width: 800px; }
 
-.info-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 8px 0;
-}
+.info-section { display: flex; align-items: center; gap: 20px; padding: 8px 0; }
+.info-text h4 { margin: 0 0 8px 0; font-size: 16px; color: #1e293b; }
+.info-text p { margin: 0; color: #64748b; line-height: 1.7; font-size: 14px; }
 
-.info-text h4 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  color: #303133;
-}
+.action-section { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.hint { color: #94a3b8; font-size: 13px; }
 
-.info-text p {
-  margin: 0;
-  color: #666;
-  line-height: 1.7;
-  font-size: 14px;
-}
-
-.action-section {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.hint {
-  color: #999;
-  font-size: 13px;
-}
-
-.result-box {
-  margin-top: 24px;
-}
-
+.result-box { margin-top: 24px; }
 .result-details {
-  background: #f0f9ff;
-  padding: 20px 24px;
-  border-radius: 8px;
-  margin-top: 12px;
-  border: 1px solid #d9ecff;
+  background: #f8fafc; padding: 24px; border-radius: 14px;
+  margin-top: 16px; border: 1px solid #e2e8f0;
 }
+.detail-item { text-align: center; padding: 8px 0; }
+.detail-value { display: block; font-size: 28px; font-weight: 700; color: #409eff; }
+.detail-label { display: block; font-size: 13px; color: #94a3b8; margin-top: 4px; }
 
-.detail-item {
-  text-align: center;
-  padding: 12px 0;
-}
-
-.detail-value {
-  display: block;
-  font-size: 28px;
-  font-weight: 700;
-  color: #409eff;
-}
-
-.detail-label {
-  display: block;
-  font-size: 13px;
-  color: #909399;
-  margin-top: 4px;
-}
+.recs-page :deep(.el-card) { border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 </style>

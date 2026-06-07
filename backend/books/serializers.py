@@ -3,15 +3,12 @@ from .models import Book, Category, BookStats
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    book_count = serializers.SerializerMethodField()
+    book_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Category
         fields = ('id', 'name', 'book_count', 'created_at')
         read_only_fields = ('id', 'created_at')
-
-    def get_book_count(self, obj):
-        return obj.books.count()
 
 
 class BookStatsSerializer(serializers.ModelSerializer):

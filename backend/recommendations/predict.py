@@ -24,14 +24,15 @@ def get_recommendations(user_id, n=12):
         Rating.objects.filter(user_id=user_id).values_list('book_id', flat=True)
     )
 
-    # Get all books the user hasn't rated
-    all_books = Book.objects.exclude(id__in=rated_book_ids)
-    if not all_books.exists():
+    # Get unrated books — limit to 200 most recent to avoid timeout on large catalogs
+    candidate_books = Book.objects.exclude(id__in=rated_book_ids)\
+        .order_by('-created_at')[:200]
+    if not candidate_books.exists():
         return []
 
-    # Predict ratings for unrated books
+    # Predict ratings for unrated candidate books
     predictions = []
-    for book in all_books:
+    for book in candidate_books:
         try:
             pred = algo.predict(uid=user_id, iid=book.id)
             predictions.append((book.id, pred.est))

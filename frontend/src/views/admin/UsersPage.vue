@@ -120,9 +120,10 @@ onMounted(fetchUsers)
 
 <style scoped>
 .card-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-h3 { margin:0; }
+h3 { margin:0; font-weight:600; color:#1e293b; font-size:17px; }
 .header-actions { display:flex; gap:12px; align-items:center; }
 .action-btns { display:flex; gap:6px; }
 .empty-state { padding:40px 0; }
 .pagination-bar { display:flex; justify-content:center; margin-top:20px; }
+.users-page :deep(.el-card) { border-radius:16px; border:none; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
 </style>

@@ -98,6 +98,22 @@
           <p v-if="r.review" class="review-text">{{ r.review }}</p>
         </div>
       </div>
+
+      <!-- You Might Also Like -->
+      <div class="recommended-section" v-if="recBooks.length">
+        <h2>You Might Also Like</h2>
+        <p class="rec-subtitle">Powered by KNN collaborative filtering</p>
+        <div class="rec-grid">
+          <div v-for="rb in recBooks" :key="rb.id" class="rec-card" @click="$router.push(`/books/${rb.id}`)">
+            <img :src="rb.cover_url" :alt="rb.title" @error="e => e.target.src='https://picsum.photos/seed/default/200/300'" />
+            <div class="rec-info">
+              <h4>{{ rb.title }}</h4>
+              <span>{{ rb.author }}</span>
+              <strong>${{ rb.price }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-else class="error-box">
@@ -110,7 +126,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { getBookDetail, addFavorite, removeFavorite, addToCart, createOrder, getBookDownload, getFavorites, rateBook, getBookReviews } from '../api/endpoints'
+import { getBookDetail, addFavorite, removeFavorite, addToCart, createOrder, getBookDownload, getFavorites, rateBook, getBookReviews, getRecommendBooks } from '../api/endpoints'
 import { useAuthStore } from '../store/auth'
 
 const route = useRoute()
@@ -129,6 +145,7 @@ const userReview = ref('')
 const reviews = ref([])
 const hasSubmitted = ref(false)
 const submitting = ref(false)
+const recBooks = ref([])
 
 const submitHint = computed(() => {
   if (userRating.value === 0) return 'Select a star rating to begin'
@@ -278,12 +295,20 @@ async function handleSubmitReview() {
   submitting.value = false
 }
 
+async function fetchRecommended() {
+  try {
+    const res = await getRecommendBooks()
+    recBooks.value = (res.data || []).filter(b => b.id !== Number(route.params.id)).slice(0, 4)
+  } catch (e) {}
+}
+
 onMounted(() => {
   fetchBook().then(() => {
     if (book.value) {
       checkFavorite()
       checkPurchased()
       fetchReviews()
+      fetchRecommended()
     }
   })
 })
@@ -334,7 +359,30 @@ onMounted(() => {
 
 .error-box { padding: 100px; text-align: center; }
 
+.recommended-section {
+  margin-top: 40px; padding-top: 32px;
+  border-top: 2px solid #ebeef5;
+}
+.recommended-section h2 { font-size: 20px; margin-bottom: 4px; }
+.rec-subtitle { font-size: 13px; color: #94a3b8; margin: 0 0 20px; }
+.rec-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.rec-card {
+  cursor: pointer; border-radius: 12px; overflow: hidden;
+  background: #fff; border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.rec-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+.rec-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #f1f5f9; }
+.rec-info { padding: 12px; }
+.rec-info h4 { font-size: 13px; font-weight: 600; color: #1e293b; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-info span { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-info strong { font-size: 14px; font-weight: 700; color: #1e293b; }
+
 @media (max-width: 768px) {
   .book-info { flex-direction: column; align-items: center; }
+  .rec-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>

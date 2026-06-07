@@ -56,7 +56,7 @@ class CartViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['post'])
     def checkout(self, request):
-        cart_items = CartItem.objects.filter(user=request.user)
+        cart_items = CartItem.objects.select_related('book').filter(user=request.user)
         if not cart_items.exists():
             return Response({'error': 'Cart is empty'}, status=status.HTTP_400_BAD_REQUEST)
 

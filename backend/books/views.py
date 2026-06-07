@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.utils import timezone
 from datetime import timedelta
 from rest_framework import viewsets, permissions, status, generics, filters
@@ -28,7 +28,7 @@ class BookViewSet(viewsets.ModelViewSet):
         return [permissions.AllowAny()]
 
     def get_queryset(self):
-        qs = Book.objects.all().order_by('-created_at')
+        qs = Book.objects.select_related('category').all().order_by('-created_at')
         category_id = self.request.query_params.get('category')
         if category_id:
             qs = qs.filter(category_id=category_id)
@@ -52,7 +52,7 @@ class BookViewSet(viewsets.ModelViewSet):
             qs = qs.filter(updated_at__gte=timezone.now() - timedelta(days=7))
         qs = qs.order_by('-hot_score')[:20]
         book_ids = qs.values_list('book_id', flat=True)
-        books = Book.objects.filter(id__in=list(book_ids))
+        books = Book.objects.select_related('category').filter(id__in=list(book_ids))
         books_dict = {b.id: b for b in books}
         books_ordered = [books_dict[bid] for bid in book_ids if bid in books_dict]
         serializer = BookListSerializer(books_ordered, many=True)
@@ -60,28 +60,28 @@ class BookViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def new(self, request):
-        books = Book.objects.all().order_by('-created_at')[:20]
+        books = Book.objects.select_related('category').all().order_by('-created_at')[:20]
         serializer = BookListSerializer(books, many=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'])
     def recommend(self, request):
         if not request.user.is_authenticated:
-            books = Book.objects.all().order_by('?')[:12]
+            books = Book.objects.select_related('category').all().order_by('?')[:12]
             serializer = BookListSerializer(books, many=True)
             return Response(serializer.data)
         try:
             from recommendations.predict import get_recommendations
             rec_ids = get_recommendations(request.user.id, 12)
             if rec_ids:
-                books = Book.objects.filter(id__in=rec_ids)
+                books = Book.objects.select_related('category').filter(id__in=rec_ids)
                 books_dict = {b.id: b for b in books}
                 books_ordered = [books_dict[bid] for bid in rec_ids if bid in books_dict]
                 serializer = BookListSerializer(books_ordered, many=True)
                 return Response(serializer.data)
         except Exception:
             pass
-        books = Book.objects.all().order_by('?')[:12]
+        books = Book.objects.select_related('category').all().order_by('?')[:12]
         serializer = BookListSerializer(books, many=True)
         return Response(serializer.data)
 
@@ -121,7 +121,7 @@ class BookViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.annotate(book_count=Count('books')).all()
     serializer_class = CategorySerializer
     pagination_class = None  # Return all categories without pagination
 

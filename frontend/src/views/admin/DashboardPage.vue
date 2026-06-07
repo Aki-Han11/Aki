@@ -87,97 +87,34 @@ onMounted(async () => {
     const res = await adminGetStats()
     stats.value = res.data
   } catch (e) {
-    console.error('Failed to fetch dashboard stats:', e)
+    stats.value = {}
   }
 })
 </script>
 
 <style scoped>
-.dashboard {
-  max-width: 1400px;
-}
+.dashboard { max-width: 1400px; }
 
-.stat-cards {
-  margin-bottom: 0;
-}
-
-.stat-col {
-  margin-bottom: 20px;
-}
-
-.stat-card {
-  height: 100%;
-}
-
-.stat-card :deep(.el-card__body) {
-  padding: 20px 16px;
-}
-
-.stat-inner {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
+.stat-cards { margin-bottom: 0; }
+.stat-col { margin-bottom: 20px; }
+.stat-card { border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); height: 100%; }
+.stat-card :deep(.el-card__body) { padding: 24px 20px; }
+.stat-inner { display: flex; align-items: center; gap: 18px; }
 .stat-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #fff;
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff;
 }
+.stat-icon.users { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.stat-icon.books { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+.stat-icon.orders { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.stat-icon.revenue { background: linear-gradient(135deg, #10b981, #14b8a6); }
+.stat-body { flex: 1; min-width: 0; }
+.stat-value { font-size: 26px; font-weight: 700; color: #1e293b; line-height: 1.2; }
+.stat-label { font-size: 13px; color: #94a3b8; margin-top: 2px; }
 
-.stat-icon.users { background: linear-gradient(135deg, #667eea, #764ba2); }
-.stat-icon.books { background: linear-gradient(135deg, #f093fb, #f5576c); }
-.stat-icon.orders { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-.stat-icon.revenue { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-
-.stat-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.stat-value {
-  font-size: 24px;
-  font-weight: 700;
-  color: #303133;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.stat-label {
-  font-size: 13px;
-  color: #909399;
-  margin-top: 4px;
-}
-
-.top-books {
-  margin-top: 4px;
-}
-
-.top-books-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.top-books-header h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.top-books-count {
-  font-size: 13px;
-  color: #909399;
-}
-
-.price-cell {
-  font-weight: 600;
-  color: #409eff;
-}
+.top-books { margin-top: 4px; border-radius: 16px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+.top-books-header { display: flex; align-items: center; justify-content: space-between; }
+.top-books-header h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1e293b; }
+.top-books-count { font-size: 13px; color: #94a3b8; background: #f1f5f9; padding: 2px 10px; border-radius: 12px; }
+.price-cell { font-weight: 600; color: #1e293b; }
 </style>
