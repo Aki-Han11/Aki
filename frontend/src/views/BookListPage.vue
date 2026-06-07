@@ -14,7 +14,7 @@
         @keyup.enter="doSearch"
         style="max-width: 400px"
       />
-      <el-select v-model="selectedCategory" placeholder="All Categories" clearable @change="fetchBooks" style="width: 220px">
+      <el-select v-model="selectedCategory" placeholder="All Categories" clearable @change="onCategoryChange" style="width: 220px">
         <el-option
           v-for="cat in categories"
           :key="cat.id"
@@ -22,6 +22,21 @@
           :value="cat.id"
         />
       </el-select>
+    </div>
+
+    <!-- Category Tags -->
+    <div class="category-tags" v-if="categories.length">
+      <el-tag
+        v-for="cat in categories.slice(0, 24)"
+        :key="cat.id"
+        :type="selectedCategory == cat.id ? 'primary' : 'info'"
+        :effect="selectedCategory == cat.id ? 'dark' : 'plain'"
+        size="large"
+        class="cat-tag"
+        @click="toggleCategory(cat.id)"
+      >
+        {{ cat.name }}
+      </el-tag>
     </div>
 
     <BookGrid :books="books" :loading="loading" />
@@ -83,6 +98,17 @@ function doSearch() {
   fetchBooks()
 }
 
+function onCategoryChange() {
+  page.value = 1
+  fetchBooks()
+}
+
+function toggleCategory(catId) {
+  selectedCategory.value = selectedCategory.value == catId ? '' : catId
+  page.value = 1
+  fetchBooks()
+}
+
 onMounted(() => {
   fetchCategories()
   fetchBooks()
@@ -107,8 +133,24 @@ onMounted(() => {
 .filters {
   display: flex;
   gap: 12px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
+}
+
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.cat-tag {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cat-tag:hover {
+  transform: translateY(-1px);
 }
 
 .pagination {

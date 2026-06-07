@@ -7,6 +7,25 @@
       <el-button type="primary" size="large" @click="$router.push('/books')">Browse All Books</el-button>
     </div>
 
+    <!-- Browse by Category -->
+    <section class="section" v-if="categories.length">
+      <div class="section-header">
+        <h2><el-icon><Collection /></el-icon> Browse by Category</h2>
+        <el-button text @click="$router.push('/books')">All Categories <el-icon><ArrowRight /></el-icon></el-button>
+      </div>
+      <div class="category-grid">
+        <div
+          v-for="cat in categories"
+          :key="cat.id"
+          class="category-card"
+          @click="$router.push({ path: '/books', query: { category: cat.id } })"
+        >
+          <span class="cat-name">{{ cat.name }}</span>
+          <span class="cat-count">{{ cat.book_count }} books</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Hot Books -->
     <section class="section">
       <div class="section-header">
@@ -41,7 +60,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { getHotBooks, getNewBooks, getRecommendBooks } from '../api/endpoints'
+import { getHotBooks, getNewBooks, getRecommendBooks, getCategories } from '../api/endpoints'
 import { useAuthStore } from '../store/auth'
 import BookGrid from '../components/BookGrid.vue'
 
@@ -50,6 +69,7 @@ const auth = useAuthStore()
 const hotBooks = ref([])
 const newBooks = ref([])
 const recommendBooks = ref([])
+const categories = ref([])
 const hotPeriod = ref('all')
 const loadingHot = ref(false)
 const loadingNew = ref(false)
@@ -89,10 +109,18 @@ async function fetchRecommendBooks() {
   loadingRec.value = false
 }
 
+async function fetchCategories() {
+  try {
+    const res = await getCategories()
+    categories.value = res.data
+  } catch (e) { categories.value = [] }
+}
+
 onMounted(() => {
   fetchHotBooks()
   fetchNewBooks()
   fetchRecommendBooks()
+  fetchCategories()
 })
 </script>
 
@@ -137,5 +165,41 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   color: #303133;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.category-card {
+  background: #fff;
+  border: 1px solid #ebeef5;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-card:hover {
+  border-color: #409eff;
+  box-shadow: 0 2px 8px rgba(64, 158, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.cat-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #303133;
+}
+
+.cat-count {
+  font-size: 12px;
+  color: #999;
 }
 </style>
