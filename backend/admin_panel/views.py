@@ -8,6 +8,7 @@ from users.serializers import AdminUserSerializer
 from books.models import Book, Category, BookStats
 from books.serializers import BookAdminSerializer, CategorySerializer
 from orders.models import Order, OrderItem
+from ratings.models import Rating
 
 
 class IsAdmin(permissions.BasePermission):
@@ -95,3 +96,26 @@ class TrainRecommendationsView(generics.GenericAPIView):
             return Response(result)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AdminReviewViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdmin]
+    queryset = Rating.objects.select_related('user', 'book').all().order_by('-created_at')
+
+    def list(self, request, *args, **kwargs):
+        qs = self.get_queryset()
+        data = [{
+            'id': r.id,
+            'user': r.user.username,
+            'book_id': r.book.id,
+            'book_title': r.book.title,
+            'rating': r.rating,
+            'review': r.review,
+            'created_at': r.created_at,
+        } for r in qs]
+        return Response(data)
+
+    def destroy(self, request, *args, **kwargs):
+        review = self.get_object()
+        review.delete()
+        return Response({'message': 'Review deleted'}, status=status.HTTP_200_OK)

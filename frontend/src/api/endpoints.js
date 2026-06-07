@@ -41,7 +41,8 @@ export const cancelOrder = (id) => api.put(`/orders/${id}/cancel/`)
 export const getDownloads = () => api.get('/downloads/')
 
 // Ratings
-export const rateBook = (bookId, rating) => api.post('/ratings/', { book_id: bookId, rating })
+export const rateBook = (bookId, rating, review = '') => api.post('/ratings/', { book_id: bookId, rating, review })
+export const getBookReviews = (bookId) => api.get(`/books/${bookId}/reviews/`)
 
 // Admin
 export const adminGetUsers = (params) => api.get('/admin/users/', { params })
@@ -61,3 +62,6 @@ export const adminDeleteCategory = (id) => api.delete(`/admin/categories/${id}/`
 
 export const adminGetStats = () => api.get('/admin/stats/')
 export const adminTrainRecommendations = () => api.post('/admin/train-recommendations/')
+
+export const adminGetReviews = (params) => api.get('/admin/reviews/', { params })
+export const adminDeleteReview = (id) => api.delete(`/admin/reviews/${id}/`)

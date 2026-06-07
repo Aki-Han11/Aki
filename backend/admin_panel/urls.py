@@ -6,6 +6,7 @@ router = DefaultRouter()
 router.register(r'users', views.AdminUserViewSet, basename='admin-users')
 router.register(r'books', views.AdminBookViewSet, basename='admin-books')
 router.register(r'categories', views.AdminCategoryViewSet, basename='admin-categories')
+router.register(r'reviews', views.AdminReviewViewSet, basename='admin-reviews')
 
 urlpatterns = [
     path('', include(router.urls)),

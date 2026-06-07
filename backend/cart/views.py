@@ -8,6 +8,16 @@ from books.models import Book
 from orders.models import Order, OrderItem
 
 
+def _has_purchased(user, book):
+    """Check if a user has already purchased a book (paid or completed order)."""
+    from orders.models import Order
+    return Order.objects.filter(
+        user=user,
+        status__in=['paid', 'completed'],
+        items__book=book
+    ).exists()
+
+
 class CartViewSet(viewsets.ModelViewSet):
     serializer_class = CartItemSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -25,6 +35,13 @@ class CartViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         book = serializer.validated_data['book']
         quantity = serializer.validated_data.get('quantity', 1)
+
+        if _has_purchased(request.user, book):
+            return Response(
+                {'error': 'You have already purchased this book.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         cart_item, created = CartItem.objects.get_or_create(
             user=request.user, book=book,
             defaults={'quantity': quantity}

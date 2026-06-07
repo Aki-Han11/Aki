@@ -36,6 +36,10 @@
             <el-icon><MagicStick /></el-icon>
             <span>Recommendations</span>
           </el-menu-item>
+          <el-menu-item index="/admin/reviews">
+            <el-icon><ChatLineSquare /></el-icon>
+            <span>Reviews</span>
+          </el-menu-item>
         </el-menu>
         <div class="admin-sidebar-footer">
           <el-button type="info" plain size="small" @click="$router.push('/')">
@@ -78,6 +82,7 @@ const pageTitle = computed(() => {
     '/admin/books': 'Book Management',
     '/admin/categories': 'Category Management',
     '/admin/recommendations': 'Recommendation Management',
+    '/admin/reviews': 'Review Management',
   }
   return titles[route.path] || 'Admin Panel'
 })

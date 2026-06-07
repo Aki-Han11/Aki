@@ -28,8 +28,11 @@
           </div>
 
           <div class="actions">
-            <el-button type="primary" size="large" @click="handleBuy" :loading="buying">Buy Now</el-button>
-            <el-button size="large" @click="handleAddToCart" :loading="addingCart">Add to Cart</el-button>
+            <template v-if="!purchased">
+              <el-button type="primary" size="large" @click="handleBuy" :loading="buying">Buy Now</el-button>
+              <el-button size="large" @click="handleAddToCart" :loading="addingCart">Add to Cart</el-button>
+            </template>
+            <el-tag v-else type="success" size="large">Purchased</el-tag>
             <el-button size="large" @click="handleFavorite" :loading="faving" :type="isFaved ? 'warning' : 'default'">
               <el-icon><StarFilled v-if="isFaved" /><Star v-else /></el-icon>
               {{ isFaved ? 'Favorited' : 'Favorite' }}
@@ -49,10 +52,35 @@
         <p>{{ book.description || 'No description available.' }}</p>
       </div>
 
-      <!-- Rating -->
-      <div class="rating-section" v-if="auth.isLoggedIn">
-        <h2>Rate This Book</h2>
-        <el-rate v-model="userRating" @change="handleRate" :texts="['Poor', 'Fair', 'Good', 'Great', 'Excellent']" show-text />
+      <!-- Rating & Review (purchased users only) -->
+      <div class="review-section" v-if="purchased">
+        <h2>Your Review</h2>
+        <div class="rating-input">
+          <el-rate v-model="userRating" @change="handleRate" :texts="['Poor', 'Fair', 'Good', 'Great', 'Excellent']" show-text />
+        </div>
+        <el-input
+          v-model="userReview"
+          type="textarea"
+          :rows="3"
+          placeholder="Write your review..."
+          @blur="handleReviewSubmit"
+        />
+      </div>
+
+      <!-- All Reviews -->
+      <div class="reviews-list">
+        <h2>Reviews ({{ reviews.length }})</h2>
+        <div v-if="reviews.length === 0" class="no-reviews">
+          <el-empty description="No reviews yet" :image-size="80" />
+        </div>
+        <div v-for="r in reviews" :key="r.id" class="review-item">
+          <div class="review-header">
+            <span class="review-user">{{ r.user }}</span>
+            <el-rate :model-value="r.rating" disabled show-score text-color="#ff9900" />
+            <span class="review-date">{{ new Date(r.created_at).toLocaleDateString() }}</span>
+          </div>
+          <p v-if="r.review" class="review-text">{{ r.review }}</p>
+        </div>
       </div>
     </div>
 
@@ -66,7 +94,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
-import { getBookDetail, addFavorite, removeFavorite, addToCart, createOrder, getBookDownload, getFavorites, rateBook } from '../api/endpoints'
+import { getBookDetail, addFavorite, removeFavorite, addToCart, createOrder, getBookDownload, getFavorites, rateBook, getBookReviews } from '../api/endpoints'
 import { useAuthStore } from '../store/auth'
 
 const route = useRoute()
@@ -81,6 +109,8 @@ const addingCart = ref(false)
 const faving = ref(false)
 const downloading = ref(false)
 const userRating = ref(0)
+const userReview = ref('')
+const reviews = ref([])
 
 function onImgError(e) {
   e.target.src = 'https://picsum.photos/seed/default/200/300'
@@ -97,6 +127,21 @@ async function fetchBook() {
   loading.value = false
 }
 
+async function fetchReviews() {
+  try {
+    const res = await getBookReviews(route.params.id)
+    reviews.value = res.data
+    // Check if current user already rated/reviewed
+    if (auth.isLoggedIn) {
+      const myReview = res.data.find(r => r.user === auth.user?.username)
+      if (myReview) {
+        userRating.value = myReview.rating
+        userReview.value = myReview.review || ''
+      }
+    }
+  } catch (e) {}
+}
+
 async function checkFavorite() {
   if (!auth.isLoggedIn) return
   try {
@@ -111,7 +156,6 @@ async function checkPurchased() {
     const { getOrders } = await import('../api/endpoints')
     const res = await getOrders()
     const paidOrders = res.data.results ? res.data.results.filter(o => o.status === 'paid' || o.status === 'completed') : res.data.filter(o => o.status === 'paid' || o.status === 'completed')
-    // Simple check - if user has any paid order, they might have this book
     for (const order of paidOrders) {
       const { getOrderDetail } = await import('../api/endpoints')
       const detail = await getOrderDetail(order.id)
@@ -134,9 +178,7 @@ async function handleFavorite() {
       const { getFavorites } = await import('../api/endpoints')
       const res = await getFavorites()
       const fav = (res.data.results || res.data).find(f => f.book.id === book.value.id)
-      if (fav) {
-        await removeFavorite(fav.id)
-      }
+      if (fav) await removeFavorite(fav.id)
       isFaved.value = false
       ElMessage.success('Removed from favorites')
     } else {
@@ -160,7 +202,7 @@ async function handleAddToCart() {
     await addToCart(book.value.id)
     ElMessage.success('Added to cart')
   } catch (e) {
-    ElMessage.error('Failed to add to cart')
+    ElMessage.error(e.response?.data?.error || 'Failed to add to cart')
   }
   addingCart.value = false
 }
@@ -173,10 +215,9 @@ async function handleBuy() {
   buying.value = true
   try {
     const res = await createOrder(book.value.id)
-    // Auto-pay for demo
     await import('../api/endpoints').then(m => m.payOrder(res.data.id))
     purchased.value = true
-    ElMessage.success('Purchase successful! You can now download this book.')
+    ElMessage.success('Purchase successful! You can now rate and review this book.')
   } catch (e) {
     ElMessage.error('Purchase failed')
   }
@@ -199,10 +240,22 @@ async function handleDownload() {
 
 async function handleRate(val) {
   try {
-    await rateBook(book.value.id, val)
+    await rateBook(book.value.id, val, userReview.value)
     ElMessage.success('Rating submitted!')
+    fetchReviews()
   } catch (e) {
-    ElMessage.error('Failed to submit rating')
+    ElMessage.error(e.response?.data?.error || 'Failed to submit rating')
+  }
+}
+
+async function handleReviewSubmit() {
+  if (!userReview.value.trim()) return
+  try {
+    await rateBook(book.value.id, userRating.value || 5, userReview.value)
+    ElMessage.success('Review submitted!')
+    fetchReviews()
+  } catch (e) {
+    ElMessage.error(e.response?.data?.error || 'Failed to submit review')
   }
 }
 
@@ -211,128 +264,48 @@ onMounted(() => {
     if (book.value) {
       checkFavorite()
       checkPurchased()
+      fetchReviews()
     }
   })
 })
 </script>
 
 <style scoped>
-.book-detail-page {
-  max-width: 1000px;
-  margin: 0 auto;
-}
+.book-detail-page { max-width: 1000px; margin: 0 auto; }
+.loading-box { padding: 40px; }
+.book-info { display: flex; gap: 32px; margin-bottom: 40px; }
+.cover-section { flex-shrink: 0; }
+.book-cover { width: 260px; height: 370px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+.info-section { flex: 1; }
+.info-section h1 { font-size: 28px; margin-bottom: 8px; }
+.author { color: #666; font-size: 16px; margin-bottom: 16px; }
+.tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.price-box { margin: 24px 0; }
+.price { font-size: 32px; color: #f56c6c; font-weight: 700; }
+.stats-row { display: flex; gap: 20px; color: #999; margin-bottom: 20px; }
+.stats-row span { display: flex; align-items: center; gap: 4px; }
+.actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.download-box { margin-top: 16px; }
+.description-section { margin-bottom: 40px; }
+.description-section h2 { font-size: 20px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #ebeef5; }
+.description-section p { line-height: 1.8; color: #606266; }
 
-.loading-box {
-  padding: 40px;
-}
+.review-section { margin-bottom: 30px; }
+.review-section h2 { font-size: 20px; margin-bottom: 12px; }
+.rating-input { margin-bottom: 12px; }
 
-.book-info {
-  display: flex;
-  gap: 32px;
-  margin-bottom: 40px;
-}
+.reviews-list h2 { font-size: 20px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #ebeef5; }
+.no-reviews { padding: 20px 0; }
+.review-item { padding: 16px 0; border-bottom: 1px solid #f0f0f0; }
+.review-item:last-child { border-bottom: none; }
+.review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.review-user { font-weight: 600; color: #303133; }
+.review-date { color: #999; font-size: 13px; margin-left: auto; }
+.review-text { color: #606266; line-height: 1.6; margin: 0; }
 
-.cover-section {
-  flex-shrink: 0;
-}
-
-.book-cover {
-  width: 260px;
-  height: 370px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-}
-
-.info-section {
-  flex: 1;
-}
-
-.info-section h1 {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-
-.author {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 16px;
-}
-
-.tags {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.price-box {
-  margin: 24px 0;
-}
-
-.price {
-  font-size: 32px;
-  color: #f56c6c;
-  font-weight: 700;
-}
-
-.stats-row {
-  display: flex;
-  gap: 20px;
-  color: #999;
-  margin-bottom: 20px;
-}
-
-.stats-row span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.download-box {
-  margin-top: 16px;
-}
-
-.description-section {
-  margin-bottom: 40px;
-}
-
-.description-section h2 {
-  font-size: 20px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #ebeef5;
-}
-
-.description-section p {
-  line-height: 1.8;
-  color: #606266;
-}
-
-.rating-section {
-  margin-bottom: 40px;
-}
-
-.rating-section h2 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-.error-box {
-  padding: 100px;
-  text-align: center;
-}
+.error-box { padding: 100px; text-align: center; }
 
 @media (max-width: 768px) {
-  .book-info {
-    flex-direction: column;
-    align-items: center;
-  }
+  .book-info { flex-direction: column; align-items: center; }
 }
 </style>

@@ -29,6 +29,7 @@ const routes = [
       { path: 'books', name: 'AdminBooks', component: () => import('../views/admin/BooksPage.vue') },
       { path: 'categories', name: 'AdminCategories', component: () => import('../views/admin/CategoriesPage.vue') },
       { path: 'recommendations', name: 'AdminRecommendations', component: () => import('../views/admin/RecommendationsPage.vue') },
+      { path: 'reviews', name: 'AdminReviews', component: () => import('../views/admin/ReviewsPage.vue') },
     ],
   },
 ]

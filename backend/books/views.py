@@ -86,6 +86,20 @@ class BookViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @action(detail=True, methods=['get'])
+    def reviews(self, request, pk=None):
+        book = self.get_object()
+        from ratings.models import Rating
+        ratings = Rating.objects.filter(book=book).select_related('user').order_by('-created_at')
+        data = [{
+            'id': r.id,
+            'user': r.user.username,
+            'rating': r.rating,
+            'review': r.review,
+            'created_at': r.created_at,
+        } for r in ratings]
+        return Response(data)
+
+    @action(detail=True, methods=['get'])
     def download(self, request, pk=None):
         if not request.user.is_authenticated:
             return Response({'error': 'Login required'}, status=status.HTTP_401_UNAUTHORIZED)
