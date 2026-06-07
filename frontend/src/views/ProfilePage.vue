@@ -1,43 +1,58 @@
 <template>
   <div class="profile-page">
     <h1>My Profile</h1>
-    <el-row :gutter="24">
-      <el-col :span="12">
-        <el-card>
-          <template #header><h3>Profile Info</h3></template>
-          <el-form :model="form" label-position="top">
-            <el-form-item label="Username">
-              <el-input v-model="form.username" disabled />
-            </el-form-item>
-            <el-form-item label="Email">
-              <el-input v-model="form.email" />
-            </el-form-item>
-            <el-form-item label="Avatar URL">
-              <el-input v-model="form.avatar" placeholder="Enter avatar URL" />
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" :loading="saving" @click="saveProfile">Save Changes</el-button>
-            </el-form-item>
-          </el-form>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card>
-          <template #header><h3>Change Password</h3></template>
-          <el-form :model="pwForm" ref="pwFormRef" label-position="top">
-            <el-form-item label="Current Password" prop="old_password">
-              <el-input v-model="pwForm.old_password" type="password" show-password />
-            </el-form-item>
-            <el-form-item label="New Password" prop="new_password">
-              <el-input v-model="pwForm.new_password" type="password" show-password />
-            </el-form-item>
-            <el-form-item>
-              <el-button :loading="changingPw" @click="changePassword">Change Password</el-button>
-            </el-form-item>
-          </el-form>
-        </el-card>
-      </el-col>
-    </el-row>
+
+    <!-- Profile Header — avatar + identity -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <img v-if="form.avatar" :src="form.avatar" alt="avatar" @error="e => e.target.style.display='none'" />
+        <span v-else class="avatar-placeholder">{{ (form.username || 'U')[0].toUpperCase() }}</span>
+      </div>
+      <div class="profile-identity">
+        <h2>{{ form.username }}</h2>
+        <p>{{ form.email }}</p>
+      </div>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="profile-section">
+      <h3>Profile Information</h3>
+      <div class="info-grid">
+        <div class="info-field">
+          <label>Username</label>
+          <el-input v-model="form.username" disabled />
+        </div>
+        <div class="info-field">
+          <label>Email</label>
+          <el-input v-model="form.email" placeholder="your@email.com" />
+        </div>
+        <div class="info-field">
+          <label>Avatar URL</label>
+          <el-input v-model="form.avatar" placeholder="https://..." />
+        </div>
+      </div>
+      <div class="section-action">
+        <el-button type="primary" :loading="saving" @click="saveProfile">Save Changes</el-button>
+      </div>
+    </div>
+
+    <!-- Change Password -->
+    <div class="profile-section">
+      <h3>Change Password</h3>
+      <div class="info-grid info-grid--two">
+        <div class="info-field">
+          <label>Current Password</label>
+          <el-input v-model="pwForm.old_password" type="password" show-password placeholder="Enter current password" />
+        </div>
+        <div class="info-field">
+          <label>New Password</label>
+          <el-input v-model="pwForm.new_password" type="password" show-password placeholder="At least 6 characters" />
+        </div>
+      </div>
+      <div class="section-action">
+        <el-button :loading="changingPw" @click="changePassword">Change Password</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -71,6 +86,10 @@ async function saveProfile() {
 }
 
 async function changePassword() {
+  if (!pwForm.old_password || !pwForm.new_password) {
+    ElMessage.warning('Please fill in both password fields')
+    return
+  }
   changingPw.value = true
   try {
     await changePwApi(pwForm)
@@ -85,7 +104,52 @@ async function changePassword() {
 </script>
 
 <style scoped>
-.profile-page { max-width: 900px; margin: 0 auto; padding: 0 32px; }
-h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
-h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1a1815; }
+.profile-page { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
+
+/* ── Profile Header — avatar + identity ── */
+.profile-header {
+  display: flex; align-items: center; gap: 24px;
+  padding-bottom: 32px; margin-bottom: 36px;
+  border-bottom: 1px solid #f2ede7;
+}
+.profile-avatar {
+  width: 88px; height: 88px; border-radius: 50%; overflow: hidden;
+  flex-shrink: 0; background: #f5f0e8;
+  display: flex; align-items: center; justify-content: center;
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar-placeholder {
+  font-size: 36px; font-weight: 700; color: #8b7e74;
+}
+.profile-identity h2 { font-size: 22px; font-weight: 700; color: #1a1815; margin: 0 0 4px; letter-spacing: -0.3px; }
+.profile-identity p { font-size: 14px; color: #a0988c; margin: 0; }
+
+/* ── Section ── */
+.profile-section {
+  margin-bottom: 40px;
+}
+.profile-section h3 {
+  font-size: 17px; font-weight: 600; color: #1a1815;
+  margin: 0 0 20px; padding-bottom: 12px;
+  border-bottom: 1px solid #f2ede7;
+}
+.info-grid {
+  display: grid; grid-template-columns: 1fr; gap: 18px;
+}
+.info-grid--two {
+  grid-template-columns: 1fr 1fr;
+}
+.info-field label {
+  display: block; font-size: 13px; font-weight: 500; color: #8b7e74;
+  margin-bottom: 6px;
+}
+.section-action { margin-top: 20px; }
+
+@media (max-width: 640px) {
+  .profile-page { padding: 0 16px; }
+  .info-grid--two { grid-template-columns: 1fr; }
+  .profile-header { gap: 16px; }
+  .profile-avatar { width: 64px; height: 64px; }
+}
 </style>
