@@ -10,24 +10,37 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.stdout.write('Seeding database...')
 
-        # Create admin user
-        if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser(
-                username='admin',
-                email='admin@ebook.com',
-                password='admin123',
-                role='admin'
-            )
+        # Create or fix admin user
+        admin, admin_created = User.objects.get_or_create(
+            username='admin',
+            defaults={'email': 'admin@ebook.com', 'role': 'admin'}
+        )
+        if admin_created:
+            admin.set_password('admin123')
+            admin.is_superuser = True
+            admin.is_staff = True
+            admin.save()
             self.stdout.write('Created admin user (admin / admin123)')
+        else:
+            updated = False
+            if not admin.is_superuser:
+                admin.is_superuser = True
+                updated = True
+            if admin.role != 'admin':
+                admin.role = 'admin'
+                updated = True
+            if updated:
+                admin.save()
+                self.stdout.write('Fixed admin user permissions')
 
-        # Create demo user
-        if not User.objects.filter(username='demo').exists():
-            User.objects.create_user(
-                username='demo',
-                email='demo@ebook.com',
-                password='demo123',
-                role='user'
-            )
+        # Create or fix demo user
+        demo, demo_created = User.objects.get_or_create(
+            username='demo',
+            defaults={'email': 'demo@ebook.com', 'role': 'user'}
+        )
+        if demo_created:
+            demo.set_password('demo123')
+            demo.save()
             self.stdout.write('Created demo user (demo / demo123)')
 
         # Create categories
