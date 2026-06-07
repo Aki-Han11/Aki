@@ -87,7 +87,7 @@ h1 { margin: 16px 0 28px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; }
 .price { color: #1a1815; font-weight: 700; font-size: 20px; }
 .item-list { display: flex; flex-direction: column; gap: 12px; }
-.item-row { display: flex; align-items: center; gap: 16px; padding: 14px 16px; background: #faf7f2; border-radius: 12px; }
+.item-row { display: flex; align-items: center; gap: 16px; padding: 14px 16px; background: #fdfaf6; border-radius: 12px; }
 .item-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 6px; }
 .item-info { flex: 1; }
 .item-info h4 { font-size: 15px; font-weight: 600; color: #1a1815; }

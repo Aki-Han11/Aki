@@ -105,15 +105,15 @@ onMounted(fetchBooks)
 .book-list { display: flex; flex-direction: column; gap: 16px; }
 .book-row {
   display: flex; align-items: flex-start; gap: 24px;
-  background: #fffdfa; border-radius: 18px; padding: 24px;
+  background: #fefdfc; border-radius: 18px; padding: 24px;
   cursor: pointer; transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: 1px solid #f0ece6;
+  border: 1px solid #f1ede7;
   box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
 }
 .book-row:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 36px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
-  border-color: #e0d8cc;
+  border-color: #e3dbd1;
 }
 .book-cover-wrap { flex-shrink: 0; }
 .book-cover-wrap img {

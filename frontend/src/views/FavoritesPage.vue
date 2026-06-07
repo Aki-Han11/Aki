@@ -56,12 +56,12 @@ h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .fav-list { display: flex; flex-direction: column; gap: 14px; }
 .fav-item {
   display: flex; align-items: center; gap: 18px;
-  background: #fffdfa; padding: 18px; border-radius: 16px;
-  border: 1px solid #f0ece6;
+  background: #fefdfc; padding: 18px; border-radius: 16px;
+  border: 1px solid #f1ede7;
   box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
   transition: all 0.25s ease;
 }
-.fav-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.04); border-color: #e0d8cc; }
+.fav-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.04); border-color: #e3dbd1; }
 .fav-cover { width: 65px; height: 92px; object-fit: cover; border-radius: 8px; cursor: pointer; }
 .fav-info { flex: 1; }
 .fav-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; margin-bottom: 4px; }

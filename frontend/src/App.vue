@@ -28,7 +28,7 @@ html, body, #app {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-  background: #faf7f2;
+  background: #fdfaf6;
   color: #3a322c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -48,10 +48,10 @@ a {
 
 /* Global Element Plus overrides — warm theme */
 .el-card {
-  background: #fffdfa !important;
-  border: 1px solid #f0ece6 !important;
+  background: #fefdfc !important;
+  border: 1px solid #f1ede7 !important;
   border-radius: 18px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.015), 0 1px 2px rgba(0,0,0,0.018) !important;
 }
 .el-button--primary {
   --el-button-bg-color: #2563eb;
@@ -68,6 +68,6 @@ a {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #d4c8b8; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #b8a898; }
+::-webkit-scrollbar-thumb { background: #d8cec2; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #beb2a4; }
 </style>

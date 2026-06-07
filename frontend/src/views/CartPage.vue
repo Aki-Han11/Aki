@@ -87,8 +87,8 @@ h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .cart-list { display: flex; flex-direction: column; gap: 14px; }
 .cart-item {
   display: flex; align-items: center; gap: 18px;
-  background: #fffdfa; padding: 18px; border-radius: 16px;
-  border: 1px solid #f0ece6;
+  background: #fefdfc; padding: 18px; border-radius: 16px;
+  border: 1px solid #f1ede7;
   box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
 }
 .cart-cover { width: 65px; height: 92px; object-fit: cover; border-radius: 8px; }
@@ -98,10 +98,10 @@ h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .cart-price { color: #1a1815; font-weight: 600; font-size: 16px; }
 .cart-qty { color: #8b7e74; font-size: 14px; }
 .cart-footer {
-  margin-top: 24px; padding: 22px 24px; background: #fffdfa;
+  margin-top: 24px; padding: 22px 24px; background: #fefdfc;
   border-radius: 16px; display: flex; align-items: center;
   justify-content: space-between;
-  border: 1px solid #f0ece6;
+  border: 1px solid #f1ede7;
   box-shadow: 0 1px 3px rgba(0,0,0,0.018);
 }
 .cart-total { font-size: 20px; color: #4a4038; }

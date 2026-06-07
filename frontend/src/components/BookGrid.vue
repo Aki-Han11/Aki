@@ -37,8 +37,8 @@ function onImgError(e) {
 
 <style scoped>
 .book-card {
-  background: #fffdfa;
-  border: 1px solid #f0ece6;
+  background: #fefdfc;
+  border: 1px solid #f1ede7;
   border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
@@ -49,10 +49,10 @@ function onImgError(e) {
 .book-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(0,0,0,0.06), 0 5px 14px rgba(0,0,0,0.03);
-  border-color: #e0d8cc;
+  border-color: #e3dbd1;
 }
 
-.book-card-cover { width: 100%; aspect-ratio: 2/3; overflow: hidden; background: #faf7f2; }
+.book-card-cover { width: 100%; aspect-ratio: 2/3; overflow: hidden; background: #fdfaf6; }
 .book-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .book-card-info { padding: 18px 16px; }
@@ -67,6 +67,6 @@ function onImgError(e) {
 }
 .book-bottom { display: flex; justify-content: space-between; align-items: center; }
 .book-price { font-size: 16px; color: #1a1815; font-weight: 700; }
-.book-tag { background: #f5f0e8 !important; border: 1px solid #e8e0d4 !important; color: #8b7e74 !important; }
+.book-tag { background: #f3efe8 !important; border: 1px solid #eae3d8 !important; color: #8b7e74 !important; }
 .loading-box { padding: 40px; }
 </style>

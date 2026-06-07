@@ -234,7 +234,7 @@ onMounted(async () => {
 :deep(.nav-user-btn) {
   color: #1a1815 !important;
   background: rgba(37,99,235,0.04) !important;
-  border: 1px solid #e8e0d4 !important;
+  border: 1px solid #eae3d8 !important;
 }
 :deep(.nav-user-btn:hover) {
   color: #2563eb !important;
@@ -256,7 +256,7 @@ onMounted(async () => {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column;
   overflow-x: hidden;
-  background: #fffdfa;
+  background: #fefdfc;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -370,15 +370,15 @@ onMounted(async () => {
 .stat span  { font-size: 12px; color: #a0988c; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 500; }
 .stat-divider {
   width: 1px; height: 36px;
-  background: #e8e0d4;
+  background: #eae3d8;
   flex-shrink: 0;
 }
 
 /* ═══ Zone 4 · Search — elegant pill ═══ */
 .hero-search { width: min(560px, 88vw); margin-bottom: 22px; }
 .hero-search-input :deep(.el-input__wrapper) {
-  background: #fffdfa;
-  border: 1px solid #e8e0d4;
+  background: #fefdfc;
+  border: 1px solid #eae3d8;
   border-radius: 40px; padding: 6px 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.022), 0 1px 2px rgba(0,0,0,0.018);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -456,10 +456,9 @@ onMounted(async () => {
   max-width: 1280px; margin: 0 auto; padding: 96px 28px;
 }
 .section-alt {
-  background: #faf7f2; max-width: none;
-  border-top: 1px solid #f0ece6;
-  border-bottom: 1px solid #f0ece6;
+  background: #fefcf9; max-width: none;
 }
+/* No borders — cards provide natural separation */
 .section-alt > * { max-width: 1280px; margin-left: auto; margin-right: auto; }
 .section-head {
   display: flex; justify-content: space-between; align-items: center;
@@ -489,8 +488,8 @@ onMounted(async () => {
   gap: 24px;
 }
 .discovery-card {
-  background: #fffdfa;
-  border: 1px solid #f0ece6;
+  background: #fefdfc;
+  border: 1px solid #f1ede7;
   border-radius: 18px;
   padding: 40px 32px; text-align: center;
   box-shadow: 0 1px 2px rgba(0,0,0,0.02);
@@ -499,7 +498,7 @@ onMounted(async () => {
 .discovery-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.05), 0 3px 8px rgba(0,0,0,0.025);
-  border-color: #e0d8cc;
+  border-color: #e3dbd1;
 }
 .discovery-icon {
   width: 68px; height: 68px; border-radius: 18px;
@@ -521,7 +520,7 @@ onMounted(async () => {
 }
 .book-card {
   cursor: pointer; border-radius: 18px;
-  background: #fffdfa; border: 1px solid #f0ece6;
+  background: #fefdfc; border: 1px solid #f1ede7;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -529,11 +528,11 @@ onMounted(async () => {
 .book-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 18px 40px rgba(0,0,0,0.06), 0 5px 14px rgba(0,0,0,0.03);
-  border-color: #e0d8cc;
+  border-color: #e3dbd1;
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
-  background: #faf7f2;
+  background: #fdfaf6;
 }
 .book-card-info { padding: 18px 16px; }
 .book-card-info h4 {
@@ -550,12 +549,12 @@ onMounted(async () => {
 .landing-footer { margin-top: auto; background: #1d1a1c; color: #bfb8b0; padding: 64px 28px 36px; }
 .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 72px; flex-wrap: wrap; margin-bottom: 44px; }
 .footer-brand { max-width: 340px; }
-.footer-brand h3 { color: #f5f0e8; font-size: 20px; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.2px; }
+.footer-brand h3 { color: #f3efe8; font-size: 20px; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.2px; }
 .footer-brand p { color: #a0988c; font-size: 14px; line-height: 1.65; margin: 0; }
 .footer-links { display: flex; gap: 72px; }
-.footer-col h4 { color: #f5f0e8; font-size: 13px; font-weight: 600; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.8px; }
+.footer-col h4 { color: #f3efe8; font-size: 13px; font-weight: 600; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.8px; }
 .footer-col a { display: block; color: #a0988c; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; }
-.footer-col a:hover { color: #f5f0e8; }
+.footer-col a:hover { color: #f3efe8; }
 .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
 .footer-bottom p { color: #7a7268; font-size: 13px; margin: 0; }
 
