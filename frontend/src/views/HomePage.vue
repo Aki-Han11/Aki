@@ -200,7 +200,11 @@ onMounted(async () => {
 
 <style scoped>
 /* ── Reset ── */
-.landing { width: 100%; overflow-x: hidden; }
+.landing {
+  width: 100%; min-height: 100vh;
+  display: flex; flex-direction: column;
+  overflow-x: hidden;
+}
 
 /* ── Hero ── */
 .hero {
@@ -208,6 +212,7 @@ onMounted(async () => {
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(170deg, #070b1a 0%, #0c1530 35%, #0f1d3a 65%, #080d1f 100%);
   position: relative; overflow: hidden;
+  flex-shrink: 0;
 }
 .hero-glow {
   position: absolute; top: -200px; right: -150px;
@@ -349,7 +354,7 @@ onMounted(async () => {
 .cat-count { font-size: 12px; color: #94a3b8; }
 
 /* ── Footer ── */
-.landing-footer { background: #0f172a; color: #cbd5e1; padding: 56px 24px 28px; }
+.landing-footer { margin-top: auto; background: #0f172a; color: #cbd5e1; padding: 56px 24px 28px; }
 .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 64px; flex-wrap: wrap; margin-bottom: 40px; }
 .footer-brand { max-width: 320px; }
 .footer-brand h3 { color: #fff; font-size: 20px; margin: 0 0 8px; }
