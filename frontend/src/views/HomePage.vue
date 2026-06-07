@@ -17,12 +17,6 @@
       <div class="hero-pattern"></div>
 
       <div class="hero-content">
-        <!-- Top badge -->
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          Digital Bookstore
-        </div>
-
         <h1>
           <span class="hero-line-1">Discover Books</span>
           <span class="hero-line-2">You'll <em>Love</em></span>
@@ -52,6 +46,14 @@
           <el-button type="primary" size="large" class="btn-primary-hero" @click="$router.push('/books')">Browse Books</el-button>
           <el-button size="large" class="btn-outline-hero" @click="scrollToPopular">Popular Books</el-button>
         </div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="hero-scroll-hint" @click="scrollToDiscovery">
+        <span>Explore the Store</span>
+        <svg class="scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
       </div>
 
       <!-- Bottom fade transition -->
@@ -270,14 +272,19 @@ onMounted(async () => {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Hero — "Air & Light"
-   macOS / Linear / Vercel inspired: floating geometry, glass, depth
-   Pure white base · subtle blue-violet depth · refined rhythm
+   Hero — "Depth & Light"
+   Subtle blue-gray gradient base · bold floating geometry
+   Glass search · scroll hint · pure white fade-out
    ══════════════════════════════════════════════════════════════ */
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  background: #ffffff;
+  /* Subtle blue-tinted gradient — like macOS System Settings */
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(219,234,254,0.40) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 45% at 85% 20%, rgba(224,231,255,0.30) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 15% 75%, rgba(236,240,255,0.30) 0%, transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #ffffff 30%, #fafafa 70%, #ffffff 100%);
   position: relative; overflow: hidden; isolation: isolate;
   flex-shrink: 0;
 }
@@ -286,87 +293,102 @@ onMounted(async () => {
 .hero-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .hero-shape {
   position: absolute; border-radius: 50%;
-  opacity: 0.6;
-  animation: floatShape 20s ease-in-out infinite;
+  filter: blur(60px);
+  animation: floatShape 18s ease-in-out infinite;
 }
 .shape-1 {
-  width: 620px; height: 620px;
-  top: -18%; right: -10%;
-  background: radial-gradient(circle at 50% 50%, rgba(59,130,246,0.06) 0%, rgba(99,102,241,0.03) 35%, transparent 70%);
+  width: 720px; height: 720px;
+  top: -20%; right: -12%;
+  background: radial-gradient(circle at 55% 45%,
+    rgba(59,130,246,0.12) 0%,
+    rgba(99,102,241,0.07) 30%,
+    rgba(147,51,234,0.03) 60%,
+    transparent 75%);
   animation-delay: 0s;
 }
 .shape-2 {
-  width: 480px; height: 480px;
-  bottom: -15%; left: -6%;
-  background: radial-gradient(circle at 50% 50%, rgba(139,92,246,0.05) 0%, rgba(236,72,153,0.02) 40%, transparent 70%);
+  width: 560px; height: 560px;
+  bottom: -18%; left: -8%;
+  background: radial-gradient(circle at 45% 55%,
+    rgba(139,92,246,0.11) 0%,
+    rgba(79,70,229,0.06) 35%,
+    rgba(236,72,153,0.03) 60%,
+    transparent 75%);
   animation-delay: -6s;
+  animation-duration: 22s;
 }
 .shape-3 {
-  width: 300px; height: 300px;
-  top: 35%; right: 18%;
-  background: radial-gradient(circle at 50% 50%, rgba(168,85,247,0.04) 0%, rgba(59,130,246,0.02) 50%, transparent 70%);
+  width: 380px; height: 380px;
+  top: 40%; right: 20%;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(168,85,247,0.08) 0%,
+    rgba(59,130,246,0.05) 45%,
+    transparent 70%);
   animation-delay: -12s;
-  animation-duration: 24s;
+  animation-duration: 25s;
 }
 .shape-4 {
-  width: 200px; height: 200px;
-  bottom: 28%; left: 15%;
-  background: radial-gradient(circle at 50% 50%, rgba(37,99,235,0.04) 0%, rgba(99,102,241,0.01) 55%, transparent 70%);
+  width: 280px; height: 280px;
+  bottom: 25%; left: 12%;
+  background: radial-gradient(circle at 50% 50%,
+    rgba(37,99,235,0.07) 0%,
+    rgba(14,165,233,0.04) 50%,
+    transparent 70%);
   animation-delay: -3s;
-  animation-duration: 16s;
+  animation-duration: 15s;
 }
 @keyframes floatShape {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(20px, -15px) scale(1.04); }
-  50% { transform: translate(-10px, 10px) scale(0.98); }
-  75% { transform: translate(-18px, -8px) scale(1.02); }
+  25% { transform: translate(24px, -18px) scale(1.05); }
+  50% { transform: translate(-14px, 12px) scale(0.97); }
+  75% { transform: translate(-20px, -10px) scale(1.03); }
 }
 
-/* ── Dot pattern overlay — barely visible, adds texture ── */
+/* ── Dot pattern overlay ── */
 .hero-pattern {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  opacity: 0.22;
+  opacity: 0.18;
   background-image:
-    radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
+    radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse 65% 55% at 50% 40%, black 25%, transparent 65%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 40%, black 25%, transparent 65%);
 }
 
 /* ── Bottom Fade: smooth transition to first section ── */
 .hero-fade {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 0;
-  height: 120px;
+  height: 140px;
   background: linear-gradient(to bottom, transparent, #ffffff);
   pointer-events: none;
 }
 
-/* ── Content wrapper — generous vertical rhythm ── */
+/* ── Scroll Hint ── */
+.hero-scroll-hint {
+  position: absolute; bottom: 40px; left: 0; right: 0;
+  margin: 0 auto; width: fit-content; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; color: #94a3b8; user-select: none;
+  transition: color 0.3s;
+}
+.hero-scroll-hint:hover { color: #2563eb; }
+.hero-scroll-hint span {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+}
+.scroll-chevron {
+  width: 18px; height: 18px;
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+/* ── Content wrapper ── */
 .hero-content {
   position: relative; z-index: 1;
   max-width: 860px; margin: 0 auto; padding: 120px 32px 80px;
   text-align: center; display: flex; flex-direction: column; align-items: center;
-}
-
-/* ═══ Zone 0 · Top Badge ═══ */
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 18px; border-radius: 20px;
-  background: rgba(37,99,235,0.04);
-  border: 1px solid rgba(37,99,235,0.10);
-  font-size: 13px; font-weight: 500; color: #475569;
-  letter-spacing: 0.2px; margin-bottom: 32px;
-  backdrop-filter: blur(8px);
-}
-.badge-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #3b82f6;
-  box-shadow: 0 0 6px rgba(59,130,246,0.4);
-  animation: dotPulse 2s ease-in-out infinite;
-}
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
 }
 
 /* ═══ Zone 1 · Artistic Title ═══ */
@@ -608,9 +630,10 @@ onMounted(async () => {
   .hero-stats { gap: 22px; margin-bottom: 34px; }
   .stat strong { font-size: 26px; }
   .hero-search { width: 100%; margin-bottom: 18px; }
-  .hero-badge { font-size: 12px; padding: 5px 14px; margin-bottom: 24px; }
-  .hero-shape { opacity: 0.3; }
+  .hero-shape { opacity: 0.7; }
   .hero-pattern { opacity: 0.10; }
+  .hero-scroll-hint { bottom: 28px; }
+  .hero-scroll-hint span { font-size: 10px; }
   .footer-inner { flex-direction: column; gap: 36px; }
   .footer-links { gap: 36px; }
 }
