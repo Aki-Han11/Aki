@@ -5,15 +5,11 @@
 
     <!-- Section 2: Hero -->
     <section class="hero">
-      <!-- Decorative: architectural blue ring arc -->
-      <div class="hero-ring"></div>
-      <!-- Decorative: soft blue accent orbs -->
-      <div class="hero-orb hero-orb--1"></div>
-      <div class="hero-orb hero-orb--2"></div>
-      <!-- Decorative: scattered micro-dots for texture -->
-      <div class="hero-dots">
-        <span v-for="i in 12" :key="i" class="hero-dot" :style="{ left: dotPositions[i-1]?.x, top: dotPositions[i-1]?.y, width: dotPositions[i-1]?.s, height: dotPositions[i-1]?.s, opacity: dotPositions[i-1]?.o, animationDelay: (i * 0.3) + 's' }"></span>
-      </div>
+      <!-- Ambient light orbs — warm sunrise + cool depth -->
+      <div class="hero-light hero-light--warm"></div>
+      <div class="hero-light hero-light--cool"></div>
+      <!-- Single elegant accent line -->
+      <div class="hero-accent"></div>
 
       <div class="hero-content">
         <h1>
@@ -186,22 +182,6 @@ const bookCount = ref(0)
 const catCount = ref(0)
 const heroQuery = ref('')
 
-// Decorative micro-dot positions — organic scatter
-const dotPositions = [
-  { x: '8%', y: '14%', s: '3px', o: 0.25 },
-  { x: '18%', y: '22%', s: '2px', o: 0.18 },
-  { x: '72%', y: '10%', s: '4px', o: 0.30 },
-  { x: '88%', y: '28%', s: '2px', o: 0.20 },
-  { x: '94%', y: '52%', s: '3px', o: 0.15 },
-  { x: '5%', y: '62%', s: '2px', o: 0.22 },
-  { x: '78%', y: '72%', s: '3px', o: 0.18 },
-  { x: '12%', y: '82%', s: '4px', o: 0.25 },
-  { x: '82%', y: '88%', s: '2px', o: 0.20 },
-  { x: '45%', y: '6%', s: '2px', o: 0.15 },
-  { x: '55%', y: '92%', s: '3px', o: 0.22 },
-  { x: '68%', y: '42%', s: '2px', o: 0.16 },
-]
-
 function doHeroSearch() {
   const q = heroQuery.value.trim()
   if (q) router.push({ name: 'Search', query: { q } })
@@ -280,65 +260,63 @@ onMounted(async () => {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Hero — White Canvas + Sculptural Blue Accents
-   Apple-grade minimalism: pure white, deliberate blue ornament
+   Hero — "Luminous Dawn"
+   Warm ivory gradients · soft golden light · cool indigo depth
+   References: macOS Ventura glow + Instagram warm gradients
    ══════════════════════════════════════════════════════════════ */
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  background: #ffffff;
+  /* Ultra-subtle warm-to-cool natural light gradient */
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,248,240,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(254,243,226,0.5) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(238,242,255,0.4) 0%, transparent 55%),
+    linear-gradient(175deg, #fefdfb 0%, #fdfaf6 25%, #faf8f4 50%, #f7f6f9 100%);
   position: relative; overflow: hidden;
   flex-shrink: 0;
 }
 
-/* ── Architectural Ring: ultra-thin blue circle, only arc visible ── */
-.hero-ring {
+/* ── Warm Light Orb: golden sunrise glow, large & dramatic ── */
+.hero-light {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  filter: blur(40px);
+}
+.hero-light--warm {
+  top: -15%; right: -8%;
+  width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
+  background: radial-gradient(circle at 55% 45%,
+    rgba(251,191,36,0.12) 0%,
+    rgba(245,158,11,0.07) 20%,
+    rgba(252,211,77,0.04) 40%,
+    transparent 65%);
+  animation: warmPulse 8s ease-in-out infinite;
+}
+@keyframes warmPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.85; }
+}
+
+/* ── Cool Light Orb: indigo depth, grounded & subtle ── */
+.hero-light--cool {
+  bottom: -12%; left: -5%;
+  width: 42vw; height: 42vw; max-width: 540px; max-height: 540px;
+  background: radial-gradient(circle at 40% 50%,
+    rgba(99,102,241,0.06) 0%,
+    rgba(79,70,229,0.03) 30%,
+    rgba(37,99,235,0.015) 50%,
+    transparent 68%);
+}
+
+/* ── Accent Line: single elegant golden arc, barely visible ── */
+.hero-accent {
   position: absolute;
   top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 820px; height: 820px;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  width: min(720px, 85vw); height: min(720px, 85vw);
   border-radius: 50%;
-  border: 1px solid rgba(37,99,235,0.10);
+  border: 1px solid rgba(180,140,100,0.10);
   pointer-events: none;
-}
-/* Second ring — larger, fainter */
-.hero-ring::after {
-  content: '';
-  position: absolute;
-  top: -80px; left: -80px;
-  width: calc(100% + 160px); height: calc(100% + 160px);
-  border-radius: 50%;
-  border: 1px solid rgba(37,99,235,0.05);
-}
-
-/* ── Glow Orbs: two soft, large, diffused blue halos ── */
-.hero-orb {
-  position: absolute; border-radius: 50%; pointer-events: none;
-}
-.hero-orb--1 {
-  top: -120px; right: -60px;
-  width: 520px; height: 520px;
-  background: radial-gradient(circle, rgba(37,99,235,0.04) 0%, rgba(59,130,246,0.015) 40%, transparent 70%);
-}
-.hero-orb--2 {
-  bottom: -80px; left: -40px;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(79,70,229,0.035) 0%, rgba(99,102,241,0.012) 38%, transparent 68%);
-}
-
-/* ── Micro Dots: scattered blue sparkles for texture ── */
-.hero-dots {
-  position: absolute; inset: 0; pointer-events: none;
-}
-.hero-dot {
-  position: absolute;
-  border-radius: 50%;
-  background: #2563eb;
-  animation: dotPulse 4s ease-in-out infinite;
-}
-@keyframes dotPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(2.2); }
 }
 
 /* ── Content wrapper — generous vertical rhythm ── */
