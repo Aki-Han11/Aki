@@ -2,8 +2,20 @@
   <nav class="landing-nav">
     <div class="nav-inner">
       <router-link to="/" class="nav-brand">EBookStore</router-link>
+
+      <!-- Main nav links -->
+      <div class="nav-links">
+        <router-link to="/" class="nav-item" exact-active-class="nav-item--active">Home</router-link>
+        <router-link to="/books" class="nav-item" active-class="nav-item--active">Browse</router-link>
+        <router-link to="/recommended" class="nav-item" active-class="nav-item--active">Recommend</router-link>
+        <router-link to="/hot" class="nav-item" active-class="nav-item--active">Popular</router-link>
+      </div>
+
       <div class="nav-spacer"></div>
       <template v-if="auth.isLoggedIn">
+        <el-button circle class="nav-icon-btn" @click="$router.push('/favorites')" title="Favorites">
+          <el-icon :size="20"><Star /></el-icon>
+        </el-button>
         <el-badge :value="cart.count" :hidden="!cart.count" class="nav-cart">
           <el-button icon="ShoppingCart" circle text @click="$router.push('/cart')" class="nav-icon-btn" />
         </el-badge>
@@ -34,6 +46,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { Star } from '@element-plus/icons-vue'
 import { useAuthStore } from '../store/auth'
 import { useCartStore } from '../store/cart'
 
@@ -63,7 +76,22 @@ function handleLogout() {
 .nav-brand {
   font-size: 22px; font-weight: 700; color: #fff;
   letter-spacing: -0.5px;
+  flex-shrink: 0;
 }
+
+/* ── Nav Links ── */
+.nav-links {
+  display: flex; align-items: center; gap: 6px;
+  margin-left: 28px;
+}
+.nav-item {
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.72);
+  padding: 6px 14px; border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-item--active { color: #fff; background: rgba(255,255,255,0.12); }
+
 .nav-spacer { flex: 1; }
 .nav-link { color: rgba(255,255,255,0.85) !important; }
 .nav-link:hover { color: #fff !important; }
@@ -77,5 +105,9 @@ function handleLogout() {
 }
 .nav-user-btn:hover {
   background: rgba(255,255,255,0.18) !important;
+}
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
 }
 </style>
