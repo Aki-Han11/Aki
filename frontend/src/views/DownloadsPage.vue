@@ -36,19 +36,17 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
+.downloads-page { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
 .dl-list { display: flex; flex-direction: column; }
 .dl-item {
-  display: flex; align-items: center; gap: 20px;
-  padding: 20px 4px;
+  display: flex; align-items: center; gap: 24px;
+  padding: 22px 0;
   border-bottom: 1px solid #f2ede7;
-  background: transparent;
-  transition: background 0.25s ease;
 }
-.dl-item:hover { background: #fefdfc; }
-.dl-cover { width: 70px; height: 98px; object-fit: cover; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.dl-info { flex: 1; }
+.dl-cover { width: 80px; height: 114px; object-fit: cover; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); flex-shrink: 0; }
+.dl-info { flex: 1; min-width: 0; }
 .dl-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
-.dl-info p { color: #a0988c; font-size: 14px; }
-.dl-date { font-size: 12px; color: #b8b0a4; margin-top: 4px; }
+.dl-info p { color: #a0988c; font-size: 13px; }
+.dl-date { font-size: 12px; color: #b8b0a4; margin-top: 6px; }
 </style>

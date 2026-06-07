@@ -95,9 +95,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.page-header { margin-bottom: 32px; }
-.page-header h1 { font-size: 30px; color: #1a1815; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-.page-header p { color: #a0988c; font-size: 15px; }
+.book-list-page { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.page-header { margin-bottom: 36px; }
+.page-header h1 { font-size: 28px; color: #1a1815; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+.page-header p { color: #a0988c; font-size: 14px; }
 .filters { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
 .pagination { display: flex; justify-content: center; margin-top: 44px; }
 </style>

@@ -41,8 +41,9 @@ onMounted(() => doSearch())
 </script>
 
 <style scoped>
-.page-header { margin-bottom: 28px; }
-.page-header h1 { font-size: 30px; color: #1a1815; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-.page-header p { color: #a0988c; font-size: 15px; margin-top: 4px; }
+.search-page { max-width: 1400px; margin: 0 auto; padding: 0 32px; }
+.page-header { margin-bottom: 36px; }
+.page-header h1 { font-size: 28px; color: #1a1815; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+.page-header p { color: #a0988c; font-size: 14px; margin-top: 2px; }
 .page-header strong { color: #4a4038; }
 </style>

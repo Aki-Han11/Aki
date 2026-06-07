@@ -85,6 +85,7 @@ async function changePassword() {
 </script>
 
 <style scoped>
-h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
+.profile-page { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
 h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1a1815; }
 </style>

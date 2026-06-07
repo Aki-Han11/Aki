@@ -315,7 +315,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.book-detail-page { max-width: 1000px; margin: 0 auto; }
+.book-detail-page { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
 .loading-box { padding: 40px; }
 .book-info { display: flex; gap: 36px; margin-bottom: 44px; }
 .cover-section { flex-shrink: 0; }

@@ -52,19 +52,17 @@ onMounted(fetchFavorites)
 </script>
 
 <style scoped>
-h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
+.favorites-page { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
 .fav-list { display: flex; flex-direction: column; }
 .fav-item {
-  display: flex; align-items: center; gap: 20px;
-  padding: 20px 4px;
+  display: flex; align-items: center; gap: 24px;
+  padding: 22px 0;
   border-bottom: 1px solid #f2ede7;
-  background: transparent;
-  transition: background 0.25s ease;
 }
-.fav-item:hover { background: #fefdfc; }
-.fav-cover { width: 70px; height: 98px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.fav-info { flex: 1; }
+.fav-cover { width: 80px; height: 114px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.08); flex-shrink: 0; }
+.fav-info { flex: 1; min-width: 0; }
 .fav-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; margin-bottom: 3px; }
-.fav-info p { color: #a0988c; font-size: 14px; }
-.fav-date { font-size: 12px; color: #b8b0a4; margin-top: 4px; }
+.fav-info p { color: #a0988c; font-size: 13px; }
+.fav-date { font-size: 12px; color: #b8b0a4; margin-top: 6px; }
 </style>
