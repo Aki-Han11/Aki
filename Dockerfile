@@ -22,4 +22,14 @@ COPY --from=frontend /app/frontend/dist /app/frontend/dist
 
 # Run migrations and start server
 EXPOSE 8080
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8080"]
+
+CMD ["sh", "-c", "\
+  python manage.py migrate && \
+  if [ -n \"$DATABASE_URL\" ]; then \
+    echo 'Production mode: gunicorn' && \
+    gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8080} --workers 3 --access-logfile -; \
+  else \
+    echo 'Dev mode: Django runserver' && \
+    python manage.py runserver 0.0.0.0:${PORT:-8080}; \
+  fi \
+"]
