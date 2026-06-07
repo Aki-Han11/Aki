@@ -8,8 +8,11 @@
 <style>
 html, body, #app {
   height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
+  overscroll-behavior: none;
 }
 
 * {

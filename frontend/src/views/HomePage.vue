@@ -183,14 +183,14 @@ onMounted(async () => {
 <style scoped>
 /* ── Reset ── */
 .landing {
-  width: 100%; min-height: 100vh;
+  width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column;
   overflow-x: hidden;
 }
 
 /* ── Hero ── */
 .hero {
-  width: 100%; min-height: 70vh;
+  width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(170deg, #070b1a 0%, #0c1530 35%, #0f1d3a 65%, #080d1f 100%);
   position: relative; overflow: hidden;
