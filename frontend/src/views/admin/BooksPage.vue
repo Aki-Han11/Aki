@@ -22,23 +22,23 @@
             <el-tag size="small" type="info">{{ row.category_name || row.category }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="price" label="Price" width="80" align="right">
+        <el-table-column prop="price" label="Price" width="90" align="right">
           <template #default="{ row }"><span class="price-cell">${{ row.price }}</span></template>
         </el-table-column>
-        <el-table-column label="Reviews" width="70" align="center">
+        <el-table-column label="Reviews" width="85" align="center">
           <template #default="{ row }">
             <el-button size="small" type="primary" plain @click="openReviews(row)">
               <el-icon><ChatLineSquare /></el-icon>
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="Actions" width="170">
+        <el-table-column label="Actions" width="150" align="center">
           <template #default="{ row }">
             <div class="action-btns">
               <el-button size="small" @click="openEdit(row)">Edit</el-button>
               <el-popconfirm title="Delete this book?" @confirm="deleteBook(row)">
                 <template #reference>
-                  <el-button size="small" type="danger">Delete</el-button>
+                  <el-button size="small" type="danger">Del</el-button>
                 </template>
               </el-popconfirm>
             </div>

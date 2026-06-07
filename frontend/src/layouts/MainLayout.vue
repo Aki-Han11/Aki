@@ -25,12 +25,17 @@
             <el-menu mode="horizontal" :router="true" :default-active="activeMenu" class="nav-menu">
               <el-menu-item index="/">Home</el-menu-item>
               <el-menu-item index="/books">Browse</el-menu-item>
+              <el-menu-item index="/recommended">Recommend</el-menu-item>
+              <el-menu-item index="/hot">Popular</el-menu-item>
             </el-menu>
 
             <div class="header-actions">
               <template v-if="auth.isLoggedIn">
+                <el-button class="nav-icon-btn" @click="$router.push('/favorites')" title="Favorites">
+                  <el-icon :size="20"><Star /></el-icon>
+                </el-button>
                 <el-badge :value="cart.count" :hidden="cart.count === 0" class="cart-badge">
-                  <el-button icon="ShoppingCart" circle @click="$router.push('/cart')" />
+                  <el-button icon="ShoppingCart" class="nav-icon-btn" @click="$router.push('/cart')" />
                 </el-badge>
                 <el-dropdown>
                   <el-button type="primary" plain>
@@ -72,6 +77,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { Star } from '@element-plus/icons-vue'
 import { useAuthStore } from '../store/auth'
 import { useCartStore } from '../store/cart'
 
@@ -83,7 +89,10 @@ const cart = useCartStore()
 const searchQuery = ref('')
 
 const activeMenu = computed(() => {
-  if (route.path.startsWith('/books')) return '/books'
+  const p = route.path
+  if (p.startsWith('/books')) return '/books'
+  if (p.startsWith('/recommended')) return '/recommended'
+  if (p.startsWith('/hot')) return '/hot'
   return '/'
 })
 
@@ -127,7 +136,9 @@ function handleLogout() {
 
 .header-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; }
 .nav-menu { border-bottom: none !important; }
-.header-actions { display: flex; align-items: center; gap: 10px; }
+.header-actions { display: flex; align-items: center; gap: 8px; }
+.nav-icon-btn { color: #475569; background: transparent; border: none; width: 40px; height: 40px; }
+.nav-icon-btn:hover { color: #2563eb; background: rgba(37,99,235,0.06); }
 .cart-badge { margin-right: 4px; }
 
 .main-content {

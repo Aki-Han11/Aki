@@ -13,11 +13,11 @@
 
       <div class="nav-spacer"></div>
       <template v-if="auth.isLoggedIn">
-        <el-button circle class="nav-icon-btn" @click="$router.push('/favorites')" title="Favorites">
+        <el-button class="nav-icon-btn" @click="$router.push('/favorites')" title="Favorites">
           <el-icon :size="20"><Star /></el-icon>
         </el-button>
         <el-badge :value="cart.count" :hidden="!cart.count" class="nav-cart">
-          <el-button icon="ShoppingCart" circle text @click="$router.push('/cart')" class="nav-icon-btn" />
+          <el-button icon="ShoppingCart" class="nav-icon-btn" @click="$router.push('/cart')" />
         </el-badge>
         <el-dropdown>
           <el-button class="nav-user-btn">
@@ -95,8 +95,8 @@ function handleLogout() {
 .nav-spacer { flex: 1; }
 .nav-link { color: rgba(255,255,255,0.85) !important; }
 .nav-link:hover { color: #fff !important; }
-.nav-icon-btn { color: rgba(255,255,255,0.75) !important; }
-.nav-icon-btn:hover { color: #fff !important; }
+.nav-icon-btn { color: rgba(255,255,255,0.75) !important; background: transparent !important; border: none !important; width: 40px; height: 40px; }
+.nav-icon-btn:hover { color: #fff !important; background: rgba(255,255,255,0.1) !important; }
 .nav-cart { margin-right: 4px; }
 .nav-user-btn {
   background: rgba(255,255,255,0.12) !important;
