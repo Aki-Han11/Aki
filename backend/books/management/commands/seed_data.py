@@ -3,8 +3,10 @@ Seed the database with admin/demo users, categories, 1000 books,
 50 bot users, and random ratings/reviews.
 """
 import random
+from datetime import timedelta
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 User = get_user_model()
 
@@ -602,6 +604,9 @@ class Command(BaseCommand):
                     stats.purchase_count = random.randint(5, 400)
                     stats.download_count = random.randint(3, 300)
                     stats.calculate_hot_score()
+                    BookStats.objects.filter(pk=stats.pk).update(
+                        updated_at=timezone.now() - timedelta(days=random.randint(0, 45))
+                    )
                     count += 1
 
         # ── 3b. Programmatic book generation to reach 1000 ──
@@ -641,9 +646,20 @@ class Command(BaseCommand):
                     stats.purchase_count = random.randint(5, 400)
                     stats.download_count = random.randint(3, 300)
                     stats.calculate_hot_score()
+                    BookStats.objects.filter(pk=stats.pk).update(
+                        updated_at=timezone.now() - timedelta(days=random.randint(0, 45))
+                    )
                     gen_count += 1
                 except Exception:
                     pass
+
+        # Vary timestamps on all stats for realistic hot-sort filtering
+        for st in BookStats.objects.all():
+            rdays = random.randint(0, 60)
+            if st.updated_at.date() == timezone.now().date():
+                BookStats.objects.filter(pk=st.pk).update(
+                    updated_at=timezone.now() - timedelta(days=rdays)
+                )
 
         self.stdout.write(f'Books: {Book.objects.count()} (added {count} curated + {gen_count} generated)')
 

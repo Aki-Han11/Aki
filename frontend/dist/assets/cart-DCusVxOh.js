@@ -1,0 +1,1 @@
+import{ft as e}from"./router-BtfY5hYb.js";import{t}from"./index-BekfjbLK.js";import{O as n}from"./endpoints-BMajBgO2.js";var r=t(`cart`,()=>{let t=e([]),r=e(0);async function i(){try{let e=await n();t.value=e.data,r.value=e.data.length}catch{t.value=[],r.value=0}}return{items:t,count:r,fetch:i}});export{r as t};
