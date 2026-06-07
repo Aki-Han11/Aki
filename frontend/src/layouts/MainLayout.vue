@@ -25,12 +25,13 @@
           </div>
 
           <div class="header-nav">
-            <el-menu mode="horizontal" :router="true" :default-active="activeMenu" class="nav-menu">
-              <el-menu-item index="/">Home</el-menu-item>
-              <el-menu-item index="/books">Browse</el-menu-item>
-              <el-menu-item index="/recommended">Recommend</el-menu-item>
-              <el-menu-item index="/hot">Popular</el-menu-item>
-            </el-menu>
+            <!-- Custom nav links — no overflow/ellipsis, all links always visible -->
+            <div class="nav-links">
+              <router-link to="/" class="nav-item" exact-active-class="nav-item--active">Home</router-link>
+              <router-link to="/books" class="nav-item" active-class="nav-item--active">Browse</router-link>
+              <router-link to="/recommended" class="nav-item" active-class="nav-item--active">Recommend</router-link>
+              <router-link to="/hot" class="nav-item" active-class="nav-item--active">Popular</router-link>
+            </div>
 
             <div class="header-actions">
               <template v-if="auth.isLoggedIn">
@@ -87,7 +88,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
 import { useCartStore } from '../store/cart'
@@ -98,14 +99,6 @@ const auth = useAuthStore()
 const cart = useCartStore()
 
 const searchQuery = ref('')
-
-const activeMenu = computed(() => {
-  const p = route.path
-  if (p.startsWith('/books')) return '/books'
-  if (p.startsWith('/recommended')) return '/recommended'
-  if (p.startsWith('/hot')) return '/hot'
-  return '/'
-})
 
 if (auth.isLoggedIn) cart.fetch()
 
@@ -153,9 +146,19 @@ function handleLogout() {
 /* ── Search ── */
 .header-search { flex: 1; max-width: 480px; }
 
-/* ── Nav ── */
-.header-nav { display: flex; align-items: center; gap: 12px; margin-left: auto; }
-.nav-menu { border-bottom: none !important; }
+/* ── Nav Links — custom, no overflow/ellipsis ── */
+.header-nav { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-item {
+  font-size: 15px; font-weight: 500; color: #475569;
+  padding: 8px 16px; border-radius: 10px;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.nav-item:hover { color: #2563eb; background: rgba(37,99,235,0.05); }
+.nav-item--active { color: #2563eb; background: rgba(37,99,235,0.08); font-weight: 600; }
 
 .header-actions { display: flex; align-items: center; gap: 8px; }
 
