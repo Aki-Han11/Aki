@@ -11,9 +11,9 @@
         <el-menu
           :router="true"
           :default-active="activeMenu"
-          background-color="#1d1a1c"
-          text-color="#a0988c"
-          active-text-color="#60a5fa"
+          background-color="#ffffff"
+          text-color="#475569"
+          active-text-color="#2563eb"
           class="admin-menu"
         >
           <el-menu-item index="/admin">
@@ -38,9 +38,7 @@
           </el-menu-item>
         </el-menu>
         <div class="admin-sidebar-footer">
-          <el-button type="info" plain size="small" @click="$router.push('/')">
-            <el-icon><Back /></el-icon> Back to Store
-          </el-button>
+          <el-button class="back-btn" @click="$router.push('/')">Back to Store</el-button>
         </div>
       </el-aside>
 
@@ -99,21 +97,22 @@ function handleLogout() {
 }
 
 .admin-sidebar {
-  background: #1d1a1c;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
+  border-right: 1px solid #f0f0f0;
 }
 
 .admin-logo {
   padding: 22px 20px;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .admin-logo a {
-  color: #fff;
+  color: #2563eb;
   font-size: 17px;
   font-weight: 700;
   display: flex;
@@ -131,12 +130,35 @@ function handleLogout() {
 
 .admin-menu :deep(.el-menu-item) {
   margin: 2px 8px; border-radius: 8px; height: 42px; line-height: 42px;
+  color: #475569;
 }
-.admin-menu :deep(.el-menu-item.is-active) { background: rgba(64,158,255,0.15) !important; }
+.admin-menu :deep(.el-menu-item:hover) { background: rgba(37,99,235,0.04) !important; }
+.admin-menu :deep(.el-menu-item.is-active) {
+  background: rgba(37,99,235,0.08) !important;
+  color: #2563eb !important;
+  font-weight: 600;
+}
 
 .admin-sidebar-footer {
   padding: 16px; text-align: center; flex-shrink: 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Back to Store button */
+.back-btn {
+  background: transparent !important;
+  border: 1px solid #e5e5e5 !important;
+  color: #475569 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  padding: 8px 20px !important;
+  transition: all 0.2s ease !important;
+}
+.back-btn:hover {
+  border-color: #2563eb !important;
+  color: #2563eb !important;
+  background: rgba(37,99,235,0.04) !important;
 }
 
 .admin-right {

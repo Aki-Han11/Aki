@@ -504,16 +504,16 @@ onMounted(async () => {
   max-width: 1280px; margin: 0 auto; padding: 96px 28px;
 }
 .section-alt {
-  background: #fafafa; max-width: none;
+  background: transparent; max-width: none;
 }
 /* No borders — cards provide natural separation */
 .section-alt > * { max-width: 1280px; margin-left: auto; margin-right: auto; }
 .section-head {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 .section-head h2 {
-  font-size: 30px; font-weight: 700; color: #1a1815; margin: 0 0 6px;
+  font-size: 34px; font-weight: 700; color: #0f172a; margin: 0 0 4px;
   letter-spacing: -0.6px;
 }
 .section-head-center { text-align: center; flex-direction: column; }
