@@ -6,10 +6,14 @@
     <!-- Section 2: Hero -->
     <section class="hero">
       <div class="hero-content">
-        <h1>Discover Books<br /><span class="hero-highlight">You'll Love</span></h1>
+        <h1>
+          <span class="hero-line-1">Discover Books</span>
+          <span class="hero-line-2">You'll <em>Love</em></span>
+        </h1>
         <p>Search, explore, purchase and download e-books across {{ catCount }} categories. Powered by smart recommendations tailored to your taste.</p>
         <div class="hero-stats">
           <div class="stat"><strong>{{ bookCount }}+</strong><span>Books</span></div>
+          <div class="stat-divider"></div>
           <div class="stat"><strong>{{ catCount }}</strong><span>Categories</span></div>
         </div>
 
@@ -27,14 +31,17 @@
         </div>
 
         <div class="hero-actions">
-          <el-button type="primary" size="large" round @click="$router.push('/books')">Browse Books</el-button>
-          <el-button size="large" round class="btn-outline" @click="scrollToPopular">Popular Books</el-button>
+          <el-button type="primary" size="large" class="btn-primary-hero" @click="$router.push('/books')">Browse Books</el-button>
+          <el-button size="large" class="btn-outline-hero" @click="scrollToPopular">Popular Books</el-button>
         </div>
       </div>
+      <!-- Subtle ambient glow — single refined orb -->
       <div class="hero-glow"></div>
       <div class="hero-scroll-hint" @click="scrollToDiscovery">
         <span>Explore the Store</span>
-        <el-icon :size="18"><ArrowDown /></el-icon>
+        <svg class="scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
       </div>
     </section>
 
@@ -46,17 +53,29 @@
       </div>
       <div class="discovery-grid">
         <div class="discovery-card">
-          <div class="discovery-icon"><el-icon :size="32"><Search /></el-icon></div>
+          <div class="discovery-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="discovery-svg">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
           <h4>Search</h4>
           <p>Find any book instantly by title, author, or keyword across thousands of titles</p>
         </div>
         <div class="discovery-card">
-          <div class="discovery-icon"><el-icon :size="32"><TrendCharts /></el-icon></div>
+          <div class="discovery-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="discovery-svg">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
           <h4>Popular Ranking</h4>
           <p>Discover what others are reading — weighted by purchases, favorites, and views</p>
         </div>
         <div class="discovery-card">
-          <div class="discovery-icon"><el-icon :size="32"><Star /></el-icon></div>
+          <div class="discovery-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="discovery-svg">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
           <h4>Personalized</h4>
           <p>Get tailored recommendations based on collaborative filtering and your preferences</p>
         </div>
@@ -70,7 +89,12 @@
           <h2>Popular Books</h2>
           <p class="section-subtitle">Most purchased and favorited by our readers</p>
         </div>
-        <el-button text @click="$router.push('/hot')">View All <el-icon><ArrowRight /></el-icon></el-button>
+        <el-button text class="section-view-all" @click="$router.push('/hot')">
+          View All
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-svg">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </el-button>
       </div>
       <div class="book-grid">
         <div v-for="book in hotBooks" :key="book.id" class="book-card" @click="$router.push(`/books/${book.id}`)">
@@ -91,7 +115,12 @@
           <h2>Recommended For You</h2>
           <p class="section-subtitle">Personalized picks powered by collaborative filtering</p>
         </div>
-        <el-button text @click="$router.push('/recommended')">View All <el-icon><ArrowRight /></el-icon></el-button>
+        <el-button text class="section-view-all" @click="$router.push('/recommended')">
+          View All
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-svg">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </el-button>
       </div>
       <div class="book-grid">
         <div v-for="book in recBooks" :key="book.id" class="book-card" @click="$router.push(`/books/${book.id}`)">
@@ -183,14 +212,15 @@ onMounted(async () => {
 /* ══════════════════════════════════════════════════════════════
    Premium Light-Mode Theme — EBookStore HomePage
    Palette: White / Ice-Blue / Charcoal / Sky-Blue Accent
+   Pixel-Perfect · Modern · Refined Typography
    ══════════════════════════════════════════════════════════════ */
 
 /* ── LandingNav Override: light-mode glassmorphism ── */
 :deep(.landing-nav) {
   background: rgba(255,255,255,0.72) !important;
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 :deep(.nav-brand)        { color: #0f172a !important; }
 :deep(.nav-link)         { color: #475569 !important; }
@@ -202,13 +232,22 @@ onMounted(async () => {
 :deep(.nav-item--active) { color: #2563eb !important; background: rgba(37,99,235,0.08) !important; }
 :deep(.nav-user-btn) {
   color: #0f172a !important;
-  background: rgba(37,99,235,0.05) !important;
+  background: rgba(37,99,235,0.04) !important;
   border: 1px solid #e2e8f0 !important;
 }
 :deep(.nav-user-btn:hover) {
   color: #2563eb !important;
   background: rgba(37,99,235,0.08) !important;
   border-color: #2563eb !important;
+}
+:deep(.nav-cta-btn) {
+  color: #fff !important;
+  background: #2563eb !important;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.3) !important;
+}
+:deep(.nav-cta-btn:hover) {
+  background: #1d4ed8 !important;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.4) !important;
 }
 
 /* ── Layout Reset ── */
@@ -219,118 +258,160 @@ onMounted(async () => {
   background: #ffffff;
 }
 
-/* ═══ Hero — Light Gradient Full-Screen · 3‑Zone Artistic Layout ═══ */
+/* ══════════════════════════════════════════════════════════════
+   Hero — Light Gradient · Artistic Typography · Refined Spacing
+   ══════════════════════════════════════════════════════════════ */
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(170deg, #f8fafc 0%, #fafbfd 25%, #eff6ff 60%, #f4f7fb 100%);
+  background: linear-gradient(172deg, #f8fafc 0%, #fafbfd 22%, #eff6ff 58%, #f4f7fb 100%);
   position: relative; overflow: hidden;
   flex-shrink: 0;
 }
-/* primary glow — top‑right ambient orb */
+
+/* Single refined ambient glow — minimal, elegant */
 .hero-glow {
-  position: absolute; top: -220px; right: -140px;
-  width: 680px; height: 680px;
-  background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, rgba(59,130,246,0.025) 45%, transparent 72%);
-  pointer-events: none;
-}
-/* secondary glow — bottom‑left whisper for visual balance */
-.hero::after {
-  content: ''; position: absolute; bottom: -160px; left: -80px;
-  width: 480px; height: 480px;
-  background: radial-gradient(circle, rgba(148,163,184,0.05) 0%, rgba(203,213,225,0.02) 40%, transparent 70%);
+  position: absolute; top: -180px; right: -100px;
+  width: 580px; height: 580px;
+  background: radial-gradient(circle, rgba(37,99,235,0.045) 0%, rgba(59,130,246,0.018) 48%, transparent 74%);
   pointer-events: none;
 }
 
-/* ── Content wrapper: zone‑based vertical rhythm ── */
+/* ── Content wrapper — generous vertical rhythm ── */
 .hero-content {
   position: relative; z-index: 1;
-  max-width: 840px; margin: 0 auto; padding: 110px 28px 72px;
+  max-width: 860px; margin: 0 auto; padding: 120px 32px 80px;
   text-align: center; display: flex; flex-direction: column; align-items: center;
-  gap: 0; /* manual margins for precise zonal rhythm */
+  gap: 0;
 }
 
-/* ═══ Zone 1 · Message ═══ */
+/* ═══ Zone 1 · Artistic Title ═══ */
 .hero-content h1 {
-  font-size: clamp(34px, 5.5vw, 62px); font-weight: 800;
-  color: #0f172a; line-height: 1.12; letter-spacing: -1.8px; margin: 0 0 18px;
+  font-size: clamp(44px, 7vw, 80px);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.08;
+  letter-spacing: -2.4px;
+  margin: 0 0 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
 }
-.hero-highlight {
-  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+.hero-line-1 {
+  font-weight: 700;
+  letter-spacing: -2px;
+}
+.hero-line-2 {
+  font-weight: 900;
+  letter-spacing: -2.8px;
+}
+.hero-line-2 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 35%, #7c3aed 65%, #3b82f6 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
+  /* subtle text-shadow for depth on light bg */
+  filter: drop-shadow(0 1px 2px rgba(37,99,235,0.12));
 }
+
+/* ═══ Zone 2 · Subtitle — increased breathing room ═══ */
 .hero-content > p {
-  font-size: 17px; color: #475569; max-width: 540px; margin: 0 0 42px;
-  line-height: 1.65; font-weight: 400;
+  font-size: 17px; color: #475569; max-width: 560px; margin: 0 0 52px;
+  line-height: 1.7; font-weight: 400; letter-spacing: 0.1px;
 }
 
-/* ═══ Zone 2 · Proof — clean stat bar ═══ */
+/* ═══ Zone 3 · Stats — refined with divider ═══ */
 .hero-stats {
-  display: flex; gap: 48px;
-  margin-bottom: 46px;
+  display: flex; align-items: center; gap: 40px;
+  margin-bottom: 52px;
 }
-.stat { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-.stat strong { font-size: 30px; font-weight: 700; color: #2563eb; letter-spacing: -0.5px; }
-.stat span  { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.2px; font-weight: 500; }
+.stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.stat strong { font-size: 32px; font-weight: 700; color: #2563eb; letter-spacing: -0.6px; line-height: 1; }
+.stat span  { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 500; }
+.stat-divider {
+  width: 1px; height: 36px;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
 
-/* ═══ Zone 3 · Action — search + ctas ═══ */
-.hero-search { width: min(580px, 88vw); margin-bottom: 18px; }
+/* ═══ Zone 4 · Search — elegant pill ═══ */
+.hero-search { width: min(560px, 88vw); margin-bottom: 22px; }
 .hero-search-input :deep(.el-input__wrapper) {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 30px; padding: 5px 22px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.035), 0 1px 2px rgba(0,0,0,0.03);
+  border-radius: 40px; padding: 6px 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.025);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .hero-search-input :deep(.el-input__wrapper:hover) {
   border-color: #cbd5e1;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.045), 0 1px 3px rgba(0,0,0,0.035);
 }
 .hero-search-input :deep(.el-input__wrapper.is-focus) {
   border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.09), 0 2px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.08), 0 2px 14px rgba(0,0,0,0.045);
 }
 .hero-search-input :deep(.el-input__inner) { color: #1e293b; font-size: 15px; }
 .hero-search-input :deep(.el-input__inner::placeholder) { color: #94a3b8; }
 .hero-search-input :deep(.el-input__prefix) { color: #94a3b8; }
 .hero-search-input :deep(.el-input__clear) { color: #94a3b8; }
 
+/* ═══ Zone 5 · CTAs — unified button system ═══ */
 .hero-actions {
-  display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
+  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
   margin-bottom: 0;
 }
-.btn-outline {
-  background: transparent !important;
-  border: 1px solid #cbd5e1 !important;
-  color: #334155 !important;
-  font-weight: 500 !important;
+.btn-primary-hero {
+  font-weight: 600 !important; font-size: 16px !important;
+  border-radius: 40px !important;
+  padding: 14px 32px !important; height: auto !important;
+  background: #2563eb !important; border: none !important;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.28) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  letter-spacing: 0.2px !important;
 }
-.btn-outline:hover {
+.btn-primary-hero:hover {
+  background: #1d4ed8 !important;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.36) !important;
+  transform: translateY(-1px);
+}
+.btn-outline-hero {
+  font-weight: 600 !important; font-size: 16px !important;
+  border-radius: 40px !important;
+  padding: 14px 32px !important; height: auto !important;
+  background: transparent !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #334155 !important;
+  letter-spacing: 0.2px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+.btn-outline-hero:hover {
   border-color: #2563eb !important;
   color: #2563eb !important;
-  background: rgba(37,99,235,0.04) !important;
+  background: rgba(37,99,235,0.03) !important;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.08) !important;
+  transform: translateY(-1px);
 }
 
-/* ── Scroll Hint — absolute bottom, always visible ── */
+/* ── Scroll Hint — refined, minimal ── */
 .hero-scroll-hint {
-  position: absolute; bottom: 32px; left: 0; right: 0;
+  position: absolute; bottom: 36px; left: 0; right: 0;
   margin: 0 auto; width: fit-content;
-  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
   cursor: pointer; color: #94a3b8; z-index: 2;
   transition: color 0.3s; user-select: none;
 }
 .hero-scroll-hint:hover { color: #2563eb; }
-.hero-scroll-hint span { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 500; }
-.hero-scroll-hint .el-icon { animation: bounce 2s infinite; }
+.hero-scroll-hint span { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 500; }
+.scroll-chevron { width: 18px; height: 18px; animation: bounce 2s infinite; }
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+  50% { transform: translateY(5px); }
 }
 
-/* ═══ Sections — Elegant Alternating Rhythm ═══ */
+/* ══════════════════════════════════════════════════════════════
+   Sections — Elegant Alternating Rhythm
+   ══════════════════════════════════════════════════════════════ */
 .section {
-  max-width: 1280px; margin: 0 auto; padding: 80px 24px;
+  max-width: 1280px; margin: 0 auto; padding: 88px 28px;
 }
 .section-alt {
   background: #f8fafc; max-width: none;
@@ -340,16 +421,26 @@ onMounted(async () => {
 .section-alt > * { max-width: 1280px; margin-left: auto; margin-right: auto; }
 .section-head {
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 .section-head h2 {
-  font-size: 28px; font-weight: 700; color: #0f172a; margin: 0 0 4px;
-  letter-spacing: -0.5px;
+  font-size: 30px; font-weight: 700; color: #0f172a; margin: 0 0 6px;
+  letter-spacing: -0.6px;
 }
 .section-head-center { text-align: center; flex-direction: column; }
-.section-subtitle { font-size: 14px; color: #64748b; margin: 0; line-height: 1.5; }
+.section-subtitle { font-size: 15px; color: #64748b; margin: 0; line-height: 1.5; }
+.section-view-all {
+  font-size: 15px !important; font-weight: 500 !important;
+  color: #2563eb !important;
+  display: flex !important; align-items: center !important; gap: 4px !important;
+  transition: gap 0.25s ease !important;
+}
+.section-view-all:hover { gap: 8px !important; }
+.arrow-svg { width: 16px; height: 16px; }
 
-/* ═══ Smart Discovery Cards ═══ */
+/* ══════════════════════════════════════════════════════════════
+   Smart Discovery Cards — Refined
+   ══════════════════════════════════════════════════════════════ */
 .discovery-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -358,48 +449,51 @@ onMounted(async () => {
 .discovery-card {
   background: #fff;
   border: 1px solid #f1f5f9;
-  border-radius: 16px;
-  padding: 36px 28px; text-align: center;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.03);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 18px;
+  padding: 40px 32px; text-align: center;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.025);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .discovery-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.03);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.03);
   border-color: #e2e8f0;
 }
 .discovery-icon {
-  width: 64px; height: 64px; border-radius: 16px;
-  background: rgba(37,99,235,0.06); color: #2563eb;
+  width: 68px; height: 68px; border-radius: 18px;
+  background: rgba(37,99,235,0.055); color: #2563eb;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 16px;
+  margin: 0 auto 18px;
 }
-.discovery-card h4 { font-size: 17px; font-weight: 600; color: #0f172a; margin: 0 0 8px; }
-.discovery-card p  { font-size: 14px; color: #64748b; line-height: 1.6; margin: 0; }
+.discovery-svg { width: 32px; height: 32px; display: block; }
+.discovery-card h4 { font-size: 18px; font-weight: 600; color: #0f172a; margin: 0 0 8px; }
+.discovery-card p  { font-size: 14px; color: #64748b; line-height: 1.65; margin: 0; }
 
-/* ═══ Book Cards — Refined Elevation ═══ */
+/* ══════════════════════════════════════════════════════════════
+   Book Cards — Polished Elevation
+   ══════════════════════════════════════════════════════════════ */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 .book-card {
-  cursor: pointer; border-radius: 16px;
+  cursor: pointer; border-radius: 18px;
   background: #fff; border: 1px solid #f1f5f9;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 1px 2px rgba(0,0,0,0.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.025), 0 1px 2px rgba(0,0,0,0.03);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .book-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.08), 0 4px 10px rgba(0,0,0,0.04);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
   border-color: #e2e8f0;
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
   background: #f8fafc;
 }
-.book-card-info { padding: 16px; }
+.book-card-info { padding: 18px 16px; }
 .book-card-info h4 {
   font-size: 14px; font-weight: 600; color: #1e293b;
   margin: 0 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -408,41 +502,47 @@ onMounted(async () => {
 .book-author { font-size: 13px; color: #94a3b8; display: block; margin-bottom: 10px; }
 .book-price { font-size: 16px; font-weight: 700; color: #0f172a; }
 
-/* ═══ Footer — Anchored Dark ═══ */
-.landing-footer { margin-top: auto; background: #0f172a; color: #cbd5e1; padding: 56px 24px 28px; }
-.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 64px; flex-wrap: wrap; margin-bottom: 40px; }
-.footer-brand { max-width: 320px; }
-.footer-brand h3 { color: #fff; font-size: 20px; margin: 0 0 8px; }
-.footer-brand p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0; }
-.footer-links { display: flex; gap: 64px; }
-.footer-col h4 { color: #fff; font-size: 14px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.footer-col a { display: block; color: #94a3b8; font-size: 14px; margin-bottom: 8px; transition: color 0.2s; }
+/* ══════════════════════════════════════════════════════════════
+   Footer — Anchored Dark
+   ══════════════════════════════════════════════════════════════ */
+.landing-footer { margin-top: auto; background: #0f172a; color: #cbd5e1; padding: 60px 28px 32px; }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 72px; flex-wrap: wrap; margin-bottom: 44px; }
+.footer-brand { max-width: 340px; }
+.footer-brand h3 { color: #fff; font-size: 20px; font-weight: 700; margin: 0 0 10px; letter-spacing: 0.2px; }
+.footer-brand p { color: #94a3b8; font-size: 14px; line-height: 1.65; margin: 0; }
+.footer-links { display: flex; gap: 72px; }
+.footer-col h4 { color: #fff; font-size: 13px; font-weight: 600; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.8px; }
+.footer-col a { display: block; color: #94a3b8; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; }
 .footer-col a:hover { color: #fff; }
 .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
 .footer-bottom p { color: #64748b; font-size: 13px; margin: 0; }
 
-/* ═══ Responsive ═══ */
+/* ══════════════════════════════════════════════════════════════
+   Responsive
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
   .book-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
 }
 @media (max-width: 768px) {
   .discovery-grid { grid-template-columns: repeat(1, 1fr); gap: 16px; }
   .book-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .hero-content { padding: 100px 24px 64px; }
-  .hero-content > p { margin-bottom: 34px; }
-  .hero-stats { margin-bottom: 36px; gap: 36px; }
-  .hero-scroll-hint { bottom: 26px; }
+  .hero-content { padding: 104px 24px 72px; }
+  .hero-content h1 { font-size: clamp(36px, 8vw, 56px); letter-spacing: -1.8px; margin-bottom: 16px; }
+  .hero-content > p { margin-bottom: 40px; }
+  .hero-stats { margin-bottom: 40px; gap: 28px; }
+  .section { padding: 64px 20px; }
 }
 @media (max-width: 640px) {
-  .hero-content { padding: 88px 20px 56px; }
-  .hero-content h1 { font-size: clamp(28px, 8vw, 42px); letter-spacing: -1.2px; margin-bottom: 14px; }
-  .hero-content > p { font-size: 15px; margin-bottom: 28px; max-width: 100%; }
-  .hero-stats { gap: 28px; margin-bottom: 30px; }
+  .hero-content { padding: 92px 20px 60px; }
+  .hero-content h1 { font-size: clamp(30px, 9vw, 44px); letter-spacing: -1.5px; margin-bottom: 14px; }
+  .hero-line-2 { letter-spacing: -1.8px; }
+  .hero-content > p { font-size: 15px; margin-bottom: 34px; max-width: 100%; }
+  .hero-stats { gap: 22px; margin-bottom: 34px; }
   .stat strong { font-size: 26px; }
-  .hero-search { width: 100%; margin-bottom: 14px; }
-  .hero-scroll-hint { bottom: 20px; }
+  .hero-search { width: 100%; margin-bottom: 18px; }
+  .hero-scroll-hint { bottom: 24px; }
   .hero-scroll-hint span { font-size: 10px; }
-  .footer-inner { flex-direction: column; gap: 32px; }
-  .footer-links { gap: 32px; }
+  .footer-inner { flex-direction: column; gap: 36px; }
+  .footer-links { gap: 36px; }
 }
 </style>

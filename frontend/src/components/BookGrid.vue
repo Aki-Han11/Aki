@@ -1,5 +1,5 @@
 <template>
-  <div class="book-grid">
+  <div class="book-grid-wrapper">
     <el-row :gutter="20">
       <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="book in books" :key="book.id">
         <div class="book-card" @click="$router.push(`/books/${book.id}`)">
@@ -11,7 +11,7 @@
             <p class="book-author">{{ book.author }}</p>
             <div class="book-bottom">
               <span class="book-price">${{ book.price }}</span>
-              <el-tag v-if="book.category_name" size="small" type="info">{{ book.category_name }}</el-tag>
+              <el-tag v-if="book.category_name" size="small" class="book-tag">{{ book.category_name }}</el-tag>
             </div>
           </div>
         </div>
@@ -36,60 +36,63 @@ function onImgError(e) {
 </script>
 
 <style scoped>
+/* ══════════════════════════════════════════════════════════════
+   BookGrid — Refined Card Design
+   Matches HomePage design language
+   ══════════════════════════════════════════════════════════════ */
+
 .book-card {
   background: #fff;
-  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+  border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
   margin-bottom: 20px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.025), 0 1px 2px rgba(0,0,0,0.03);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .book-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  border-color: #e2e8f0;
 }
+
 .book-card-cover {
   width: 100%;
   aspect-ratio: 2/3;
   overflow: hidden;
-  background: #f0f0f0;
+  background: #f8fafc;
 }
 .book-card-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
-.book-card-info {
-  padding: 12px;
-}
+
+.book-card-info { padding: 18px 16px; }
+
 .book-title {
-  font-size: 14px;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  margin-bottom: 4px;
+  font-size: 14px; font-weight: 600; color: #1e293b;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin: 0 0 6px; line-height: 1.3;
 }
 .book-author {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 13px; color: #94a3b8;
+  margin-bottom: 10px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .book-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
 }
 .book-price {
-  font-size: 16px;
-  color: #f56c6c;
-  font-weight: 700;
+  font-size: 16px; color: #0f172a; font-weight: 700;
 }
-.loading-box {
-  padding: 40px;
+.book-tag {
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #64748b !important;
 }
+
+.loading-box { padding: 40px; }
 </style>
