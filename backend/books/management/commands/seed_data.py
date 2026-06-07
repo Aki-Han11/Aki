@@ -221,7 +221,7 @@ TITLE_POOLS = {
         ('And Then There Were None', 'Agatha Christie', 'Ten strangers on an island are murdered one by one in the queen of mystery\'s masterpiece.'),
     ],
     'Romance': [
-        ('Pride and Prejudice', 'Jane Austen', 'Elizabeth Bennet and Mr. Darcy navigate pride, prejudice, and social expectations in Regency England.'),
+        ('Sense and Sensibility', 'Jane Austen', 'Two sisters navigate love, heartbreak, and societal expectations in this beloved classic of English literature.'),
         ('The Notebook', 'Nicholas Sparks', 'A sweeping love story spanning decades — two people from different worlds whose love endures all.'),
         ('Outlander', 'Diana Gabaldon', 'A World War II nurse mysteriously travels back to 1743 Scotland and finds passion and adventure.'),
         ('Me Before You', 'Jojo Moyes', 'A young woman becomes a caregiver for a paralyzed man and discovers love in unexpected places.'),
@@ -243,8 +243,256 @@ TITLE_POOLS = {
     ],
 }
 
+# ── Programmatic title generation to reach 1000 books ──
+AUTHORS_FIRST = ['James', 'Robert', 'Michael', 'David', 'Richard', 'William', 'Thomas', 'Daniel',
+    'Sarah', 'Emily', 'Jessica', 'Amanda', 'Rachel', 'Laura', 'Rebecca', 'Jennifer',
+    'Christopher', 'Andrew', 'Matthew', 'Elizabeth', 'Catherine', 'Margaret', 'Patricia',
+    'Jonathan', 'Nicholas', 'Benjamin', 'Victoria', 'Gregory', 'Stephen', 'Alexander']
+
+AUTHORS_LAST = ['Mitchell', 'Harrison', 'Anderson', 'Peterson', 'Collins', 'Richardson',
+    'Fletcher', 'Bennett', 'Crawford', 'Sullivan', 'Montgomery', 'Blackwell', 'Whitman',
+    'Donovan', 'Sterling', 'Hawthorne', 'Beaumont', 'Kensington', 'Thornton', 'Wellington',
+    'Ashford', 'Carrington', 'Ellington', 'Fairchild', 'Gillingham', 'Hollingsworth',
+    'Pennington', 'Remington', 'Worthington', 'Langford']
+
+CAT_TITLE_PARTS = {
+    'Computer Science': {
+        'topics': ['Algorithms', 'Data Structures', 'Machine Learning', 'Cloud Infrastructure', 'Neural Networks',
+                   'Computational Complexity', 'Software Verification', 'Parallel Processing', 'Distributed Ledgers',
+                   'Quantum Information', 'Compiler Optimization', 'Graph Theory', 'Operating Systems',
+                   'Information Retrieval', 'Computer Vision', 'Formal Methods', 'Network Protocols',
+                   'Digital Signal Processing', 'Embedded Systems', 'Fault-Tolerant Computing'],
+        'subtitles': ['A Modern Approach', 'Theory and Practice', 'Fundamentals and Applications',
+                      'An Advanced Perspective', 'From Theory to Implementation', 'Concepts and Techniques',
+                      'A Comprehensive Guide', 'Principles and Paradigms', 'Design and Analysis',
+                      'Methods and Tools', 'The Complete Reference', 'A Hands-On Introduction'],
+    },
+    'Programming': {
+        'topics': ['Modern Java', 'Advanced Python', 'Rust in Practice', 'TypeScript Design', 'Scala Patterns',
+                   'Kotlin Coroutines', 'Swift Protocols', 'Go Concurrency', 'C++ Templates', 'Ruby Metaprogramming',
+                   'Functional Programming', 'Reactive Systems', 'Domain-Driven Design', 'API Craftsmanship',
+                   'Test-Driven Development', 'Continuous Delivery', 'Microservices Patterns', 'Event Sourcing',
+                   'GraphQL APIs', 'WebAssembly Applications'],
+        'subtitles': ['Best Practices', 'Hands-On Guide', 'From Beginner to Expert', 'Patterns and Anti-Patterns',
+                      'Production-Ready Solutions', 'Real-World Applications', 'The Definitive Guide',
+                      'Practical Recipes', 'Enterprise Patterns', 'Clean Architecture', 'Effective Techniques'],
+    },
+    'Data Science': {
+        'topics': ['Statistical Modeling', 'Time Series Forecasting', 'Causal Inference', 'Bayesian Methods',
+                   'Dimensionality Reduction', 'Anomaly Detection', 'Experimental Design', 'Survey Analytics',
+                   'Spatial Data Analysis', 'Text Analytics', 'Graph Analytics', 'Stream Processing',
+                   'Reproducible Research', 'Model Interpretability', 'Forecasting Methods', 'Data Quality'],
+        'subtitles': ['with Python', 'A Practical Approach', 'From Data to Decisions', 'Concepts and Case Studies',
+                      'Methods and Applications', 'The Complete Toolkit', 'Real-World Analytics',
+                      'for Business Intelligence', 'Visualization and Insight', 'Statistical Foundations'],
+    },
+    'Artificial Intelligence': {
+        'topics': ['Transformer Architectures', 'Graph Neural Networks', 'Generative Adversarial Networks',
+                   'Multi-Agent Systems', 'Knowledge Graphs', 'Causal Reasoning', 'Transfer Learning',
+                   'Federated Learning', 'Self-Supervised Learning', 'Neural Architecture Search',
+                   'Explainable AI', 'Robotics Perception', 'Automated Planning', 'Cognitive Architectures',
+                   'Bayesian Deep Learning', 'Evolutionary Computation', 'Swarm Intelligence', 'Neuro-Symbolic AI'],
+        'subtitles': ['Theory and Applications', 'Modern Approaches', 'From Foundations to Frontiers',
+                      'A Comprehensive Introduction', 'Algorithms and Implementations', 'Research and Practice'],
+    },
+    'Web Development': {
+        'topics': ['Full-Stack Applications', 'Progressive Web Apps', 'Serverless Architecture', 'Next.js Projects',
+                   'Vue 3 Patterns', 'React Design', 'Angular Architecture', 'Node.js Services',
+                   'CSS Architecture', 'Web Performance', 'Accessibility Engineering', 'Cross-Platform Development',
+                   'Browser APIs', 'Jamstack Sites', 'Web Security', 'State Management', 'Frontend Testing'],
+        'subtitles': ['Modern Patterns', 'Building for Scale', 'A Complete Guide', 'Production Techniques',
+                      'Hands-On Projects', 'Architecture and Design', 'from Development to Deployment'],
+    },
+    'Databases': {
+        'topics': ['PostgreSQL Administration', 'Redis Patterns', 'Cassandra at Scale', 'Elasticsearch in Action',
+                   'Graph Database Modeling', 'Time-Series Databases', 'Database Migration Strategies',
+                   'Query Optimization', 'Data Warehousing', 'Stream Processing with Kafka',
+                   'Database Sharding', 'Replication Patterns', 'NoSQL Design', 'SQL Advanced Techniques',
+                   'Data Modeling', 'Indexing Strategies', 'Transaction Processing'],
+        'subtitles': ['The Complete Reference', 'Design and Optimization', 'Production Guide', 'Architecture Patterns',
+                      'Performance Tuning', 'A Practitioner\'s Guide', 'for Modern Applications'],
+    },
+    'Cybersecurity': {
+        'topics': ['Threat Modeling', 'Incident Response', 'Zero Trust Architecture', 'Cloud Security',
+                   'Container Security', 'Supply Chain Security', 'Social Engineering Defense', 'Digital Forensics',
+                   'Red Team Operations', 'Security Operations', 'Identity and Access Management',
+                   'Network Defense', 'Application Security', 'Mobile Security', 'IoT Security'],
+        'subtitles': ['A Practitioner\'s Guide', 'Defense in Depth', 'Modern Threats and Defenses',
+                      'Hands-On Techniques', 'Strategy and Implementation', 'Risk Assessment and Mitigation'],
+    },
+    'Mathematics': {
+        'topics': ['Abstract Algebra', 'Real Analysis', 'Complex Analysis', 'Topology', 'Number Theory',
+                   'Differential Geometry', 'Dynamical Systems', 'Numerical Methods', 'Optimization Theory',
+                   'Stochastic Processes', 'Information Geometry', 'Category Theory', 'Graph Theory',
+                   'Combinatorial Design', 'Mathematical Logic', 'Fourier Analysis', 'Functional Analysis'],
+        'subtitles': ['An Introduction', 'Foundations and Applications', 'Theory and Problems',
+                      'A Rigorous Approach', 'Advanced Topics', 'for Scientists and Engineers'],
+    },
+    'Physics': {
+        'topics': ['Quantum Field Theory', 'General Relativity', 'Statistical Mechanics', 'Condensed Matter Physics',
+                   'Particle Physics', 'Astrophysics', 'Optics and Photonics', 'Plasma Physics',
+                   'Nuclear Physics', 'Solid State Physics', 'Fluid Dynamics', 'Electromagnetic Theory',
+                   'Classical Mechanics', 'Thermodynamics', 'Quantum Information', 'Cosmology'],
+        'subtitles': ['Principles and Applications', 'A Modern Introduction', 'Theoretical Foundations',
+                      'with Experimental Methods', 'for the 21st Century', 'An Advanced Treatment'],
+    },
+    'History': {
+        'topics': ['The Roman Empire', 'Medieval Europe', 'The Renaissance', 'The Age of Exploration',
+                   'The Industrial Revolution', 'World War I', 'The Cold War', 'Ancient Civilizations',
+                   'The Ottoman Empire', 'Colonial America', 'The French Revolution', 'Imperial China',
+                   'The Byzantine Empire', 'The Viking Age', 'The Enlightenment', 'The American Civil War',
+                   'The British Empire', 'Japanese History', 'African Kingdoms', 'The Silk Road'],
+        'subtitles': ['A New History', 'Power and Society', 'Rise and Fall', 'A Comprehensive Account',
+                      'Origins and Legacy', 'People and Events', 'Reconsidered', 'A Narrative History'],
+    },
+    'Philosophy': {
+        'topics': ['Ethics and Morality', 'Political Philosophy', 'Philosophy of Mind', 'Existentialism',
+                   'Eastern Philosophy', 'Philosophy of Science', 'Aesthetics', 'Epistemology',
+                   'Metaphysics', 'Logic and Reasoning', 'Philosophy of Language', 'Ancient Greek Philosophy',
+                   'Buddhist Philosophy', 'Ethics of Technology', 'Freedom and Determinism', 'Consciousness Studies'],
+        'subtitles': ['A Very Short Introduction', 'Key Concepts', 'Historical and Contemporary Perspectives',
+                      'Arguments and Analysis', 'The Great Debates', 'A Philosophical Investigation'],
+    },
+    'Psychology': {
+        'topics': ['Cognitive Psychology', 'Social Psychology', 'Developmental Psychology', 'Abnormal Psychology',
+                   'Positive Psychology', 'Neuropsychology', 'Behavioral Economics', 'Personality Theory',
+                   'Emotional Intelligence', 'Attachment Theory', 'Mindfulness and Cognition', 'Trauma and Recovery',
+                   'Motivation Science', 'Group Dynamics', 'Child Development', 'Memory and Learning'],
+        'subtitles': ['Theory and Research', 'A Scientific Approach', 'Understanding Human Behavior',
+                      'Clinical Applications', 'Current Perspectives', 'From Lab to Life'],
+    },
+    'Self-Help': {
+        'topics': ['Personal Growth', 'Emotional Resilience', 'Finding Purpose', 'Mindful Living',
+                   'Overcoming Adversity', 'Building Confidence', 'Time Mastery', 'Stress Management',
+                   'Better Relationships', 'Creative Living', 'Inner Peace', 'Life Transitions'],
+        'subtitles': ['A Practical Guide', 'Transform Your Life', 'The Complete Handbook', 'Simple Strategies',
+                      'Evidence-Based Approaches', 'Daily Practices', 'for Modern Life'],
+    },
+    'Business': {
+        'topics': ['Strategic Management', 'Competitive Advantage', 'Business Model Innovation', 'Digital Transformation',
+                   'Organizational Culture', 'Change Management', 'Negotiation Strategy', 'Supply Chain Excellence',
+                   'Customer Experience', 'Brand Building', 'Corporate Finance', 'Mergers and Acquisitions',
+                   'Global Strategy', 'Sustainable Business', 'Family Business', 'Social Enterprise'],
+        'subtitles': ['Strategy and Execution', 'A Modern Framework', 'Leading in Times of Change',
+                      'Theory and Practice', 'The Essential Guide', 'Building Lasting Value'],
+    },
+    'Finance': {
+        'topics': ['Investment Strategy', 'Portfolio Management', 'Risk Analysis', 'Behavioral Finance',
+                   'Financial Modeling', 'Derivatives Markets', 'Fixed Income', 'Alternative Investments',
+                   'Private Equity', 'Venture Capital', 'Real Estate Finance', 'Personal Wealth Management',
+                   'International Finance', 'FinTech Revolution', 'Quantitative Trading', 'Financial Regulation'],
+        'subtitles': ['Principles and Practice', 'A Comprehensive Guide', 'Modern Perspectives',
+                      'Analysis and Strategy', 'The Complete Handbook', 'Markets and Instruments'],
+    },
+    'Economics': {
+        'topics': ['Microeconomic Theory', 'Macroeconomic Policy', 'International Trade', 'Development Economics',
+                   'Labor Economics', 'Public Finance', 'Monetary Economics', 'Environmental Economics',
+                   'Game Theory', 'Industrial Organization', 'Health Economics', 'Urban Economics',
+                   'Economic History', 'Inequality and Growth', 'Innovation Economics', 'Behavioral Economics'],
+        'subtitles': ['Theory and Evidence', 'A Modern Approach', 'Policy and Practice', 'Global Perspectives',
+                      'Principles and Applications', 'Contemporary Debates'],
+    },
+    'Political Science': {
+        'topics': ['Comparative Politics', 'International Relations', 'Democratic Theory', 'Authoritarianism',
+                   'Political Economy', 'Public Policy', 'Constitutional Law', 'Electoral Systems',
+                   'Political Psychology', 'Social Movements', 'Geopolitics', 'Diplomacy and Statecraft',
+                   'Federalism', 'Human Rights', 'Security Studies', 'Environmental Politics'],
+        'subtitles': ['A Critical Introduction', 'Theory and Practice', 'Power and Governance',
+                      'Contemporary Issues', 'Historical and Comparative Perspectives', 'The Essential Reader'],
+    },
+    'Science': {
+        'topics': ['Evolutionary Biology', 'Genetics and Genomics', 'Neuroscience', 'Climate Science',
+                   'Marine Biology', 'Microbiology', 'Ecology', 'Biochemistry', 'Astronomy',
+                   'Paleontology', 'Botany', 'Zoology', 'Geology', 'Meteorology', 'Oceanography',
+                   'Anthropology', 'Archaeology', 'Virology', 'Immunology', 'Pharmacology'],
+        'subtitles': ['A Popular Guide', 'Discoveries and Insights', 'The Science of', 'Exploring',
+                      'Understanding', 'Frontiers of', 'An Illustrated Introduction to'],
+    },
+    'Fiction': {
+        'topics': ['The Last Letter', 'Small Town Shadows', 'The Garden of Memories', 'Crossing the Bridge',
+                   'Beneath the Surface', 'The Glass House', 'Thirteen Winters', 'After the Rain',
+                   'The Inheritance', 'Voices in the Dark', 'The Copper Beech', 'The Passenger',
+                   'Inheritance of Loss', 'The Night Watch', 'A Perfect Stranger', 'The Stone Garden',
+                   'Half a World Away', 'The Forgotten Room', 'Burning Bridges', 'The Silent Patient'],
+        'subtitles': ['A Novel', '', 'Stories', '', 'A Novel', '', '', '', 'A Novel', ''],
+    },
+    'Science Fiction': {
+        'topics': ['The Last Colony', 'Starfall', 'Quantum Drift', 'The Exodus Protocol', 'Machine Dawn',
+                   'The Echo Chamber', 'Orbital Decay', 'The Genesis Machine', 'Dark Matter Rising',
+                   'The Turing Test', 'Event Horizon', 'The Signal', 'Post-Human',
+                   'The Colony Ship', 'Chronos Gate', 'The Void Between', 'Silicon Soul', 'Red Planet Rising'],
+        'subtitles': ['A Novel', '', '', 'Book One', '', 'The Series', '', 'A Novel'],
+    },
+    'Fantasy': {
+        'topics': ['The Last Dragon Lord', 'Shadow and Bone', 'The Iron Crown', 'The Silver Throne',
+                   'A Court of Thorns', 'The Obsidian Blade', 'The Dream Weaver', 'The Bone Witch',
+                   'Kingdoms of Ash', 'The Crystal Mage', 'The Storm King', 'The Ember Throne',
+                   'The Raven Queen', 'Sword of Destiny', 'The Wolf King', 'The Midnight Court'],
+        'subtitles': ['Book One', 'A Novel', '', 'The Chronicles', 'Book One', '', 'A Novel', ''],
+    },
+    'Mystery': {
+        'topics': ['The Missing Heiress', 'Death at Midnight', 'The Locked Room', 'The Dead Witness',
+                   'Murder at the Manor', 'The Final Alibi', 'The Vanishing Act', 'The Silent Detective',
+                   'The Poison Pen', 'A Body in the Library', 'The Cold Trail', 'The Fourth Suspect',
+                   'Death on the River', 'The Perfect Alibi', 'The Lost Evidence', 'The Foggy Night'],
+        'subtitles': ['A Detective Novel', 'A Mystery', '', '', 'A Crime Novel', '', '', 'A Thriller'],
+    },
+    'Romance': {
+        'topics': ['A Summer in Provence', 'Love in the City', 'The Wedding Date', 'The Long Way Home',
+                   'Hearts on Fire', 'The Second Chance', 'Under the Tuscan Moon', 'A Winter Wedding',
+                   'The Love Letter', 'Meet Me at Sunset', 'The Beach House', 'Love Unexpected',
+                   'The Promise Ring', 'Forever Begins Today', 'The Last First Kiss', 'Love in Translation'],
+        'subtitles': ['A Romance', '', '', 'A Love Story', '', '', '', ''],
+    },
+    'Thriller': {
+        'topics': ['The Asset', 'Dead Drop', 'The Operative', 'False Flag', 'The Extraction',
+                   'The Conspiracy', 'Safe House', 'The Double Agent', 'Rendition', 'The Informant',
+                   'The Intercept', 'Zero Hour', 'The Breach', 'Sleeper Cell', 'The Kill Chain',
+                   'Treason', 'The Handler', 'Clean Sweep', 'The Defector', 'Burning Ground'],
+        'subtitles': ['A Thriller', '', '', 'A Novel', '', '', 'A Spy Thriller', ''],
+    },
+    'Horror': {
+        'topics': ['The Haunting of Blackwood Manor', 'The Whispering Dark', 'The Devil\'s Hour', 'The Hollow',
+                   'The Cursed', 'Shadow over Innsmouth', 'The Wendigo', 'The Last Séance',
+                   'The Dead of Winter', 'The Possession', 'The Graveyard Shift', 'The Skinwalker',
+                   'The Nightmare', 'The Blood Ritual', 'The Abyss', 'The Witching Hour'],
+        'subtitles': ['A Horror Novel', '', '', '', 'A Supernatural Thriller', '', '', ''],
+    },
+    'Biography': {
+        'topics': ['Elon Musk', 'Marie Curie', 'Leonardo da Vinci', 'Frida Kahlo', 'Winston Churchill',
+                   'Ada Lovelace', 'Alan Turing', 'Mahatma Gandhi', 'Harriet Tubman', 'Albert Einstein',
+                   'Florence Nightingale', 'Abraham Lincoln', 'Cleopatra', 'Genghis Khan',
+                   'Catherine the Great', 'Martin Luther King Jr.', 'Charles Darwin', 'Joan of Arc'],
+        'subtitles': ['A Biography', 'The Life and Times', 'A Life', 'The Definitive Biography',
+                      'A Life in Full', 'Legacy', 'Genius and Tragedy', 'The Untold Story'],
+    },
+}
+
 # ── Categories ──
 CATEGORIES = list(TITLE_POOLS.keys())
+
+# ── Generator helpers ──
+def _gen_title(cat_name):
+    parts = CAT_TITLE_PARTS.get(cat_name, CAT_TITLE_PARTS['Fiction'])
+    if isinstance(parts, list):
+        parts = parts[0]
+    topic = random.choice(parts['topics'])
+    subtitle = random.choice(parts['subtitles'])
+    if subtitle and random.random() > 0.4:
+        return f'{topic}: {subtitle}'
+    return topic
+
+def _gen_author():
+    return f'{random.choice(AUTHORS_FIRST)} {random.choice(AUTHORS_LAST)}'
+
+def _gen_description(title):
+    prefixes = ['This book explores', 'A comprehensive examination of', 'An insightful look at',
+                'A groundbreaking study of', 'This work investigates', 'This volume presents',
+                'An authoritative guide to', 'A thought-provoking analysis of']
+    t = title.lower().replace(':', '').replace('  ', ' ').strip()
+    return (f'{random.choice(prefixes)} {t}. '
+            f'{"Packed with practical examples and theoretical depth" if random.random() > 0.5 else "Drawing on extensive research and real-world applications"}. '
+            f'{"Essential reading for anyone interested in this field." if random.random() > 0.5 else "A valuable resource for students and practitioners alike."}')
 
 # ── Bot names ──
 BOT_NAMES = [
@@ -356,7 +604,48 @@ class Command(BaseCommand):
                     stats.calculate_hot_score()
                     count += 1
 
-        self.stdout.write(f'Books added: {count} (total: {Book.objects.count()})')
+        # ── 3b. Programmatic book generation to reach 1000 ──
+        TARGET = 1000
+        current = Book.objects.count()
+        needed = TARGET - current
+        gen_count = 0
+        if needed > 0:
+            self.stdout.write(f'Generating {needed} more books...')
+            gen_count = 0
+            seen_titles = set(Book.objects.values_list('title', flat=True))
+            attempts = 0
+            while gen_count < needed and attempts < needed * 5:
+                attempts += 1
+                cat_name = random.choice(CATEGORIES)
+                title = _gen_title(cat_name)
+                if title in seen_titles:
+                    continue
+                seen_titles.add(title)
+                author = _gen_author()
+                desc = _gen_description(title)
+                try:
+                    book = Book.objects.create(
+                        title=title,
+                        author=author,
+                        description=desc,
+                        category=cat_objs[cat_name],
+                        price=round(random.uniform(4.99, 59.99), 2),
+                        cover_url=f'https://picsum.photos/seed/book{hash(title) % 100000}/200/300',
+                        download_url=f'https://example.com/downloads/{hash(title) % 100000}',
+                        tags=f'{cat_name.lower()}, {random.choice(["bestseller","classic","new release","popular","recommended","award-winning"])}',
+                        publish_date=f'20{random.randint(0, 24):02d}-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}',
+                    )
+                    stats = BookStats.objects.create(book=book)
+                    stats.view_count = random.randint(20, 8000)
+                    stats.favorite_count = random.randint(2, 600)
+                    stats.purchase_count = random.randint(5, 400)
+                    stats.download_count = random.randint(3, 300)
+                    stats.calculate_hot_score()
+                    gen_count += 1
+                except Exception:
+                    pass
+
+        self.stdout.write(f'Books: {Book.objects.count()} (added {count} curated + {gen_count} generated)')
 
         # ── 4. Bot users ──
         bots_created = 0
