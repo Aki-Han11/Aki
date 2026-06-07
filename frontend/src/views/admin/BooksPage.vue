@@ -200,9 +200,9 @@ onMounted(() => { fetchBooks(); fetchCategories() })
 <style scoped>
 .card-header { display:flex; justify-content:space-between; align-items:center; }
 .header-actions { display:flex; gap:12px; align-items:center; }
-h3 { margin:0; font-weight:600; color:#1e293b; font-size:17px; }
-.price-cell { font-weight:600; color:#1e293b; }
-.no-review { color:#c0c4cc; }
+h3 { margin:0; font-weight:600; color:#1a1815; font-size:17px; }
+.price-cell { font-weight:600; color:#1a1815; }
+.no-review { color:#c0b8ac; }
 .action-btns { display:flex; gap:6px; flex-wrap:nowrap; }
 .review-cell { white-space:normal; line-height:1.5; display:block; }
 .pagination-bar { display:flex; justify-content:center; margin-top:20px; }

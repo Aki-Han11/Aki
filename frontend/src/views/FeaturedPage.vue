@@ -98,41 +98,42 @@ onMounted(fetchBooks)
 
 <style scoped>
 .featured-page { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-.page-header { text-align: center; margin-bottom: 36px; }
-.page-header h1 { font-size: 32px; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
-.page-header p { color: #94a3b8; font-size: 16px; }
+.page-header { text-align: center; margin-bottom: 40px; }
+.page-header h1 { font-size: 32px; font-weight: 800; color: #1a1815; margin-bottom: 8px; letter-spacing: -0.5px; }
+.page-header p { color: #a0988c; font-size: 16px; }
 
 .book-list { display: flex; flex-direction: column; gap: 16px; }
 .book-row {
   display: flex; align-items: flex-start; gap: 24px;
-  background: #fff; border-radius: 16px; padding: 24px;
+  background: #fffdfa; border-radius: 18px; padding: 24px;
   cursor: pointer; transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  border: 1px solid #f0ece6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
 }
 .book-row:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.10), 0 4px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+  border-color: #e0d8cc;
 }
 .book-cover-wrap { flex-shrink: 0; }
 .book-cover-wrap img {
   width: 110px; height: 160px; object-fit: cover; border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 .book-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.book-title { font-size: 18px; font-weight: 700; color: #1e293b; margin: 0; line-height: 1.3; }
-.book-author { font-size: 14px; color: #94a3b8; margin: 0; }
+.book-title { font-size: 18px; font-weight: 700; color: #1a1815; margin: 0; line-height: 1.3; }
+.book-author { font-size: 14px; color: #a0988c; margin: 0; }
 .book-cat { width: fit-content; }
 .book-desc {
-  font-size: 14px; color: #64748b; line-height: 1.7; margin: 2px 0;
+  font-size: 14px; color: #8b7e74; line-height: 1.7; margin: 2px 0;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .book-meta { display: flex; align-items: center; gap: 14px; margin-top: 2px; }
-.book-price { font-size: 20px; font-weight: 700; color: #1e293b; }
+.book-price { font-size: 20px; font-weight: 700; color: #1a1815; }
 .book-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.book-arrow { color: #c0c4cc; flex-shrink: 0; align-self: center; transition: all 0.3s; }
-.book-row:hover .book-arrow { color: #409eff; transform: translateX(3px); }
+.book-arrow { color: #c0b8ac; flex-shrink: 0; align-self: center; transition: all 0.3s; }
+.book-row:hover .book-arrow { color: #2563eb; transform: translateX(3px); }
 
 .empty-state { padding: 80px 0; }
 .pagination-bar { display: flex; justify-content: center; margin-top: 40px; }

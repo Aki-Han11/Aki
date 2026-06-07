@@ -82,16 +82,16 @@ onMounted(fetchOrder)
 </script>
 
 <style scoped>
-h1 { margin: 16px 0 24px; }
+h1 { margin: 16px 0 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
 .order-card { max-width: 800px; }
-.order-header { display: flex; gap: 24px; flex-wrap: wrap; }
-.price { color: #f56c6c; font-weight: 700; font-size: 20px; }
+.order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; }
+.price { color: #1a1815; font-weight: 700; font-size: 20px; }
 .item-list { display: flex; flex-direction: column; gap: 12px; }
-.item-row { display: flex; align-items: center; gap: 16px; padding: 12px; background: #f5f7fa; border-radius: 8px; }
-.item-cover { width: 50px; height: 70px; object-fit: cover; border-radius: 4px; }
+.item-row { display: flex; align-items: center; gap: 16px; padding: 14px 16px; background: #faf7f2; border-radius: 12px; }
+.item-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 6px; }
 .item-info { flex: 1; }
-.item-info h4 { font-size: 15px; }
-.item-info p { color: #999; font-size: 13px; }
-.item-price { font-weight: 600; }
-.order-actions { margin-top: 20px; display: flex; gap: 12px; }
+.item-info h4 { font-size: 15px; font-weight: 600; color: #1a1815; }
+.item-info p { color: #a0988c; font-size: 13px; }
+.item-price { font-weight: 600; color: #1a1815; }
+.order-actions { margin-top: 24px; display: flex; gap: 12px; }
 </style>

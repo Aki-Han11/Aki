@@ -11,9 +11,9 @@
         <el-menu
           :router="true"
           :default-active="activeMenu"
-          background-color="#304156"
-          text-color="#bfcbd9"
-          active-text-color="#409eff"
+          background-color="#1d1a1c"
+          text-color="#a0988c"
+          active-text-color="#60a5fa"
           class="admin-menu"
         >
           <el-menu-item index="/admin">
@@ -99,7 +99,7 @@ function handleLogout() {
 }
 
 .admin-sidebar {
-  background: #1e293b;
+  background: #1d1a1c;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -144,13 +144,13 @@ function handleLogout() {
 }
 
 .admin-header {
-  background: #fff;
+  background: #fffdfa;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); height: 56px; flex-shrink: 0;
+  padding: 0 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); height: 56px; flex-shrink: 0;
 }
 
 .admin-title {
-  font-size: 17px; font-weight: 600; color: #1e293b; letter-spacing: -0.2px;
+  font-size: 17px; font-weight: 600; color: #1a1815; letter-spacing: -0.2px;
 }
 
 .admin-header-right {
@@ -158,10 +158,10 @@ function handleLogout() {
 }
 
 .admin-user {
-  color: #64748b; font-size: 13px; font-weight: 500;
+  color: #8b7e74; font-size: 13px; font-weight: 500;
 }
 
 .admin-main {
-  background: #f8fafc; flex: 1; overflow-y: auto; padding: 24px 28px;
+  background: #faf7f2; flex: 1; overflow-y: auto; padding: 24px 28px;
 }
 </style>

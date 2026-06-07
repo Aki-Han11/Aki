@@ -52,16 +52,19 @@ onMounted(fetchFavorites)
 </script>
 
 <style scoped>
-h1 { margin-bottom: 24px; }
-.fav-list { display: flex; flex-direction: column; gap: 16px; }
+h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
+.fav-list { display: flex; flex-direction: column; gap: 14px; }
 .fav-item {
-  display: flex; align-items: center; gap: 16px;
-  background: #fff; padding: 16px; border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  display: flex; align-items: center; gap: 18px;
+  background: #fffdfa; padding: 18px; border-radius: 16px;
+  border: 1px solid #f0ece6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
+  transition: all 0.25s ease;
 }
-.fav-cover { width: 60px; height: 85px; object-fit: cover; border-radius: 4px; cursor: pointer; }
+.fav-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.04); border-color: #e0d8cc; }
+.fav-cover { width: 65px; height: 92px; object-fit: cover; border-radius: 8px; cursor: pointer; }
 .fav-info { flex: 1; }
-.fav-info h3 { font-size: 16px; margin-bottom: 4px; }
-.fav-info p { color: #999; font-size: 14px; }
-.fav-date { font-size: 12px; color: #bbb; margin-top: 4px; }
+.fav-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; margin-bottom: 4px; }
+.fav-info p { color: #a0988c; font-size: 14px; }
+.fav-date { font-size: 12px; color: #b8b0a4; margin-top: 4px; }
 </style>

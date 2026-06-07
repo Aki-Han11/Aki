@@ -8,7 +8,7 @@
 <style>
 /* ══════════════════════════════════════════════════════════════
    Global Reset & Base Styles — EBookStore
-   Clean, modern, pixel-perfect foundation
+   Warm ivory palette · Unified design language
    ══════════════════════════════════════════════════════════════ */
 
 html, body, #app {
@@ -28,8 +28,8 @@ html, body, #app {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
-  background: #ffffff;
-  color: #1e293b;
+  background: #faf7f2;
+  color: #3a322c;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -40,16 +40,34 @@ a {
   color: inherit;
 }
 
-/* ── Smooth focus rings ── */
 :focus-visible {
   outline: 2px solid rgba(37,99,235,0.5);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ── Scrollbar refinement ── */
+/* Global Element Plus overrides — warm theme */
+.el-card {
+  background: #fffdfa !important;
+  border: 1px solid #f0ece6 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022) !important;
+}
+.el-button--primary {
+  --el-button-bg-color: #2563eb;
+  --el-button-border-color: #2563eb;
+  --el-button-hover-bg-color: #1d4ed8;
+  --el-button-hover-border-color: #1d4ed8;
+}
+.el-tag { border-radius: 8px !important; }
+.el-input__wrapper {
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-thumb { background: #d4c8b8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #b8a898; }
 </style>

@@ -124,7 +124,7 @@ function handleLogout() {
    Clean, modern, pixel-perfect with custom SVG icons
    ══════════════════════════════════════════════════════════════ */
 
-.main-layout { min-height: 100vh; background: #f8fafc; }
+.main-layout { min-height: 100vh; background: #faf7f2; }
 
 .header {
   background: #fff;
@@ -151,7 +151,7 @@ function handleLogout() {
 
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-item {
-  font-size: 15px; font-weight: 500; color: #475569;
+  font-size: 15px; font-weight: 500; color: #6b5e54;
   padding: 8px 16px; border-radius: 10px;
   letter-spacing: 0.2px;
   transition: all 0.2s ease;
@@ -185,7 +185,7 @@ function handleLogout() {
 /* ── Sign In / CTA Buttons ── */
 .nav-signin-btn {
   font-size: 14px !important; font-weight: 500 !important;
-  color: #475569 !important;
+  color: #6b5e54 !important;
   border: none !important;
   background: transparent !important;
   padding: 8px 16px !important;
@@ -214,9 +214,9 @@ function handleLogout() {
 /* ── User Dropdown ── */
 .nav-user-btn {
   font-size: 14px !important; font-weight: 500 !important;
-  color: #0f172a !important;
-  background: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
+  color: #1a1815 !important;
+  background: #faf7f2 !important;
+  border: 1px solid #e8e0d4 !important;
   border-radius: 10px !important;
   padding: 8px 16px !important;
   display: flex !important; align-items: center !important; gap: 4px !important;
@@ -237,7 +237,7 @@ function handleLogout() {
 /* ── Footer ── */
 .footer {
   text-align: center; padding: 20px;
-  background: #fff; color: #94a3b8; font-size: 13px;
-  border-top: 1px solid #f1f5f9;
+  background: #fffdfa; color: #a0988c; font-size: 13px;
+  border-top: 1px solid #f0ece6;
 }
 </style>

@@ -120,7 +120,7 @@ onMounted(fetchUsers)
 
 <style scoped>
 .card-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-h3 { margin:0; font-weight:600; color:#1e293b; font-size:17px; }
+h3 { margin:0; font-weight:600; color:#1a1815; font-size:17px; }
 .header-actions { display:flex; gap:12px; align-items:center; }
 .action-btns { display:flex; gap:6px; }
 .empty-state { padding:40px 0; }

@@ -70,27 +70,13 @@ async function handleLogin() {
 
 <style scoped>
 .auth-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 200px);
+  display: flex; justify-content: center; align-items: center;
+  min-height: calc(100vh - 200px); padding: 24px;
 }
-.auth-card {
-  width: 420px;
-}
-.auth-card h2 {
-  margin: 0;
-}
-.auth-link {
-  text-align: center;
-  margin-top: 8px;
-}
-.auth-link a {
-  color: #409eff;
-}
-.demo-info {
-  font-size: 13px;
-  color: #999;
-  text-align: center;
-}
+.auth-card { width: 420px; }
+.auth-card h2 { margin: 0; font-size: 22px; font-weight: 700; color: #1a1815; }
+.auth-link { text-align: center; margin-top: 12px; font-size: 14px; color: #8b7e74; }
+.auth-link a { color: #2563eb; font-weight: 500; }
+.demo-info { font-size: 13px; color: #a0988c; text-align: center; line-height: 1.7; }
+.demo-info strong { color: #6b5e54; }
 </style>

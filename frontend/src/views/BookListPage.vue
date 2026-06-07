@@ -95,30 +95,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.page-header {
-  margin-bottom: 24px;
-}
-
-.page-header h1 {
-  font-size: 28px;
-  color: #303133;
-}
-
-.page-header p {
-  color: #999;
-  margin-top: 4px;
-}
-
-.filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
+.page-header { margin-bottom: 32px; }
+.page-header h1 { font-size: 30px; color: #1a1815; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.page-header p { color: #a0988c; font-size: 15px; }
+.filters { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.pagination { display: flex; justify-content: center; margin-top: 44px; }
 </style>

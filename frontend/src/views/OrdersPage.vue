@@ -45,16 +45,18 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-h1 { margin-bottom: 24px; }
+h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
 .order-list { display: flex; flex-direction: column; gap: 12px; }
 .order-item {
   display: flex; align-items: center; justify-content: space-between;
-  background: #fff; padding: 20px; border-radius: 8px; cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06); transition: box-shadow .2s;
+  background: #fffdfa; padding: 22px 24px; border-radius: 16px; cursor: pointer;
+  border: 1px solid #f0ece6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
+  transition: all 0.25s ease;
 }
-.order-item:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
-.order-info h3 { font-size: 16px; }
-.order-info p { color: #999; font-size: 13px; }
+.order-item:hover { box-shadow: 0 10px 24px rgba(0,0,0,0.05); border-color: #e0d8cc; }
+.order-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
+.order-info p { color: #a0988c; font-size: 13px; margin-top: 2px; }
 .order-meta { display: flex; align-items: center; gap: 16px; }
-.order-price { font-size: 18px; color: #f56c6c; font-weight: 600; }
+.order-price { font-size: 18px; color: #1a1815; font-weight: 600; }
 </style>
