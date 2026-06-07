@@ -2,11 +2,10 @@
   <div class="profile-page">
     <h1>My Profile</h1>
 
-    <!-- Profile Header — avatar + identity -->
+    <!-- Profile Header — avatar initial + identity -->
     <div class="profile-header">
       <div class="profile-avatar">
-        <img v-if="form.avatar" :src="form.avatar" alt="avatar" @error="e => e.target.style.display='none'" />
-        <span v-else class="avatar-placeholder">{{ (form.username || 'U')[0].toUpperCase() }}</span>
+        <span class="avatar-placeholder">{{ (form.username || 'U')[0].toUpperCase() }}</span>
       </div>
       <div class="profile-identity">
         <h2>{{ form.username }}</h2>
@@ -25,10 +24,6 @@
         <div class="info-field">
           <label>Email</label>
           <el-input v-model="form.email" placeholder="your@email.com" />
-        </div>
-        <div class="info-field">
-          <label>Avatar URL</label>
-          <el-input v-model="form.avatar" placeholder="https://..." />
         </div>
       </div>
       <div class="section-action">
@@ -61,7 +56,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getProfile, updateProfile, changePassword as changePwApi } from '../api/endpoints'
 
-const form = reactive({ username: '', email: '', avatar: '' })
+const form = reactive({ username: '', email: '' })
 const pwForm = reactive({ old_password: '', new_password: '' })
 const pwFormRef = ref(null)
 const saving = ref(false)
@@ -77,7 +72,7 @@ onMounted(async () => {
 async function saveProfile() {
   saving.value = true
   try {
-    await updateProfile({ email: form.email, avatar: form.avatar })
+    await updateProfile({ email: form.email })
     ElMessage.success('Profile updated')
   } catch (e) {
     ElMessage.error('Failed to update')
@@ -114,11 +109,10 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
   border-bottom: 1px solid #f2ede7;
 }
 .profile-avatar {
-  width: 88px; height: 88px; border-radius: 50%; overflow: hidden;
-  flex-shrink: 0; background: #f5f0e8;
+  width: 88px; height: 88px; border-radius: 50%;
+  flex-shrink: 0; background: #f0ebe0;
   display: flex; align-items: center; justify-content: center;
 }
-.profile-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .avatar-placeholder {
   font-size: 36px; font-weight: 700; color: #8b7e74;
 }
