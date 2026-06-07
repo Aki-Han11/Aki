@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ ./
-RUN mkdir -p /app/frontend
+RUN mkdir -p /app/backend/staticfiles /app/frontend
 COPY --from=frontend /app/frontend/dist /app/frontend/dist
 
 # Run migrations and start server
