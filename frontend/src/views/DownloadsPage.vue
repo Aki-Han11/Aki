@@ -36,17 +36,17 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
-.dl-list { display: flex; flex-direction: column; gap: 12px; }
+h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
+.dl-list { display: flex; flex-direction: column; }
 .dl-item {
-  display: flex; align-items: center; gap: 18px;
-  background: #fefdfc; padding: 18px; border-radius: 16px;
-  border: 1px solid #f1ede7;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
-  transition: all 0.25s ease;
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 4px;
+  border-bottom: 1px solid #f2ede7;
+  background: transparent;
+  transition: background 0.25s ease;
 }
-.dl-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.04); border-color: #e3dbd1; }
-.dl-cover { width: 65px; height: 92px; object-fit: cover; border-radius: 8px; }
+.dl-item:hover { background: #fefdfc; }
+.dl-cover { width: 70px; height: 98px; object-fit: cover; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
 .dl-info { flex: 1; }
 .dl-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
 .dl-info p { color: #a0988c; font-size: 14px; }

@@ -331,7 +331,8 @@ onMounted(() => {
 .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 .download-box { margin-top: 16px; }
 .description-section { margin-bottom: 44px; }
-.description-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #f1ede7; }
+.description-section { margin-bottom: 44px; }
+.description-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f2ede7; }
 .description-section p { line-height: 1.8; color: #4a4038; }
 
 .review-section { margin-bottom: 36px; }
@@ -345,9 +346,9 @@ onMounted(() => {
 .review-hint { font-size: 13px; color: #a0988c; transition: color 0.3s; }
 .review-hint.submitted { color: #10b981; font-weight: 500; }
 
-.reviews-list h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #f1ede7; }
+.reviews-list h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f2ede7; }
 .no-reviews { padding: 20px 0; }
-.review-item { padding: 18px 0; border-bottom: 1px solid #f1ede7; }
+.review-item { padding: 18px 0; border-bottom: 1px solid #f2ede7; }
 .review-item:last-child { border-bottom: none; }
 .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .review-user { font-weight: 600; color: #1a1815; }
@@ -358,22 +359,27 @@ onMounted(() => {
 
 .recommended-section {
   margin-top: 48px; padding-top: 36px;
-  border-top: 2px solid #f1ede7;
+  border-top: 1px solid #f2ede7;
 }
 .recommended-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 6px; }
 .rec-subtitle { font-size: 13px; color: #a0988c; margin: 0 0 22px; }
-.rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.rec-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .rec-card {
-  cursor: pointer; border-radius: 16px; overflow: hidden;
-  background: #fefdfc; border: 1px solid #f1ede7;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
-  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer; border-radius: 10px; overflow: hidden;
+  background: transparent; border: none;
+  transition: transform 0.3s ease;
 }
-.rec-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.06); border-color: #e3dbd1; }
-.rec-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; background: #fdfaf6; }
-.rec-info { padding: 14px; }
-.rec-info h4 { font-size: 13px; font-weight: 600; color: #1e1b18; margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.rec-info span { font-size: 12px; color: #a0988c; display: block; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-card:hover { transform: translateY(-3px); }
+.rec-card:hover img { box-shadow: 0 6px 20px rgba(0,0,0,0.10); }
+.rec-card img {
+  width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
+  border-radius: 10px; background: #f5f0e8;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s ease;
+}
+.rec-info { padding: 12px 4px 0; }
+.rec-info h4 { font-size: 13px; font-weight: 600; color: #1e1b18; margin: 0 0 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rec-info span { font-size: 12px; color: #a0988c; display: block; margin-bottom: 6px; }
 .rec-info strong { font-size: 14px; font-weight: 700; color: #1a1815; }
 
 @media (max-width: 768px) {

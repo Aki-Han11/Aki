@@ -1,6 +1,6 @@
 <template>
   <div class="book-grid-wrapper">
-    <el-row :gutter="20">
+    <el-row :gutter="24">
       <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="book in books" :key="book.id">
         <div class="book-card" @click="$router.push(`/books/${book.id}`)">
           <div class="book-card-cover">
@@ -36,37 +36,34 @@ function onImgError(e) {
 </script>
 
 <style scoped>
+/* Clean gallery grid — no card borders, image-forward */
 .book-card {
-  background: #fefdfc;
-  border: 1px solid #f1ede7;
-  border-radius: 18px;
-  overflow: hidden;
-  cursor: pointer;
-  margin-bottom: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
-  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer; margin-bottom: 28px;
+  transition: transform 0.3s ease;
 }
-.book-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.06), 0 5px 14px rgba(0,0,0,0.03);
-  border-color: #e3dbd1;
+.book-card:hover { transform: translateY(-4px); }
+.book-card:hover .book-card-cover img { box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+
+.book-card-cover { width: 100%; aspect-ratio: 2/3; overflow: hidden; border-radius: 10px; background: #f5f0e8; }
+.book-card-cover img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.3s ease;
+  border-radius: 10px;
 }
 
-.book-card-cover { width: 100%; aspect-ratio: 2/3; overflow: hidden; background: #fdfaf6; }
-.book-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-.book-card-info { padding: 18px 16px; }
+.book-card-info { padding: 12px 4px 0; }
 .book-title {
-  font-size: 14px; font-weight: 600; color: #1e1b18;
+  font-size: 14px; font-weight: 600; color: #1c1917;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  margin: 0 0 6px; line-height: 1.3;
+  margin: 0 0 4px; line-height: 1.3;
 }
 .book-author {
   font-size: 13px; color: #a0988c;
-  margin-bottom: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  margin-bottom: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .book-bottom { display: flex; justify-content: space-between; align-items: center; }
-.book-price { font-size: 16px; color: #1a1815; font-weight: 700; }
-.book-tag { background: #f3efe8 !important; border: 1px solid #eae3d8 !important; color: #8b7e74 !important; }
+.book-price { font-size: 15px; color: #1a1815; font-weight: 700; }
+.book-tag { background: #f5f0e8 !important; color: #8b7e74 !important; border: none !important; font-size: 11px !important; }
 .loading-box { padding: 40px; }
 </style>

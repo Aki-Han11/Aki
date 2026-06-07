@@ -45,16 +45,15 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-h1 { margin-bottom: 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
-.order-list { display: flex; flex-direction: column; gap: 12px; }
+h1 { margin-bottom: 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
+.order-list { display: flex; flex-direction: column; }
 .order-item {
   display: flex; align-items: center; justify-content: space-between;
-  background: #fefdfc; padding: 22px 24px; border-radius: 16px; cursor: pointer;
-  border: 1px solid #f1ede7;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.018), 0 1px 2px rgba(0,0,0,0.022);
-  transition: all 0.25s ease;
+  background: transparent; padding: 22px 4px; cursor: pointer;
+  border-bottom: 1px solid #f2ede7;
+  transition: background 0.25s ease;
 }
-.order-item:hover { box-shadow: 0 10px 24px rgba(0,0,0,0.05); border-color: #e3dbd1; }
+.order-item:hover { background: #fefdfc; }
 .order-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
 .order-info p { color: #a0988c; font-size: 13px; margin-top: 2px; }
 .order-meta { display: flex; align-items: center; gap: 16px; }

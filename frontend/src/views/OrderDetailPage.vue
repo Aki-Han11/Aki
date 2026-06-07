@@ -82,16 +82,21 @@ onMounted(fetchOrder)
 </script>
 
 <style scoped>
-h1 { margin: 16px 0 28px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.4px; }
+h1 { margin: 16px 0 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
 .order-card { max-width: 800px; }
-.order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; }
+.order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; padding-bottom: 20px; border-bottom: 1px solid #f2ede7; margin-bottom: 24px; }
 .price { color: #1a1815; font-weight: 700; font-size: 20px; }
-.item-list { display: flex; flex-direction: column; gap: 12px; }
-.item-row { display: flex; align-items: center; gap: 16px; padding: 14px 16px; background: #fdfaf6; border-radius: 12px; }
-.item-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 6px; }
+.item-list { display: flex; flex-direction: column; }
+.item-row {
+  display: flex; align-items: center; gap: 18px; padding: 16px 4px;
+  border-bottom: 1px solid #f2ede7;
+  background: transparent;
+}
+.item-row:last-child { border-bottom: none; }
+.item-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
 .item-info { flex: 1; }
 .item-info h4 { font-size: 15px; font-weight: 600; color: #1a1815; }
 .item-info p { color: #a0988c; font-size: 13px; }
 .item-price { font-weight: 600; color: #1a1815; }
-.order-actions { margin-top: 24px; display: flex; gap: 12px; }
+.order-actions { margin-top: 28px; display: flex; gap: 12px; }
 </style>
