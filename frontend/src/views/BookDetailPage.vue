@@ -332,7 +332,7 @@ onMounted(() => {
 .download-box { margin-top: 16px; }
 .description-section { margin-bottom: 44px; }
 .description-section { margin-bottom: 44px; }
-.description-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f2ede7; }
+.description-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
 .description-section p { line-height: 1.8; color: #4a4038; max-width: 680px; }
 
 .review-section { margin-bottom: 36px; }
@@ -346,9 +346,9 @@ onMounted(() => {
 .review-hint { font-size: 13px; color: #a0988c; transition: color 0.3s; }
 .review-hint.submitted { color: #10b981; font-weight: 500; }
 
-.reviews-list h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f2ede7; }
+.reviews-list h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
 .no-reviews { padding: 20px 0; }
-.review-item { padding: 18px 0; border-bottom: 1px solid #f2ede7; }
+.review-item { padding: 18px 0; border-bottom: 1px solid #f0f0f0; }
 .review-item:last-child { border-bottom: none; }
 .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 .review-user { font-weight: 600; color: #1a1815; }
@@ -359,7 +359,7 @@ onMounted(() => {
 
 .recommended-section {
   margin-top: 48px; padding-top: 36px;
-  border-top: 1px solid #f2ede7;
+  border-top: 1px solid #f0f0f0;
 }
 .recommended-section h2 { font-size: 22px; font-weight: 600; color: #1a1815; margin-bottom: 6px; }
 .rec-subtitle { font-size: 13px; color: #a0988c; margin: 0 0 22px; }
@@ -373,7 +373,7 @@ onMounted(() => {
 .rec-card:hover img { box-shadow: 0 6px 20px rgba(0,0,0,0.10); }
 .rec-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
-  border-radius: 10px; background: #f5f0e8;
+  border-radius: 10px; background: #f0f0f0;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   transition: box-shadow 0.3s ease;
 }

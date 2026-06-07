@@ -106,11 +106,11 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .profile-header {
   display: flex; align-items: center; gap: 24px;
   padding-bottom: 32px; margin-bottom: 36px;
-  border-bottom: 1px solid #f2ede7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .profile-avatar {
   width: 88px; height: 88px; border-radius: 50%;
-  flex-shrink: 0; background: #f0ebe0;
+  flex-shrink: 0; background: #eeeeee;
   display: flex; align-items: center; justify-content: center;
 }
 .avatar-placeholder {
@@ -126,7 +126,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .profile-section h3 {
   font-size: 17px; font-weight: 600; color: #1a1815;
   margin: 0 0 20px; padding-bottom: 12px;
-  border-bottom: 1px solid #f2ede7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .info-grid {
   display: grid; grid-template-columns: 1fr; gap: 18px;

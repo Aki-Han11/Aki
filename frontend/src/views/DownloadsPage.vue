@@ -44,7 +44,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .dl-item {
   display: flex; align-items: center; gap: 24px;
   padding: 22px 0;
-  border-bottom: 1px solid #f2ede7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .dl-cover { width: 80px; height: 114px; object-fit: cover; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); flex-shrink: 0; }
 .dl-info { flex: 1; min-width: 0; }

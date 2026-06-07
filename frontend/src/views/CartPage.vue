@@ -89,7 +89,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .cart-item {
   display: flex; align-items: center; gap: 24px;
   padding: 22px 0;
-  border-bottom: 1px solid #f2ede7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .cart-cover { width: 80px; height: 114px; object-fit: cover; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); flex-shrink: 0; }
 .cart-info { flex: 1; min-width: 0; }
@@ -100,7 +100,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .cart-footer {
   margin-top: 36px; padding: 24px 0;
   display: flex; align-items: center; justify-content: space-between;
-  border-top: 2px solid #eae3d8;
+  border-top: 2px solid #e8e8e7;
 }
 .cart-total { font-size: 20px; color: #4a4038; }
 .cart-total strong { color: #1a1815; font-size: 24px; font-weight: 700; }

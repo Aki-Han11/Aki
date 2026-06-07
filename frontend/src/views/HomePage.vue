@@ -235,7 +235,7 @@ onMounted(async () => {
 :deep(.nav-user-btn) {
   color: #1a1815 !important;
   background: rgba(37,99,235,0.04) !important;
-  border: 1px solid #eae3d8 !important;
+  border: 1px solid #e8e8e7 !important;
 }
 :deep(.nav-user-btn:hover) {
   color: #2563eb !important;
@@ -257,7 +257,7 @@ onMounted(async () => {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column;
   overflow-x: hidden;
-  background: #fefcf8;
+  background: #fafaf8;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -268,12 +268,12 @@ onMounted(async () => {
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  /* Ultra-subtle warm-to-cool natural light gradient */
+  /* Barely-warm neutral light gradient */
   background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,248,240,0.6) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(254,243,226,0.5) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(238,242,255,0.4) 0%, transparent 55%),
-    linear-gradient(175deg, #fefdfb 0%, #fefcf8 25%, #faf8f4 50%, #f7f6f9 100%);
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(250,248,245,0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(249,247,244,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(240,243,252,0.3) 0%, transparent 55%),
+    linear-gradient(175deg, #fafaf9 0%, #fafaf8 25%, #f8f8f6 50%, #f7f7f9 100%);
   position: relative; overflow: hidden;
   flex-shrink: 0;
 }
@@ -287,9 +287,9 @@ onMounted(async () => {
   top: -15%; right: -8%;
   width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
   background: radial-gradient(circle at 55% 45%,
-    rgba(251,191,36,0.12) 0%,
-    rgba(245,158,11,0.07) 20%,
-    rgba(252,211,77,0.04) 40%,
+    rgba(248,245,240,0.10) 0%,
+    rgba(245,242,236,0.05) 20%,
+    rgba(250,248,244,0.03) 40%,
     transparent 65%);
   animation: warmPulse 8s ease-in-out infinite;
 }
@@ -303,9 +303,9 @@ onMounted(async () => {
   bottom: -12%; left: -5%;
   width: 42vw; height: 42vw; max-width: 540px; max-height: 540px;
   background: radial-gradient(circle at 40% 50%,
-    rgba(99,102,241,0.06) 0%,
-    rgba(79,70,229,0.03) 30%,
-    rgba(37,99,235,0.015) 50%,
+    rgba(220,225,245,0.06) 0%,
+    rgba(210,215,240,0.03) 30%,
+    rgba(220,225,245,0.015) 50%,
     transparent 68%);
 }
 
@@ -314,7 +314,7 @@ onMounted(async () => {
   content: '';
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 80px;
-  background: linear-gradient(to bottom, transparent, #fefcf8);
+  background: linear-gradient(to bottom, transparent, #fafaf8);
   z-index: 0; pointer-events: none;
 }
 
@@ -325,7 +325,7 @@ onMounted(async () => {
   transform: translate(-50%, -50%) rotate(-12deg);
   width: min(720px, 85vw); height: min(720px, 85vw);
   border-radius: 50%;
-  border: 1px solid rgba(180,140,100,0.10);
+  border: 1px solid rgba(180,175,170,0.08);
   pointer-events: none;
 }
 
@@ -380,21 +380,21 @@ onMounted(async () => {
 .stat span  { font-size: 12px; color: #a0988c; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 500; }
 .stat-divider {
   width: 1px; height: 36px;
-  background: #eae3d8;
+  background: #e8e8e7;
   flex-shrink: 0;
 }
 
 /* ═══ Zone 4 · Search — elegant pill ═══ */
 .hero-search { width: min(560px, 88vw); margin-bottom: 22px; }
 .hero-search-input :deep(.el-input__wrapper) {
-  background: #fefdfc;
-  border: 1px solid #eae3d8;
+  background: #ffffff;
+  border: 1px solid #e8e8e7;
   border-radius: 10px; padding: 6px 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.022), 0 1px 2px rgba(0,0,0,0.018);
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .hero-search-input :deep(.el-input__wrapper:hover) {
-  border-color: #d4c8b8;
+  border-color: #d5d5d4;
   box-shadow: 0 2px 14px rgba(0,0,0,0.035), 0 1px 3px rgba(0,0,0,0.025);
 }
 .hero-search-input :deep(.el-input__wrapper.is-focus) {
@@ -466,7 +466,7 @@ onMounted(async () => {
   max-width: 1280px; margin: 0 auto; padding: 96px 28px;
 }
 .section-alt {
-  background: #fefcf9; max-width: none;
+  background: #f8f8f6; max-width: none;
 }
 /* No borders — cards provide natural separation */
 .section-alt > * { max-width: 1280px; margin-left: auto; margin-right: auto; }
@@ -498,8 +498,8 @@ onMounted(async () => {
   gap: 24px;
 }
 .discovery-card {
-  background: #fefdfc;
-  border: 1px solid #f1ede7;
+  background: #ffffff;
+  border: 1px solid #efefee;
   border-radius: 18px;
   padding: 40px 32px; text-align: center;
   box-shadow: 0 1px 2px rgba(0,0,0,0.02);
@@ -508,7 +508,7 @@ onMounted(async () => {
 .discovery-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.05), 0 3px 8px rgba(0,0,0,0.025);
-  border-color: #e3dbd1;
+  border-color: #e0e0df;
 }
 .discovery-icon {
   width: 68px; height: 68px; border-radius: 18px;
@@ -530,7 +530,7 @@ onMounted(async () => {
 }
 .book-card {
   cursor: pointer; border-radius: 10px;
-  background: #fefdfc; border: none;
+  background: #ffffff; border: none;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -541,7 +541,7 @@ onMounted(async () => {
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
-  background: #fefcf8;
+  background: #fafaf8;
 }
 .book-card-info { padding: 18px 16px; }
 .book-card-info h4 {

@@ -85,12 +85,12 @@ onMounted(fetchOrder)
 .order-detail-page { max-width: 900px; margin: 0 auto; padding: 0 32px; }
 h1 { margin: 12px 0 32px; font-size: 28px; font-weight: 700; color: #1a1815; letter-spacing: -0.5px; }
 .order-card { max-width: none; }
-.order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; padding-bottom: 20px; border-bottom: 1px solid #f2ede7; margin-bottom: 28px; }
+.order-header { display: flex; gap: 24px; flex-wrap: wrap; color: #4a4038; padding-bottom: 20px; border-bottom: 1px solid #f0f0f0; margin-bottom: 28px; }
 .price { color: #1a1815; font-weight: 700; font-size: 20px; }
 .item-list { display: flex; flex-direction: column; }
 .item-row {
   display: flex; align-items: center; gap: 20px; padding: 18px 0;
-  border-bottom: 1px solid #f2ede7;
+  border-bottom: 1px solid #f0f0f0;
 }
 .item-row:last-child { border-bottom: none; }
 .item-cover { width: 50px; height: 72px; object-fit: cover; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); flex-shrink: 0; }

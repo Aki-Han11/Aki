@@ -124,7 +124,7 @@ function handleLogout() {
    Clean, modern, pixel-perfect with custom SVG icons
    ══════════════════════════════════════════════════════════════ */
 
-.main-layout { min-height: 100vh; background: #fefcf8; display: flex; flex-direction: column; }
+.main-layout { min-height: 100vh; background: #fafaf8; display: flex; flex-direction: column; }
 .main-layout :deep(.el-container) { flex: 1; display: flex; flex-direction: column; }
 
 .header {
@@ -216,8 +216,8 @@ function handleLogout() {
 .nav-user-btn {
   font-size: 14px !important; font-weight: 500 !important;
   color: #1a1815 !important;
-  background: #fefcf8 !important;
-  border: 1px solid #eae3d8 !important;
+  background: #fafaf8 !important;
+  border: 1px solid #e8e8e7 !important;
   border-radius: 10px !important;
   padding: 8px 16px !important;
   display: flex !important; align-items: center !important; gap: 4px !important;
@@ -238,7 +238,7 @@ function handleLogout() {
 /* ── Footer ── */
 .footer {
   text-align: center; padding: 20px;
-  background: #fefdfc; color: #a0988c; font-size: 13px;
-  border-top: 1px solid #f1ede7;
+  background: #ffffff; color: #a0988c; font-size: 13px;
+  border-top: 1px solid #efefee;
 }
 </style>

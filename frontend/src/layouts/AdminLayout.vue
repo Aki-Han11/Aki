@@ -144,7 +144,7 @@ function handleLogout() {
 }
 
 .admin-header {
-  background: #fefdfc;
+  background: #ffffff;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 28px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); height: 56px; flex-shrink: 0;
 }
@@ -162,6 +162,6 @@ function handleLogout() {
 }
 
 .admin-main {
-  background: #fefcf8; flex: 1; overflow-y: auto; padding: 24px 28px 48px;
+  background: #fafaf8; flex: 1; overflow-y: auto; padding: 24px 28px 48px;
 }
 </style>

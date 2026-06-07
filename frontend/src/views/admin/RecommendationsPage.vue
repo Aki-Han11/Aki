@@ -114,8 +114,8 @@ h3 { margin: 0; font-weight: 600; color: #1e293b; font-size: 17px; }
 
 .result-box { margin-top: 24px; }
 .result-details {
-  background: #fefcf8; padding: 24px; border-radius: 14px;
-  margin-top: 16px; border: 1px solid #f1ede7;
+  background: #fafaf8; padding: 24px; border-radius: 14px;
+  margin-top: 16px; border: 1px solid #efefee;
 }
 .detail-item { text-align: center; padding: 8px 0; }
 .detail-value { display: block; font-size: 28px; font-weight: 700; color: #409eff; }
