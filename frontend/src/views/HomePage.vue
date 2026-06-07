@@ -40,7 +40,7 @@
     </section>
 
     <!-- Section 3: Smart Discovery -->
-    <section class="section section-alt" id="discovery">
+    <section class="section" id="discovery">
       <div class="section-head section-head-center">
         <h2>Smart Discovery</h2>
         <p class="section-subtitle">Discover books through multiple intelligent channels</p>
@@ -65,7 +65,7 @@
     </section>
 
     <!-- Section 4: Popular Books -->
-    <section class="section" v-if="hotBooks.length" id="popular">
+    <section class="section section-alt" v-if="hotBooks.length" id="popular">
       <div class="section-head">
         <div>
           <h2>Popular Books</h2>
@@ -85,25 +85,7 @@
       </div>
     </section>
 
-    <!-- Section 5: Categories -->
-    <section class="section section-alt" v-if="categories.length">
-      <div class="section-head">
-        <div>
-          <h2>Browse by Category</h2>
-          <p class="section-subtitle">Find books by topic across {{ catCount }} categories</p>
-        </div>
-        <el-button text @click="$router.push('/books')">All Categories <el-icon><ArrowRight /></el-icon></el-button>
-      </div>
-      <div class="cat-grid">
-        <div v-for="cat in categories" :key="cat.id" class="cat-card"
-             @click="$router.push({path:'/books',query:{category:cat.id}})">
-          <span class="cat-name">{{ cat.name }}</span>
-          <span class="cat-count">{{ cat.book_count }} books</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 6: New Arrivals -->
+    <!-- Section 5: New Arrivals -->
     <section class="section" v-if="newBooks.length">
       <div class="section-head">
         <div>
@@ -124,7 +106,7 @@
       </div>
     </section>
 
-    <!-- Section 7: Footer -->
+    <!-- Section 6: Footer -->
     <footer class="landing-footer">
       <div class="footer-inner">
         <div class="footer-brand">
@@ -318,40 +300,32 @@ onMounted(async () => {
 /* ── Book Grid ── */
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 .book-card {
-  cursor: pointer; border-radius: 10px;
-  background: #fff; border: 1px solid #e2e8f0;
-  overflow: hidden; transition: all 0.25s;
+  cursor: pointer; border-radius: 16px;
+  background: #fff; border: none;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.book-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.10), 0 4px 10px rgba(0,0,0,0.06);
+}
 .book-card img {
-  width: 100%; height: 220px; object-fit: cover; display: block;
+  width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
+  background: #f1f5f9;
 }
-.book-card-info { padding: 12px 14px 14px; }
+.book-card-info { padding: 16px; }
 .book-card-info h4 {
   font-size: 14px; font-weight: 600; color: #1e293b;
-  margin: 0 0 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin: 0 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  line-height: 1.3;
 }
-.book-author { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; }
-.book-price { font-size: 15px; font-weight: 700; color: #f56c6c; }
-
-/* ── Categories ── */
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
-}
-.cat-card {
-  background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
-  padding: 16px; cursor: pointer; text-align: center;
-  transition: all 0.2s;
-}
-.cat-card:hover { border-color: #409eff; box-shadow: 0 2px 8px rgba(64,158,255,0.1); transform: translateY(-2px); }
-.cat-name { font-weight: 600; font-size: 14px; color: #334155; display: block; }
-.cat-count { font-size: 12px; color: #94a3b8; }
+.book-author { font-size: 13px; color: #94a3b8; display: block; margin-bottom: 10px; }
+.book-price { font-size: 16px; font-weight: 700; color: #1e293b; }
 
 /* ── Footer ── */
 .landing-footer { margin-top: auto; background: #0f172a; color: #cbd5e1; padding: 56px 24px 28px; }
@@ -366,14 +340,16 @@ onMounted(async () => {
 .footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
 .footer-bottom p { color: #64748b; font-size: 13px; margin: 0; }
 
+@media (max-width: 1024px) {
+  .book-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+}
 @media (max-width: 768px) {
   .discovery-grid { grid-template-columns: repeat(1, 1fr); gap: 16px; }
+  .book-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
 }
 @media (max-width: 640px) {
   .hero-content { padding: 80px 20px 60px; }
   .hero-stats { gap: 24px; }
-  .book-grid { grid-template-columns: repeat(2, 1fr); }
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-links { gap: 32px; }
 }
