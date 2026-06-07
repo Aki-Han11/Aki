@@ -104,4 +104,13 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 }
 .cart-total { font-size: 20px; color: #4a4038; }
 .cart-total strong { color: #1a1815; font-size: 24px; font-weight: 700; }
+
+@media (max-width: 640px) {
+  .cart-page { padding: 0 16px; }
+  .cart-item { flex-wrap: wrap; gap: 12px; }
+  .cart-info { flex: 1 1 100%; order: -1; }
+  .cart-cover { width: 60px; height: 86px; }
+  .cart-footer { flex-direction: column; gap: 16px; align-items: stretch; text-align: center; }
+  .cart-total strong { font-size: 20px; }
+}
 </style>

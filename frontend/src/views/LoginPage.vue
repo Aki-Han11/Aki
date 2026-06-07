@@ -79,4 +79,9 @@ async function handleLogin() {
 .auth-link a { color: #2563eb; font-weight: 500; }
 .demo-info { font-size: 13px; color: #a0988c; text-align: center; line-height: 1.7; }
 .demo-info strong { color: #6b5e54; }
+
+@media (max-width: 480px) {
+  .auth-card { width: 100%; max-width: 100%; }
+  .auth-page { padding: 16px; }
+}
 </style>

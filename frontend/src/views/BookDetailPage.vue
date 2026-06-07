@@ -385,5 +385,15 @@ onMounted(() => {
 @media (max-width: 768px) {
   .book-info { flex-direction: column; align-items: center; }
   .rec-grid { grid-template-columns: repeat(2, 1fr); }
+  .book-cover { width: 200px; height: 285px; }
+  .review-header { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .book-detail-page { padding: 0 16px; }
+  .book-cover { width: 160px; height: 228px; }
+  .rec-grid { grid-template-columns: repeat(1, 1fr); }
+  .info-section h1 { font-size: 24px; }
+  .actions { flex-direction: column; align-items: stretch; }
+  .review-submit-bar { flex-direction: column; align-items: stretch; }
 }
 </style>

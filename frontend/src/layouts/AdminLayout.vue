@@ -1,7 +1,8 @@
 <template>
   <div class="admin-layout">
     <el-container class="admin-container">
-      <el-aside width="220px" class="admin-sidebar">
+      <div class="admin-sidebar-overlay" :class="{ open: sidebarOpen }" @click="sidebarOpen = false"></div>
+      <el-aside width="220px" class="admin-sidebar" :class="{ 'sidebar-open': sidebarOpen }">
         <div class="admin-logo">
           <router-link to="/admin">
             <el-icon :size="24"><Setting /></el-icon>
@@ -44,6 +45,11 @@
 
       <el-container class="admin-right">
         <el-header class="admin-header">
+          <button class="admin-menu-toggle" @click="sidebarOpen = !sidebarOpen" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
           <span class="admin-title">{{ pageTitle }}</span>
           <div class="admin-header-right">
             <span class="admin-user">{{ auth.user?.username }}</span>
@@ -59,7 +65,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth'
 
@@ -68,6 +74,7 @@ const router = useRouter()
 const auth = useAuthStore()
 
 const activeMenu = computed(() => route.path)
+const sidebarOpen = ref(false)
 
 const pageTitle = computed(() => {
   const titles = {
@@ -185,5 +192,40 @@ function handleLogout() {
 
 .admin-main {
   background: #ffffff; flex: 1; overflow-y: auto; padding: 24px 28px 48px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Mobile — below 768px
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Sidebar becomes overlay */
+  .admin-sidebar {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 200;
+    width: 260px; transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+  }
+  .admin-sidebar.sidebar-open { transform: translateX(0); }
+
+  /* Overlay backdrop */
+  .admin-sidebar-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 199;
+    background: rgba(0,0,0,0.3);
+  }
+  .admin-sidebar-overlay.open { display: block; }
+
+  /* Toggle button */
+  .admin-menu-toggle {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; padding: 0; margin-right: 8px;
+    border: none; border-radius: 8px; flex-shrink: 0;
+    background: transparent; color: #475569; cursor: pointer;
+  }
+  .admin-menu-toggle svg { width: 20px; height: 20px; }
+
+  .admin-header { padding: 0 16px; }
+  .admin-main { padding: 16px; }
+  .admin-user { display: none; }
 }
 </style>

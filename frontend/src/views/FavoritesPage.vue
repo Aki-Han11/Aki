@@ -67,4 +67,11 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .fav-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; margin-bottom: 3px; }
 .fav-info p { color: #a0988c; font-size: 13px; }
 .fav-date { font-size: 12px; color: #b8b0a4; margin-top: 6px; }
+
+@media (max-width: 640px) {
+  .favorites-page { padding: 0 16px; }
+  .fav-item { flex-wrap: wrap; gap: 12px; }
+  .fav-info { flex: 1 1 calc(100% - 92px); }
+  .fav-cover { width: 64px; height: 92px; }
+}
 </style>

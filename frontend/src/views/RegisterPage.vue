@@ -80,4 +80,9 @@ async function handleRegister() {
 .auth-card h2 { margin: 0; font-size: 22px; font-weight: 700; color: #1a1815; }
 .auth-link { text-align: center; margin-top: 12px; font-size: 14px; color: #8b7e74; }
 .auth-link a { color: #2563eb; font-weight: 500; }
+
+@media (max-width: 480px) {
+  .auth-card { width: 100%; max-width: 100%; }
+  .auth-page { padding: 16px; }
+}
 </style>

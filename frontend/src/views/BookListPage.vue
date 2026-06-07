@@ -101,4 +101,11 @@ onMounted(() => {
 .page-header p { color: #a0988c; font-size: 14px; }
 .filters { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
 .pagination { display: flex; justify-content: center; margin-top: 44px; }
+
+@media (max-width: 640px) {
+  .book-list-page { padding: 0 16px; }
+  .filters { flex-direction: column; }
+  .filters .el-input,
+  .filters .el-select { max-width: 100% !important; width: 100% !important; }
+}
 </style>

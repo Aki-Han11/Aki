@@ -142,6 +142,12 @@ onMounted(fetchBooks)
 @media (max-width: 640px) {
   .featured-page { padding: 0 16px; }
   .book-row { gap: 16px; padding: 18px 0; }
+  .book-row:hover { margin: 0 -8px; padding-left: 8px; padding-right: 8px; }
   .book-cover { width: 70px; height: 100px; }
+}
+@media (max-width: 420px) {
+  .book-row { flex-wrap: wrap; }
+  .book-center { flex: 1 1 calc(100% - 86px); }
+  .book-right { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; }
 }
 </style>

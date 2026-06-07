@@ -209,4 +209,11 @@ h3 { margin:0; font-weight:600; color:#1a1815; font-size:17px; }
 .book-form { max-height:60vh; overflow-y:auto; padding-right:4px; }
 
 .books-page :deep(.el-card) { border-radius:12px; border:none; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+
+@media (max-width: 768px) {
+  .card-header { flex-direction: column; align-items: stretch; gap: 12px; }
+  .header-actions { flex-wrap: wrap; width: 100%; }
+  .header-actions .el-input { width: 100% !important; flex: 1; }
+  .books-page :deep(.el-dialog) { width: 94% !important; }
+}
 </style>

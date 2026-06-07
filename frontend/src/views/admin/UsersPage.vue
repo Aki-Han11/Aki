@@ -126,4 +126,11 @@ h3 { margin:0; font-weight:600; color:#1a1815; font-size:17px; }
 .empty-state { padding:40px 0; }
 .pagination-bar { display:flex; justify-content:center; margin-top:20px; }
 .users-page :deep(.el-card) { border-radius:12px; border:none; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+
+@media (max-width: 768px) {
+  .card-header { flex-direction: column; align-items: stretch; }
+  .header-actions { width: 100%; }
+  .header-actions .el-input { width: 100% !important; }
+  .users-page :deep(.el-dialog) { width: 92% !important; }
+}
 </style>

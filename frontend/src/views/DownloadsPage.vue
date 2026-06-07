@@ -51,4 +51,11 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .dl-info h3 { font-size: 16px; font-weight: 600; color: #1a1815; }
 .dl-info p { color: #a0988c; font-size: 13px; }
 .dl-date { font-size: 12px; color: #b8b0a4; margin-top: 6px; }
+
+@media (max-width: 640px) {
+  .downloads-page { padding: 0 16px; }
+  .dl-item { flex-wrap: wrap; gap: 12px; }
+  .dl-info { flex: 1 1 calc(100% - 92px); }
+  .dl-cover { width: 64px; height: 92px; }
+}
 </style>

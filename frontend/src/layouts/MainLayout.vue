@@ -3,6 +3,13 @@
     <el-container>
       <el-header class="header">
         <div class="header-inner">
+          <!-- Hamburger — mobile only -->
+          <button class="hamburger-btn" @click="mobileOpen = true" aria-label="Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+
           <div class="logo">
             <router-link to="/">
               <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -16,7 +23,7 @@
           <div class="header-search">
             <el-input
               v-model="searchQuery"
-              placeholder="Search books by title, author or tags..."
+              placeholder="Search books..."
               prefix-icon="Search"
               clearable
               @keyup.enter="doSearch"
@@ -25,7 +32,6 @@
           </div>
 
           <div class="header-nav">
-            <!-- Custom nav links — no overflow/ellipsis, all links always visible -->
             <div class="nav-links">
               <router-link to="/" class="nav-item" exact-active-class="nav-item--active">Home</router-link>
               <router-link to="/books" class="nav-item" active-class="nav-item--active">Browse</router-link>
@@ -76,6 +82,27 @@
         </div>
       </el-header>
 
+      <!-- Mobile navigation drawer -->
+      <el-drawer v-model="mobileOpen" direction="left" size="280px" :with-header="false">
+        <div class="mobile-nav">
+          <div class="mobile-nav-brand">EBook Store</div>
+          <router-link to="/" class="mobile-nav-item" @click="mobileOpen = false">Home</router-link>
+          <router-link to="/books" class="mobile-nav-item" @click="mobileOpen = false">Browse</router-link>
+          <router-link to="/recommended" class="mobile-nav-item" @click="mobileOpen = false">Recommend</router-link>
+          <router-link to="/hot" class="mobile-nav-item" @click="mobileOpen = false">Popular</router-link>
+          <el-divider />
+          <router-link to="/profile" class="mobile-nav-item" @click="mobileOpen = false" v-if="auth.isLoggedIn">Profile</router-link>
+          <router-link to="/favorites" class="mobile-nav-item" @click="mobileOpen = false" v-if="auth.isLoggedIn">Favorites</router-link>
+          <router-link to="/orders" class="mobile-nav-item" @click="mobileOpen = false" v-if="auth.isLoggedIn">Orders</router-link>
+          <router-link to="/downloads" class="mobile-nav-item" @click="mobileOpen = false" v-if="auth.isLoggedIn">Downloads</router-link>
+          <router-link to="/admin" class="mobile-nav-item" @click="mobileOpen = false" v-if="auth.isAdmin">Admin Panel</router-link>
+          <el-divider />
+          <router-link to="/login" class="mobile-nav-item" @click="mobileOpen = false" v-if="!auth.isLoggedIn">Sign In</router-link>
+          <router-link to="/register" class="mobile-nav-item mobile-nav-cta" @click="mobileOpen = false" v-if="!auth.isLoggedIn">Get Started</router-link>
+          <a class="mobile-nav-item mobile-nav-logout" @click="handleLogout" v-if="auth.isLoggedIn">Logout</a>
+        </div>
+      </el-drawer>
+
       <el-main class="main-content">
         <router-view />
       </el-main>
@@ -99,6 +126,7 @@ const auth = useAuthStore()
 const cart = useCartStore()
 
 const searchQuery = ref('')
+const mobileOpen = ref(false)
 
 if (auth.isLoggedIn) cart.fetch()
 
@@ -240,5 +268,56 @@ function handleLogout() {
   text-align: center; padding: 20px;
   background: #ffffff; color: #a0988c; font-size: 13px;
   border-top: 1px solid #f0f0f0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   Mobile — below 768px
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Hamburger button */
+  .hamburger-btn {
+    display: flex;
+    align-items: center; justify-content: center;
+    width: 40px; height: 40px; padding: 0;
+    border: none; border-radius: 10px;
+    background: transparent; color: #475569; cursor: pointer;
+    flex-shrink: 0;
+  }
+  .hamburger-btn svg { width: 22px; height: 22px; }
+
+  .header { padding: 0 12px; }
+  .header-inner { gap: 8px; height: 56px; }
+
+  .logo-text { font-size: 15px; }
+  .logo-icon { width: 22px; height: 22px; }
+
+  /* Hide desktop nav */
+  .header-nav { display: none; }
+  /* Search takes remaining space */
+  .header-search { flex: 1; max-width: none; }
+
+  .main-content { padding: 16px; }
+
+  .footer { padding: 16px; font-size: 12px; }
+}
+
+/* Mobile nav drawer */
+.mobile-nav {
+  display: flex; flex-direction: column; padding: 24px 0;
+}
+.mobile-nav-brand {
+  font-size: 20px; font-weight: 700; color: #2563eb;
+  letter-spacing: -0.3px; padding: 0 24px; margin-bottom: 20px;
+}
+.mobile-nav-item {
+  display: block; padding: 12px 24px; font-size: 15px; font-weight: 500;
+  color: #334155; text-decoration: none; transition: background 0.15s;
+}
+.mobile-nav-item:hover { background: rgba(37,99,235,0.04); color: #2563eb; }
+.mobile-nav-cta {
+  color: #2563eb; font-weight: 600;
+}
+.mobile-nav-logout {
+  color: #94a3b8; cursor: pointer;
 }
 </style>

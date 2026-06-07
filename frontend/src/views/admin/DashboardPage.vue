@@ -116,4 +116,10 @@ onMounted(async () => {
 .top-books-header h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1a1815; }
 .top-books-count { font-size: 13px; color: #a0988c; background: #f0f0f0; padding: 2px 10px; border-radius: 12px; }
 .price-cell { font-weight: 600; color: #1a1815; }
+
+@media (max-width: 640px) {
+  .stat-inner { gap: 12px; }
+  .stat-value { font-size: 22px; }
+  .stat-icon { width: 42px; height: 42px; }
+}
 </style>

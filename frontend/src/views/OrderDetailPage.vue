@@ -99,4 +99,10 @@ h1 { margin: 12px 0 32px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .item-info p { color: #a0988c; font-size: 13px; }
 .item-price { font-weight: 600; color: #1a1815; flex-shrink: 0; }
 .order-actions { margin-top: 32px; display: flex; gap: 12px; }
+
+@media (max-width: 640px) {
+  .order-detail-page { padding: 0 16px; }
+  .order-header { flex-direction: column; gap: 12px; }
+  .item-row { flex-wrap: wrap; gap: 12px; }
+}
 </style>
