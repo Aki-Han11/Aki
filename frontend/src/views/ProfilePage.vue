@@ -110,7 +110,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 }
 .profile-avatar {
   width: 88px; height: 88px; border-radius: 50%;
-  flex-shrink: 0; background: #eeeeee;
+  flex-shrink: 0; background: #f0f0f0;
   display: flex; align-items: center; justify-content: center;
 }
 .avatar-placeholder {

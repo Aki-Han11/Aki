@@ -3,27 +3,39 @@
     <!-- Section 1: Transparent Navbar -->
     <LandingNav />
 
-    <!-- Section 2: Hero -->
+    <!-- Section 2: Hero — "Air & Light" design -->
     <section class="hero">
-      <!-- Ambient light orbs — warm sunrise + cool depth -->
-      <div class="hero-light hero-light--warm"></div>
-      <div class="hero-light hero-light--cool"></div>
-      <!-- Single elegant accent line -->
-      <div class="hero-accent"></div>
+      <!-- Abstract geometric floating shapes -->
+      <div class="hero-shapes">
+        <div class="hero-shape shape-1"></div>
+        <div class="hero-shape shape-2"></div>
+        <div class="hero-shape shape-3"></div>
+        <div class="hero-shape shape-4"></div>
+      </div>
+
+      <!-- Subtle dot pattern overlay -->
+      <div class="hero-pattern"></div>
 
       <div class="hero-content">
+        <!-- Top badge -->
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Digital Bookstore
+        </div>
+
         <h1>
           <span class="hero-line-1">Discover Books</span>
           <span class="hero-line-2">You'll <em>Love</em></span>
         </h1>
         <p>Search, explore, purchase and download e-books across {{ catCount }} categories. Powered by smart recommendations tailored to your taste.</p>
+
         <div class="hero-stats">
           <div class="stat"><strong>{{ bookCount }}+</strong><span>Books</span></div>
           <div class="stat-divider"></div>
           <div class="stat"><strong>{{ catCount }}</strong><span>Categories</span></div>
         </div>
 
-        <!-- Hero Search Box -->
+        <!-- Glass-morphism Search -->
         <div class="hero-search">
           <el-input
             v-model="heroQuery"
@@ -41,12 +53,9 @@
           <el-button size="large" class="btn-outline-hero" @click="scrollToPopular">Popular Books</el-button>
         </div>
       </div>
-      <div class="hero-scroll-hint" @click="scrollToDiscovery">
-        <span>Explore the Store</span>
-        <svg class="scroll-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </div>
+
+      <!-- Bottom fade transition -->
+      <div class="hero-fade"></div>
     </section>
 
     <!-- Section 3: Smart Discovery -->
@@ -235,7 +244,7 @@ onMounted(async () => {
 :deep(.nav-user-btn) {
   color: #1a1815 !important;
   background: rgba(37,99,235,0.04) !important;
-  border: 1px solid #e8e8e7 !important;
+  border: 1px solid #e5e5e5 !important;
 }
 :deep(.nav-user-btn:hover) {
   color: #2563eb !important;
@@ -257,75 +266,78 @@ onMounted(async () => {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; flex-direction: column;
   overflow-x: hidden;
-  background: #fafaf8;
+  background: #ffffff;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   Hero — "Luminous Dawn"
-   Warm ivory gradients · soft golden light · cool indigo depth
-   References: macOS Ventura glow + Instagram warm gradients
+   Hero — "Air & Light"
+   macOS / Linear / Vercel inspired: floating geometry, glass, depth
+   Pure white base · subtle blue-violet depth · refined rhythm
    ══════════════════════════════════════════════════════════════ */
 .hero {
   width: 100%; min-height: 100vh; min-height: 100dvh;
   display: flex; align-items: center; justify-content: center;
-  /* Barely-warm neutral light gradient */
-  background:
-    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(250,248,245,0.45) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(249,247,244,0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 15% 80%, rgba(240,243,252,0.3) 0%, transparent 55%),
-    linear-gradient(175deg, #fafaf9 0%, #fafaf8 25%, #f8f8f6 50%, #f7f7f9 100%);
-  position: relative; overflow: hidden;
+  background: #ffffff;
+  position: relative; overflow: hidden; isolation: isolate;
   flex-shrink: 0;
 }
 
-/* ── Warm Light Orb: golden sunrise glow, large & dramatic ── */
-.hero-light {
-  position: absolute; border-radius: 50%; pointer-events: none;
-  filter: blur(40px);
+/* ── Floating geometric shapes ── */
+.hero-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hero-shape {
+  position: absolute; border-radius: 50%;
+  opacity: 0.6;
+  animation: floatShape 20s ease-in-out infinite;
 }
-.hero-light--warm {
-  top: -15%; right: -8%;
-  width: 55vw; height: 55vw; max-width: 700px; max-height: 700px;
-  background: radial-gradient(circle at 55% 45%,
-    rgba(248,245,240,0.10) 0%,
-    rgba(245,242,236,0.05) 20%,
-    rgba(250,248,244,0.03) 40%,
-    transparent 65%);
-  animation: warmPulse 8s ease-in-out infinite;
+.shape-1 {
+  width: 620px; height: 620px;
+  top: -18%; right: -10%;
+  background: radial-gradient(circle at 50% 50%, rgba(59,130,246,0.06) 0%, rgba(99,102,241,0.03) 35%, transparent 70%);
+  animation-delay: 0s;
 }
-@keyframes warmPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.06); opacity: 0.85; }
+.shape-2 {
+  width: 480px; height: 480px;
+  bottom: -15%; left: -6%;
+  background: radial-gradient(circle at 50% 50%, rgba(139,92,246,0.05) 0%, rgba(236,72,153,0.02) 40%, transparent 70%);
+  animation-delay: -6s;
+}
+.shape-3 {
+  width: 300px; height: 300px;
+  top: 35%; right: 18%;
+  background: radial-gradient(circle at 50% 50%, rgba(168,85,247,0.04) 0%, rgba(59,130,246,0.02) 50%, transparent 70%);
+  animation-delay: -12s;
+  animation-duration: 24s;
+}
+.shape-4 {
+  width: 200px; height: 200px;
+  bottom: 28%; left: 15%;
+  background: radial-gradient(circle at 50% 50%, rgba(37,99,235,0.04) 0%, rgba(99,102,241,0.01) 55%, transparent 70%);
+  animation-delay: -3s;
+  animation-duration: 16s;
+}
+@keyframes floatShape {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, -15px) scale(1.04); }
+  50% { transform: translate(-10px, 10px) scale(0.98); }
+  75% { transform: translate(-18px, -8px) scale(1.02); }
 }
 
-/* ── Cool Light Orb: indigo depth, grounded & subtle ── */
-.hero-light--cool {
-  bottom: -12%; left: -5%;
-  width: 42vw; height: 42vw; max-width: 540px; max-height: 540px;
-  background: radial-gradient(circle at 40% 50%,
-    rgba(220,225,245,0.06) 0%,
-    rgba(210,215,240,0.03) 30%,
-    rgba(220,225,245,0.015) 50%,
-    transparent 68%);
+/* ── Dot pattern overlay — barely visible, adds texture ── */
+.hero-pattern {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 70%);
 }
 
-/* ── Bottom Fade: smooth transition to sections ── */
-.hero::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to bottom, transparent, #fafaf8);
-  z-index: 0; pointer-events: none;
-}
-
-/* ── Accent Line: single elegant golden arc, barely visible ── */
-.hero-accent {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) rotate(-12deg);
-  width: min(720px, 85vw); height: min(720px, 85vw);
-  border-radius: 50%;
-  border: 1px solid rgba(180,175,170,0.08);
+/* ── Bottom Fade: smooth transition to first section ── */
+.hero-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #ffffff);
   pointer-events: none;
 }
 
@@ -334,18 +346,38 @@ onMounted(async () => {
   position: relative; z-index: 1;
   max-width: 860px; margin: 0 auto; padding: 120px 32px 80px;
   text-align: center; display: flex; flex-direction: column; align-items: center;
-  gap: 0;
+}
+
+/* ═══ Zone 0 · Top Badge ═══ */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 18px; border-radius: 20px;
+  background: rgba(37,99,235,0.04);
+  border: 1px solid rgba(37,99,235,0.10);
+  font-size: 13px; font-weight: 500; color: #475569;
+  letter-spacing: 0.2px; margin-bottom: 32px;
+  backdrop-filter: blur(8px);
+}
+.badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 6px rgba(59,130,246,0.4);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 /* ═══ Zone 1 · Artistic Title ═══ */
 .hero-content h1 {
   font-size: clamp(44px, 7vw, 80px);
   font-weight: 800;
-  color: #1a1815;
-  line-height: 1.08;
+  color: #0f172a;
+  line-height: 1.06;
   letter-spacing: -2.4px;
-  margin: 0 0 20px;
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  margin: 0 0 22px;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
 .hero-line-1 {
   font-weight: 700;
@@ -360,56 +392,56 @@ onMounted(async () => {
   background: linear-gradient(135deg, #2563eb 0%, #4f46e5 35%, #7c3aed 65%, #3b82f6 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* subtle text-shadow for depth on light bg */
-  filter: drop-shadow(0 1px 2px rgba(37,99,235,0.12));
 }
 
-/* ═══ Zone 2 · Subtitle — increased breathing room ═══ */
+/* ═══ Zone 2 · Subtitle ═══ */
 .hero-content > p {
-  font-size: 17px; color: #6b5e54; max-width: 560px; margin: 0 0 52px;
+  font-size: 17px; color: #64748b; max-width: 560px; margin: 0 0 48px;
   line-height: 1.7; font-weight: 400; letter-spacing: 0.1px;
 }
 
-/* ═══ Zone 3 · Stats — refined with divider ═══ */
+/* ═══ Zone 3 · Stats ═══ */
 .hero-stats {
-  display: flex; align-items: center; gap: 40px;
-  margin-bottom: 52px;
+  display: flex; align-items: center; gap: 36px;
+  margin-bottom: 48px;
 }
 .stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .stat strong { font-size: 32px; font-weight: 700; color: #2563eb; letter-spacing: -0.6px; line-height: 1; }
-.stat span  { font-size: 12px; color: #a0988c; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 500; }
+.stat span  { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.4px; font-weight: 500; }
 .stat-divider {
   width: 1px; height: 36px;
-  background: #e8e8e7;
+  background: #e2e8f0;
   flex-shrink: 0;
 }
 
-/* ═══ Zone 4 · Search — elegant pill ═══ */
+/* ═══ Zone 4 · Glass-morphism Search ═══ */
 .hero-search { width: min(560px, 88vw); margin-bottom: 22px; }
 .hero-search-input :deep(.el-input__wrapper) {
-  background: #ffffff;
-  border: 1px solid #e8e8e7;
-  border-radius: 10px; padding: 6px 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.022), 0 1px 2px rgba(0,0,0,0.018);
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px; padding: 8px 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 16px rgba(0,0,0,0.04);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .hero-search-input :deep(.el-input__wrapper:hover) {
-  border-color: #d5d5d4;
-  box-shadow: 0 2px 14px rgba(0,0,0,0.035), 0 1px 3px rgba(0,0,0,0.025);
+  border-color: rgba(0,0,0,0.14);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
 }
 .hero-search-input :deep(.el-input__wrapper.is-focus) {
   border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37,99,235,0.08), 0 2px 14px rgba(0,0,0,0.035);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.08), 0 4px 20px rgba(37,99,235,0.06);
+  background: rgba(255,255,255,0.9);
 }
-.hero-search-input :deep(.el-input__inner) { color: #1e1b18; font-size: 15px; }
-.hero-search-input :deep(.el-input__inner::placeholder) { color: #a0988c; }
-.hero-search-input :deep(.el-input__prefix) { color: #a0988c; }
-.hero-search-input :deep(.el-input__clear) { color: #a0988c; }
+.hero-search-input :deep(.el-input__inner) { color: #0f172a; font-size: 15px; }
+.hero-search-input :deep(.el-input__inner::placeholder) { color: #94a3b8; }
+.hero-search-input :deep(.el-input__prefix) { color: #94a3b8; }
+.hero-search-input :deep(.el-input__clear) { color: #94a3b8; }
 
-/* ═══ Zone 5 · CTAs — unified button system ═══ */
+/* ═══ Zone 5 · CTAs ═══ */
 .hero-actions {
   display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 0;
 }
 .btn-primary-hero {
   font-weight: 600 !important; font-size: 16px !important;
@@ -443,22 +475,6 @@ onMounted(async () => {
   transform: translateY(-1px);
 }
 
-/* ── Scroll Hint — refined, minimal ── */
-.hero-scroll-hint {
-  position: absolute; bottom: 36px; left: 0; right: 0;
-  margin: 0 auto; width: fit-content;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  cursor: pointer; color: #94a3b8; z-index: 2;
-  transition: color 0.3s; user-select: none;
-}
-.hero-scroll-hint:hover { color: #2563eb; }
-.hero-scroll-hint span { font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 500; color: #a0988c; }
-.scroll-chevron { width: 18px; height: 18px; animation: bounce 2s infinite; color: #a0988c; }
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
-}
-
 /* ══════════════════════════════════════════════════════════════
    Sections — Warm Alternating Rhythm
    ══════════════════════════════════════════════════════════════ */
@@ -466,7 +482,7 @@ onMounted(async () => {
   max-width: 1280px; margin: 0 auto; padding: 96px 28px;
 }
 .section-alt {
-  background: #f8f8f6; max-width: none;
+  background: #fafafa; max-width: none;
 }
 /* No borders — cards provide natural separation */
 .section-alt > * { max-width: 1280px; margin-left: auto; margin-right: auto; }
@@ -499,7 +515,7 @@ onMounted(async () => {
 }
 .discovery-card {
   background: #ffffff;
-  border: 1px solid #efefee;
+  border: 1px solid #f0f0f0;
   border-radius: 18px;
   padding: 40px 32px; text-align: center;
   box-shadow: 0 1px 2px rgba(0,0,0,0.02);
@@ -508,7 +524,7 @@ onMounted(async () => {
 .discovery-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.05), 0 3px 8px rgba(0,0,0,0.025);
-  border-color: #e0e0df;
+  border-color: #e0e0e0;
 }
 .discovery-icon {
   width: 68px; height: 68px; border-radius: 18px;
@@ -541,7 +557,7 @@ onMounted(async () => {
 }
 .book-card img {
   width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block;
-  background: #fafaf8;
+  background: #ffffff;
 }
 .book-card-info { padding: 18px 16px; }
 .book-card-info h4 {
@@ -580,6 +596,8 @@ onMounted(async () => {
   .hero-content h1 { font-size: clamp(36px, 8vw, 56px); letter-spacing: -1.8px; margin-bottom: 16px; }
   .hero-content > p { margin-bottom: 40px; }
   .hero-stats { margin-bottom: 40px; gap: 28px; }
+  .hero-shape { opacity: 0.4; }
+  .hero-pattern { opacity: 0.14; }
   .section { padding: 64px 20px; }
 }
 @media (max-width: 640px) {
@@ -590,8 +608,9 @@ onMounted(async () => {
   .hero-stats { gap: 22px; margin-bottom: 34px; }
   .stat strong { font-size: 26px; }
   .hero-search { width: 100%; margin-bottom: 18px; }
-  .hero-scroll-hint { bottom: 24px; }
-  .hero-scroll-hint span { font-size: 10px; }
+  .hero-badge { font-size: 12px; padding: 5px 14px; margin-bottom: 24px; }
+  .hero-shape { opacity: 0.3; }
+  .hero-pattern { opacity: 0.10; }
   .footer-inner { flex-direction: column; gap: 36px; }
   .footer-links { gap: 36px; }
 }

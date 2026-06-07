@@ -100,7 +100,7 @@ h1 { margin-bottom: 36px; font-size: 28px; font-weight: 700; color: #1a1815; let
 .cart-footer {
   margin-top: 36px; padding: 24px 0;
   display: flex; align-items: center; justify-content: space-between;
-  border-top: 2px solid #e8e8e7;
+  border-top: 2px solid #e5e5e5;
 }
 .cart-total { font-size: 20px; color: #4a4038; }
 .cart-total strong { color: #1a1815; font-size: 24px; font-weight: 700; }

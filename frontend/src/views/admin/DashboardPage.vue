@@ -114,6 +114,6 @@ onMounted(async () => {
 .top-books { margin-top: 4px; border-radius: 12px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
 .top-books-header { display: flex; align-items: center; justify-content: space-between; }
 .top-books-header h3 { margin: 0; font-size: 17px; font-weight: 600; color: #1a1815; }
-.top-books-count { font-size: 13px; color: #a0988c; background: #efefef; padding: 2px 10px; border-radius: 12px; }
+.top-books-count { font-size: 13px; color: #a0988c; background: #f0f0f0; padding: 2px 10px; border-radius: 12px; }
 .price-cell { font-weight: 600; color: #1a1815; }
 </style>

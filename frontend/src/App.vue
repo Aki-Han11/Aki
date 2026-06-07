@@ -14,7 +14,7 @@ html, body, #app {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #fafaf8; color: #3a322c;
+  background: #ffffff; color: #3a322c;
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
 }
